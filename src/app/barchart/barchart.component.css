@@ -1,26 +1,10 @@
-body {
-  font: 14px sans-serif;
+.axis {
+  font: 10px sans-serif;
 }
-.axis path, .axis line {
+
+.axis path,
+.axis line {
   fill: none;
-  stroke: black;
+  stroke: #000;
   shape-rendering: crispEdges;
-}
-.axis path{
-  fill: none;
-  stroke: none;
-}
-.bar {
-  fill: steelblue;
-}
-
-:host {
-  display: block;
-  height: 300px;
-  width: 600px;
-}
-
-svg {
-  height: 100%;
-  width: 100%;
 }
