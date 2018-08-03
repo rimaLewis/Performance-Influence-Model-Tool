@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-radar-plot',
+  selector: 'app-radar-pot',
   templateUrl: './radar-plot.component.html',
   styleUrls: ['./radar-plot.component.css']
 })
