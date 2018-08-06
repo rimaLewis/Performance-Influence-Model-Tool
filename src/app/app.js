@@ -13,7 +13,7 @@ const root = angular
   .module('angularApp', [
 	uiRouter, 
 	common,
-	components
+	components,
 ])
   .component('app', AppComponent)
   .name;

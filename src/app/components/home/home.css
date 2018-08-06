@@ -1,8 +1,14 @@
 .home{
-    display: flex;
     flex-direction: column;
     align-items: center;
-    h1{
-      font-size: 2rem;
-    }
+    margin:30px;
 }
+
+.tab-pane{
+    border: 1px solid #4E5D6C;
+}
+
+.tab-content > div{
+    border: 1px solid #4E5D6C;
+}
+

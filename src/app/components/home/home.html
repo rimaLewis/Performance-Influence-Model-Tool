@@ -1,5 +1,50 @@
 <div class="home">
- <h1>Welcome To Angular 1.5 Starter with Webpack & ES6</h1>
-<a ui-sref="users" class="waves-effect waves-light btn">Get Users</a>
 
+
+<readcsvdata></readcsvdata>
+<barchart-component name="test"></barchart-component>
+
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active show" data-toggle="tab" href="#radar">Radar Chart</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " data-toggle="tab" href="#textplot">Text Plot</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " data-toggle="tab" href="#elephantplot">Elephant Plot</a>
+        </li>
+    </ul>
+    <div id="myTabContent" class="tab-content">
+        <div class="tab-pane fade active show" id="radar">
+           <div class="row col-sm-12">
+               <div id="editpane" ng-if="vm.editChart" class="col-sm-4">editable div</div>
+               <div class="col-sm-8"><p> RADAR CHART  8888 </p>
+                   <button type="button" ng-if="!vm.editChart" ng-click="vm.editChart = !vm.editChart" class="btn btn-primary">Show Edit Pane</button>
+                   <button type="button" ng-if="vm.editChart" ng-click="vm.editChart = !vm.editChart" class="btn btn-primary">Hide Edit Pane</button>
+               </div>
+           </div>
+        </div>
+        <div class="tab-pane fade" id="textplot">
+            <div class="row col-sm-12" ng-init="vm.editChart = false">
+                <div ng-if="vm.editChart" class="col-sm-4">editable div</div>
+                <div class="col-sm-8"><p> Text Plot ===== </p>
+                    <button type="button" ng-if="!vm.editChart"  ng-click="vm.editChart = !vm.editChart" class="btn btn-primary">Show Edit Pane</button>
+                    <button type="button" ng-if="vm.editChart"  ng-click="vm.editChart = !vm.editChart" class="btn btn-primary">Hide Edit Pane</button>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="elephantplot">
+            <div class="row col-sm-12" ng-init="vm.editChart = false">
+                <div ng-if="vm.editChart" class="col-sm-4">editable div</div>
+                <div class="col-sm-8"><p> ELEPHANT CHART---- </p>
+                    <button type="button" ng-if="!vm.editChart"  ng-click="vm.editChart = !vm.editChart" class="btn btn-primary">Show Edit Pane</button>
+                    <button type="button" ng-if="vm.editChart" ng-click="vm.editChart = !vm.editChart" class="btn btn-primary">Hide Edit Pane</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--<a ui-sref="users" class="waves-effect waves-light btn">Get Users</a>-->
 </div>
+
