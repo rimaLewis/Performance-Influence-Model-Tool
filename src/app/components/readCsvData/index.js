@@ -2,6 +2,7 @@ import angular from 'angular';
 import { readCsvDataComponent} from './readCsvData.component';
 import './readCsvData.css';
 
+
 const readCsvData = angular
 	.module('readCsvData', [])
 	.component('readcsvdata', readCsvDataComponent)
