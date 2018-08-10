@@ -29,7 +29,7 @@ module.exports = (function makeWebpackConfig () {
 	var config = {};
 
 	config.entry = {
-		app: './src/app/app.js'
+		app: './src/app/index.js'
 	};
   
   

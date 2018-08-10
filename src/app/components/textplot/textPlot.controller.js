@@ -1,6 +1,6 @@
 import {assign} from 'lodash';
 
-class barchartController {
+class textPlotController {
 	constructor($scope, normalizedValuesService){
 		assign(this, {$scope, normalizedValuesService});
 	}
@@ -17,4 +17,4 @@ class barchartController {
 
 }
 
-export default barchartController;
+export default textPlotController;
