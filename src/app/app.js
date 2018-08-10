@@ -2,7 +2,7 @@
 import '../../node_modules/bootstrap-css-only/css/bootstrap.min.css';
 import '../style/style.css';
 import '../../node_modules/bootswatch/dist/superhero/bootstrap.min.css';
-import productService from './app.service';
+import normalizedValuesService from './app.service';
 
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
@@ -17,7 +17,7 @@ const root = angular
 	components,
 ])
   .component('app', AppComponent)
-	.service('productService',productService)
+	.service('normalizedValuesService',normalizedValuesService)
   .name;
 
 

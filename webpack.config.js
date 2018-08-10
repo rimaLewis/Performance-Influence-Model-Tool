@@ -1,4 +1,8 @@
 'use strict';
+/*import webpack from 'node_modules/webpack';
+import HtmlWebpackPlugin from 'node_modules/html-webpack-plugin';
+import CopyWebpackPlugin from 'node_modules/copy-webpack-plugin';
+import path from 'node_modules/path';*/
 
 //require in webpack
 var webpack = require('webpack');
