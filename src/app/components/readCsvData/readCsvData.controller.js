@@ -54,9 +54,14 @@ class readCsvDataController {
 
 		// use the scale function to scale each value
 		let normalizedArray = [];
+
 		forEach(newArray, function(value) {
-			var val = normalizedArray.push(scale(value));
+			var scaled = scale(value);
+			var rounded = Math.round(scaled * 1000) / 1000;
+			normalizedArray.push(rounded);
 		});
+
+		console.log('second array ', normalizedArray);
 
 		// push the normalized values to the an array, using the service so that the other components can use this array
 		for(var i=0; i<newArray.length;i++){
