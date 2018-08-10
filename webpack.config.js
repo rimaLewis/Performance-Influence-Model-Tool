@@ -77,7 +77,7 @@ module.exports = (function makeWebpackConfig () {
   
 	config.plugins.push(
     new HtmlWebpackPlugin({
-	title: 'My Angular Webpack starter',
+	title: 'Performance Evaluation Tool',
 	template: './src/index.html',
 	inject: 'body'
 })
