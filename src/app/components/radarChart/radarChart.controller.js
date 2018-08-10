@@ -10,7 +10,7 @@ class radarChartController {
 		this.dynamicExpression = 'from the parent controller';
 		this.in = 'from the parent controller';
 		const data = this.normalizedValuesService.getNormalizedValues();
-		console.log('data', data);
+		console.log('normalized values in radar chart', data);
 		console.log(this.name);
 		console.log(this.fileContent);
 	}

@@ -5,7 +5,7 @@ export  default class normalizedValuesService {
 	}
 
 	$onInit(){
-		this.normalizedValues = [0.2,0.11,0.23,0.26,0.87];
+		this.normalizedValues = [];
 	}
 
 
