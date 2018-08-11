@@ -263,8 +263,8 @@ class radarChartController {
 			series[series.length-1].push(dataset[i].AverageTemperature);
 		}
 
-		minVal=-5;
-		maxVal=5;
+		minVal=-1;
+		maxVal=1;
 
 		//to complete the radial lines
 		for (i = 0; i < series.length; i += 1) {
@@ -305,7 +305,7 @@ class radarChartController {
 			'translate(' + centerXPos + ', ' + centerYPos + ')');
 
 
-		var radialTicks = radius.ticks(3),
+		var radialTicks = radius.ticks(2),
 			i,
 			circleAxes,
 			lineAxes;
@@ -318,13 +318,13 @@ class radarChartController {
 			.enter().append('g')
 			.attr('class', 'circle-ticks');
 
-		circleAxes.append('circle')
+		var level = circleAxes.append('circle')
 			.attr('r', function (d, i) {
 				return radius(d);
 			})
+			.style('fill','none')
 			.attr('class', 'circle')
 			.style('stroke', '#CCC')
-			.style('fill','none')
 			.style('stroke-width', function(d, i) {
 				if (i > 0) {
 					return '1px';
@@ -337,6 +337,23 @@ class radarChartController {
 					return '5,5';
 				}
 			});
+
+		/*this.d3.selectAll('.circle')
+			.enter()
+			.style('fill',function(d, i) {
+				if (i === 0) {
+					return 'red';
+				}else if(i === 2)
+					return 'green';
+			});*/
+
+	/*	level.enter()
+			.style('fill',function(d, i) {
+				if (i === 0) {
+					return 'red';
+				}else if(i === 2)
+					return 'green';
+			});*/
 
 		circleAxes.append('text')
 			.attr('text-anchor', 'middle')
