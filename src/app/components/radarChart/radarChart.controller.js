@@ -157,24 +157,6 @@ class radarChartController {
 			'Longitude': '2.45E'
 		},
 		{
-			'dt': '2001-05-01',
-			'AverageTemperature': 15.48,
-			'AverageTemperatureUncertainty': 0.203,
-			'City': 'Paris',
-			'Country': 'France',
-			'Latitude': '49.03N',
-			'Longitude': '2.45E'
-		},
-		{
-			'dt': '2001-06-01',
-			'AverageTemperature': 16.836,
-			'AverageTemperatureUncertainty': 0.295,
-			'City': 'Paris',
-			'Country': 'France',
-			'Latitude': '49.03N',
-			'Longitude': '2.45E'
-		},
-		{
 			'dt': '2001-07-01',
 			'AverageTemperature': 19.456,
 			'AverageTemperatureUncertainty': 0.189,
@@ -187,15 +169,6 @@ class radarChartController {
 			'dt': '2001-08-01',
 			'AverageTemperature': 19.921,
 			'AverageTemperatureUncertainty': 0.16,
-			'City': 'Paris',
-			'Country': 'France',
-			'Latitude': '49.03N',
-			'Longitude': '2.45E'
-		},
-		{
-			'dt': '2001-09-01',
-			'AverageTemperature': 13.894,
-			'AverageTemperatureUncertainty': 0.325,
 			'City': 'Paris',
 			'Country': 'France',
 			'Latitude': '49.03N',
@@ -277,7 +250,8 @@ class radarChartController {
 		var nbannee=Math.floor(dataset.length/12);
 		var annee=dataset[0].dt[2].concat(dataset[0].dt[3]);
 
-
+		var color = this.d3.scaleOrdinal()
+			.range(['#9eb36f', '#cadd9e', '#f2efbe', '#e3bf6b', '#c87572']);
 		months = [1,2,3,4,5,6,7,8,9,10,11,12];
 
 		for (i=0; i<dataset.length; i+=1) {
@@ -331,7 +305,7 @@ class radarChartController {
 			'translate(' + centerXPos + ', ' + centerYPos + ')');
 
 
-		var radialTicks = radius.ticks(5),
+		var radialTicks = radius.ticks(3),
 			i,
 			circleAxes,
 			lineAxes;
@@ -350,7 +324,19 @@ class radarChartController {
 			})
 			.attr('class', 'circle')
 			.style('stroke', '#CCC')
-			.style('fill', 'none');
+			.style('fill','none')
+			.style('stroke-width', function(d, i) {
+				if (i > 0) {
+					return '1px';
+				} else {
+					return '0px';
+				}
+			})
+			.style('stroke-dasharray',function(d, i) {
+				if (i >= 0) {
+					return '5,5';
+				}
+			});
 
 		circleAxes.append('text')
 			.attr('text-anchor', 'middle')
@@ -367,6 +353,7 @@ class radarChartController {
 					')translate(' + radius(maxVal) + ')';
 			})
 			.attr('class', 'line-ticks');
+
 
 		lineAxes.append('line')
 			.attr('x2', -1 * radius(maxVal))
@@ -397,7 +384,7 @@ class radarChartController {
 			.domain([0,series.length])
 			.range(['blue','red']);
 
-		var op= this.d3.scaleLinear().domain([0,series.length]).range([0.1,1]);
+		var op= this.d3.scaleLinear().domain([0,series.length]).range([0,1]);
 
 		var groups = vizBody.selectAll('.series')
 			.data(series)
