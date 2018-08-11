@@ -25,7 +25,7 @@
     <div id="myTabContent" class="tab-content">
         <div class="tab-pane fade active show" id="radar">
            <div class="row col-sm-12">
-               <div id="editpane" ng-if="vm.editChart" class="col-sm-4">editable div</div>
+               <div id="editpane" ng-if="vm.editChart" class="col-sm-4"></div>
                <div class="col-sm-8"><p> RADAR CHART </p>
                    <radar-chart></radar-chart>
                    <radar-chart-component></radar-chart-component>
@@ -36,7 +36,7 @@
         </div>
         <div class="tab-pane fade" id="textplot">
             <div class="row col-sm-12" ng-init="vm.editChart = false">
-                <div ng-if="vm.editChart" class="col-sm-4">editable div</div>
+                <div ng-if="vm.editChart" class="col-sm-4"></div>
                 <div class="col-sm-8"><p> TEXT PLOT </p>
                     <text-plot></text-plot>
                     <button type="button" ng-if="!vm.editChart"  ng-click="vm.editChart = !vm.editChart" class="btn btn-primary">Show Edit Pane</button>
@@ -46,7 +46,7 @@
         </div>
         <div class="tab-pane fade" id="elephantplot">
             <div class="row col-sm-12" ng-init="vm.editChart = false">
-                <div ng-if="vm.editChart" class="col-sm-4">editable div</div>
+                <div ng-if="vm.editChart" class="col-sm-4"></div>
                 <div class="col-sm-8"><p> ELEPHANT CHART </p>
                     <elephant-plot></elephant-plot>
                     <button type="button" ng-if="!vm.editChart"  ng-click="vm.editChart = !vm.editChart" class="btn btn-primary">Show Edit Pane</button>

@@ -6,16 +6,11 @@ class readCsvDataController {
 		assign(this, {$scope, normalizedValuesService,d3Service});
 	}
 
-
-
 	$onInit(){
 		this.editChart = false;
 		console.log('normalized values',this.normalizedValuesService);
 		this.normalizedValuesService = this.normalizedValuesService;
 		this.d3 = this.d3Service.getD3();
-		this.d3.selectAll('p')
-			.style('color','red')
-			.text('This paragraph is appended to');
 	}
 
 	toggleEditpane(){
