@@ -6,17 +6,22 @@ export  default class normalizedValuesService {
 
 	$onInit(){
 		this.normalizedValues = [];
+		this.labels  = [];
 	}
 
+	setLabels(newLabel){
+		this.labels.push(newLabel);
+	}
+
+	getLabels(){
+		return this.labels;
+	}
 
 	setNormalizedValues(newObj) {
-		console.log('add prod called =====');
 		this.normalizedValues.push(newObj);
-		console.log('add prod called =====', this.normalizedValues);
 	}
 
 	getNormalizedValues(){
-		console.log('get prod called',this.normalizedValues);
 		return this.normalizedValues;
 	}
 }

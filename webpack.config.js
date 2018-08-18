@@ -17,7 +17,6 @@ var ENV = process.env.npm_lifecycle_event;
 
 var isProd = ENV === 'build';
 
-
 /*
 * Webpack requires a config objects to set all the defaults
 * We are returning a self invoked function that returns the 
@@ -68,7 +67,7 @@ module.exports = (function makeWebpackConfig () {
 			loader: 'file'
 		}, {
 			test: /\.html$/,
-			loader: 'raw',
+			loader: 'html?minimize=false',
 			exclude: /index\.html/
 		}]
 	};

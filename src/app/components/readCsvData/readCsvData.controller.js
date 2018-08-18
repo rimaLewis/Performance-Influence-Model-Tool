@@ -8,7 +8,6 @@ class readCsvDataController {
 
 	$onInit(){
 		this.editChart = false;
-		console.log('normalized values',this.normalizedValuesService);
 		this.normalizedValuesService = this.normalizedValuesService;
 		this.d3 = this.d3Service.getD3();
 	}
@@ -20,14 +19,21 @@ class readCsvDataController {
 
 	showData(){
 		alert(this.fileContent);
-		console.log('upload data',this.fileContent);
-
+		const data = this.csv2json(this.fileContent);
+		console.log('data', data);
 		// convert the file content to normalized values
 		// use the normalizedvalues service to set the normalized values
 
 		// create the required arrays , for now we assume that the arrays are delimited by semicolon
 		var data2 = this.fileContent.split('\n').map(function(row){return row.split(';');});
 		var newArray = data2[1];
+
+		var labelsArray = data2[0];
+		labelsArray.shift();
+
+		for(var i=0; i<labelsArray.length;i++){
+			this.normalizedValuesService.setLabels(labelsArray[i]);
+		}
 
 		// remove the first item, since it is the group Label
 		newArray.shift();
@@ -56,16 +62,15 @@ class readCsvDataController {
 			normalizedArray.push(rounded);
 		});
 
-		console.log('second array ', normalizedArray);
-
 		// push the normalized values to the an array, using the service so that the other components can use this array
 		for(var i=0; i<newArray.length;i++){
 			this.normalizedValuesService.setNormalizedValues(normalizedArray[i]);
 		}
 
-        this.normalizedValues = normalizedArray;
-		console.log('scaled value ------------', normalizedArray);
+		this.normalizedValues = normalizedArray;
 	}
+
+
 
 
 

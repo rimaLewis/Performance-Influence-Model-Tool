@@ -2,7 +2,9 @@ class homeController {
 	constructor(){}
 
 
+	$onInit(){
 
+	}
 
 }
 

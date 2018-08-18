@@ -7,7 +7,6 @@ import uiRouter from 'angular-ui-router';
 import common from './common/common';
 import components from './components/components';
 import { AppComponent } from './app.component';
-
 import normalizedValuesService from './app.service';
 import D3Service from './d3.service';
 
@@ -17,7 +16,7 @@ const root = angular
 	common,
 	components,
 ])
-  .component('app',AppComponent )
+  .component('app',AppComponent)
 	.service('d3Service', D3Service)
 	.service('normalizedValuesService',normalizedValuesService)
   .name;
