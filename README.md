@@ -5,6 +5,7 @@ Interactive Data Visualization of Configuration Parameters.
 ### Prerequisites
 
 You need to install Node.js
+
 *[Install node.js](http://nodejs.org)
 
 
@@ -26,4 +27,8 @@ To run the project
 
 ```
 npm start
+```
+To view the webpage
+```
+http://localhost:8080/
 ```
