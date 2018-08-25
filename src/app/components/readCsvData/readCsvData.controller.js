@@ -1,4 +1,4 @@
-import {assign,forEach, map, isNil,isEmpty} from 'lodash';
+import {assign,forEach, map, isNil,isEmpty, add} from 'lodash';
 
 
 class readCsvDataController {
@@ -19,7 +19,7 @@ class readCsvDataController {
 		});
 	}
 
-	
+
 	$onInit(){
 		this.editChart = false;
 		this.normalizedValuesService = this.normalizedValuesService;
@@ -42,9 +42,33 @@ class readCsvDataController {
 			groups.shift();
 			if(!isEmpty(groups))
 			{
+				//math.abs takes the absolute value only, +a converts string to int
 				console.log(groups);
+
+				var additionVal = this.d3.sum(groups, function(value){
+					return Math.abs(value);
+				});
+
+				console.log(additionVal);
+				var finalArray = [];
+				forEach(groups, function(value) {
+					var newVal = Math.abs(value) / additionVal;
+					var rounded = Math.round(newVal * 1000) / 1000;
+					finalArray.push(rounded);
+				});
+
+				// sort the array
+				// set it to srvice
+				console.log(finalArray);
+				series[index] = {name : 'Group ' + groupName, data: finalArray, pointPlacement: 'on' };
+				index++;
 			}
 		}
+
+		this.elephantConfig  = {labels : this.labels, series: series};
+		this.normalizedValuesService.setDataForElephantPlot(this.elephantConfig);
+		console.log(this.elephantConfig);
+
 
 	}
 	radarAndTextPlotData(){

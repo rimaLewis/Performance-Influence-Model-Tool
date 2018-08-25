@@ -1,31 +1,48 @@
-import {assign} from 'lodash';
+import {assign, isNil} from 'lodash';
 
 class elephantPlotController {
 	constructor($scope, normalizedValuesService){
 		assign(this, {$scope, normalizedValuesService});
+
+		this.$scope.$watch('vm.chartConfig', (newValue) =>{
+			if(!isNil(newValue)){
+				this.showGraphs();
+			}
+		});
 	}
 
 
 
-	$onInit(){
+	$onInit() {
 		this.dynamicExpression = 'from the parent controller';
 		this.in = 'from the parent controller';
-		const data = this.normalizedValuesService.getNormalizedValues();
+	}
 
+	showGraphs(){
+		this.data = this.normalizedValuesService.getDataForElephantPlot();
+		this.series = this.data.series;
+		this.labels = this.data.labels;
+		this.renderChart();
+	}
 
+	renderChart() {
 		Highcharts.chart('container3', {
 			chart: {
 				type: 'bar',
+				width:1000,
 			},
 			title: {
 				text: 'Elephant Plot'
 			},
 			xAxis: {
-				categories: ['A', 'B', 'A*B', '2AB', 'A+B']
+				tickmarkPlacement:'on',
+				categories: this.labels,
 			},
 			yAxis: {
-				min: -1,
-				max:1,
+				tickmarkPlacement:'on',
+				min: 0,
+				max: 1,
+				startOnTick: true,
 				title: {
 					text: 'Total Performance'
 				}
@@ -39,19 +56,11 @@ class elephantPlotController {
 				}
 			},
 
-			series: [{
-				name: 'John',
-				data: [0.1, 0.2, -0.4, 0.7, -0.2]
-			}, {
-				name: 'Jane',
-				data: [-0.2, 0.22, -0.43, -0.32, 0.71]
-			}, {
-				name: 'Joe',
-				data: [0.73, -0.34, 0.74, -0.62, -0.95]
-			}]
+			series: this.series
 		});
 
 	}
+
 
 }
 

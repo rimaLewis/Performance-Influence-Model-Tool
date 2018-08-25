@@ -8,5 +8,6 @@ export const ElephantPlotComponent = {
 	controllerAs : 'vm',
 	bindings :{
 		name : '@',
+		chartConfig: '<',
 	}
 };

@@ -6,6 +6,15 @@ export  default class normalizedValuesService {
 
 	$onInit(){
 		this.plotData = {};
+		this.elephantPlotData = {};
+	}
+
+	setDataForElephantPlot(data) {
+		this.elephantPlotData = data;
+	}
+
+	getDataForElephantPlot(){
+		return this.elephantPlotData;
 	}
 
 
