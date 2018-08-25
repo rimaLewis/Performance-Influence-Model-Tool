@@ -1,3 +1,4 @@
+<div>
 <textarea ng-model="vm.fileContent" rows="4" cols="75" placeholder="Paste your csv file contents here..."></textarea>
     <div class="form-group">
 
@@ -16,10 +17,10 @@
             {{vm.feature}}
         </li>
         </ul>
-
+</div>
 </div>
 
-<div>
+<div ng-if="vm.fileContent">
 <ul class="nav nav-tabs">
     <li class="nav-item">
         <a class="nav-link active show" data-toggle="tab" href="#radar">Radar Chart</a>
@@ -39,7 +40,7 @@
         <text-plot chart-config="vm.plotData"></text-plot>
     </div>
     <div class="tab-pane fade" id="elephantplot">
-        <elephant-plot  chart-config="vm.plotData"></elephant-plot>
+        <elephant-plot  chart-config="vm.elephantConfig"></elephant-plot>
     </div>
 </div>
 </div>

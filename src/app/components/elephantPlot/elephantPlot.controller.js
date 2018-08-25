@@ -30,6 +30,7 @@ class elephantPlotController {
 			chart: {
 				type: 'bar',
 				width:1000,
+				height:600,
 			},
 			title: {
 				text: 'Elephant Plot'
@@ -47,9 +48,21 @@ class elephantPlotController {
 					text: 'Total Performance'
 				}
 			},
+
+
 			legend: {
-				reversed: true
+				title: {
+					text: 'LEGEND<br/><span style="font-size: 9px; color: #666; font-weight: normal; text-align:center;"></span>',
+				},
+				backgroundColor: 'white',
+				borderColor: 'grey',
+				borderWidth: 1,
+				align: 'center',
+				verticalAlign: 'bottom',
+				// y: 70,
+				layout: 'vertical'
 			},
+
 			plotOptions: {
 				series: {
 					stacking: 'normal'
