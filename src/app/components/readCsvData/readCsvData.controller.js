@@ -5,14 +5,21 @@ class readCsvDataController {
 	constructor($scope, normalizedValuesService,d3Service){
 		assign(this, {$scope, normalizedValuesService,d3Service});
 
-		this.$scope.$watch('vm.fileContent', (newValue, oldValue) =>
-			this.showData()
-		);
+		this.$scope.$watch('vm.fileContent', (newValue) =>
+		{
+			if(!isNil(newValue)){
+				this.radarAndTextPlotData();
+			}
+		});
+
+		this.$scope.$watch('vm.fileContent', (newValue) =>{
+			if(!isNil(newValue)) {
+				this.elephantPlotData();
+			}
+		});
 	}
 
-
-
-
+	
 	$onInit(){
 		this.editChart = false;
 		this.normalizedValuesService = this.normalizedValuesService;
@@ -20,7 +27,27 @@ class readCsvDataController {
 
 	}
 
-	showData(){
+	elephantPlotData(){
+
+		this.elephantConfig = {};
+		var lines = this.fileContent.split('\n');
+		this.labels = lines[0].split(';');
+		this.labels.shift();
+		let series = [];
+		var groups;
+		var index = 0;
+		for(var i=1;i<lines.length;i++){
+			groups = lines[i].split(';');
+			var groupName = groups[0];
+			groups.shift();
+			if(!isEmpty(groups))
+			{
+				console.log(groups);
+			}
+		}
+
+	}
+	radarAndTextPlotData(){
 		this.plotData = {};
 		var lines = this.fileContent.split('\n');
 		this.labels = lines[0].split(';');

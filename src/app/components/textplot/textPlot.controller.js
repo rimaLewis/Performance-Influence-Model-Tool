@@ -1,12 +1,14 @@
-import {assign} from 'lodash';
+import {assign, isNil} from 'lodash';
 
 class textPlotController {
 	constructor($scope, normalizedValuesService){
 		assign(this, {$scope, normalizedValuesService});
 
-		this.$scope.$watch('vm.chartConfig', (newValue, oldValue) =>
-			this.showGraphs()
-		);
+		this.$scope.$watch('vm.chartConfig', (newValue) =>{
+			if(!isNil(newValue)){
+				this.showGraphs();
+			}
+		});
 	}
 
 

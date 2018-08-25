@@ -1,12 +1,14 @@
-import {assign, forEach} from 'lodash';
+import {assign, isNil, forEach} from 'lodash';
 
 class radarChartController {
 	constructor($scope,$window, normalizedValuesService,d3Service, $log, $timeout, toastr){
 		assign(this, {$scope,$window, normalizedValuesService,d3Service, $log, $timeout, toastr});
 
-		this.$scope.$watch('vm.chartConfig', (newValue, oldValue) =>
-			this.showGraphs()
-		);
+		this.$scope.$watch('vm.chartConfig', (newValue) =>{
+			if(!isNil(newValue)){
+				this.showGraphs();
+			}
+		});
 	}
 
 	$onInit() {
