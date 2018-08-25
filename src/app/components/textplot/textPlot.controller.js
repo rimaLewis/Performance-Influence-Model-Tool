@@ -3,6 +3,10 @@ import {assign} from 'lodash';
 class textPlotController {
 	constructor($scope, normalizedValuesService){
 		assign(this, {$scope, normalizedValuesService});
+
+		this.$scope.$watch('vm.chartConfig', (newValue, oldValue) =>
+			this.showGraphs()
+		);
 	}
 
 
@@ -10,7 +14,20 @@ class textPlotController {
 		this.dynamicExpression = 'from the parent controller';
 		this.in = 'from the parent controller';
 		const data = this.normalizedValuesService.getNormalizedValues();
+		this.data = [];
+		this.renderChart();
 
+	}
+
+	showGraphs(){
+		this.data = this.normalizedValuesService.getNormalizedValues();
+		this.series = this.data.series;
+		this.labels = this.data.labels;
+		this.renderChart();
+	}
+
+
+	renderChart(){
 		Highcharts.wrap(Highcharts.Series.prototype, 'drawPoints', function(p) {
 			const options = this.options;
 			const symbolCallback = options.marker && options.marker.symbolCallback;
@@ -41,78 +58,123 @@ class textPlotController {
 			chart: {
 				polar: false,
 				type: 'line',
-				inverted: true
+				inverted: true,
+				// panning: true,
+				width:600,
+				height:900,
+				zoomType: 'xy',
+				panning: 'xy',
+				panKey: 'shift',
+
+			},
+
+
+			mapNavigation: {
+				enabled: true
+			},
+
+			title: {
+				text: 'Text Plot',
+				x: -80
 			},
 
 			pane: {
 				size: '80%'
 			},
 
+			subtitle: {
+				text: document.ontouchstart === undefined ?
+					'Click and drag in the plot area to zoom in' :
+					'Drag your finger over the plot to zoom in'
+			},
+
 			xAxis: [{
+				startOnTick: false,
+				endOnTick: false,
 				gridLineColor: '#a2aba0',
 				gridLineDashStyle: 'dash',
-				categories: ['Sales', 'Marketing', 'Development', 'Customer Support', 'Information Technology', 'Administration', 'new'],
+				categories: this.labels,
 				tickmarkPlacement: 'on',
+				labels: {
+					useHTML:true,//set to true
+					style:{
+						width:'165px',
+						whiteSpace:'normal'//set to normal
+					},
+					step: 1,
+					formatter: function () {//use formatter
+						return '<div align="center" style="word-wrap: break-word;word-break: break-all;width:165px">' + this.value + '</div>';
+					}
+				},
 			}, {
 				linkedTo: 0,
-				categories: ['Sales', 'Marketing', 'Development', 'Customer Support', 'Information Technology', 'Administration', 'new'],
+				categories: this.labels,
 				tickmarkPlacement: 'on',
-				opposite: true
+				opposite: true,
+				labels: {
+					useHTML:true,//set to true
+					style:{
+						width:'165px',
+						whiteSpace:'normal'//set to normal
+					},
+					step: 1,
+					formatter: function () {//use formatter
+						return '<div align="center" style="word-wrap: break-word;word-break: break-all;width:165px">' + this.value + '</div>';
+					}
+				},
 			}],
 
 			yAxis: {
+				reversed: false,
+				startOnTick: false,
+				endOnTick: false,
 				gridLineColor: '#a2aba0',
 				gridLineDashStyle: 'dash',
 				lineWidth: 1,
 				min: -1,
 				plotBands: [{
-					color: '#f9a6a6',
+					color: '#ffc0cb',
 					from: 0,
 					to: -1
 				},{
-					color: '#b4f1a2',
+					color: '#b8eab8',
 					from: 0,
 					to: +1
 				}],
 			},
 
+			plotOptions: {
+				series: {
+					lineWidth: 1,
+					style: {
+						width: '100px'
+					}
+				},
+			},
+
+
 			tooltip: {
-				shared: false,
+				shared: true,
 				pointFormat: '<span style="color:{series.color}">{series.name}: <b>{point.y}</b><br/>'
 			},
 
 			legend: {
-				align: 'right',
-				verticalAlign: 'top',
-				y: 70,
+				title: {
+					text: 'LEGEND<br/><span style="font-size: 9px; color: #666; font-weight: normal; text-align:center;"></span>',
+				},
+				backgroundColor: 'white',
+				borderColor: 'grey',
+				borderWidth: 1,
+				align: 'center',
+				verticalAlign: 'bottom',
+				// y: 70,
 				layout: 'vertical'
 			},
 
-			series: [{
-				name: 'Allocated Budget',
-				marker: {
-					symbolCallback: function() {
-						if( this.y === 0)
-							return 'circle';
-					}
-				},
-				data: [-0.1,-0.0, -0.45, -0.0001, -0.4, -0.3,0.7],
-				pointPlacement: 'on'
-			}, {
-				name: 'Actual Spending',
-				marker: {
-					symbolCallback: function() {
-						if( this.y === 0)
-							return 'circle';
-					}
-				},
-				data: [0.4, 0.4, 0.6, 0.3, 0, 0.92,0.3],
-				pointPlacement: 'on'
-			}]
+			series: this.series,
 
 		});
 	}
-
 
 }
 

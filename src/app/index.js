@@ -1,8 +1,13 @@
 import '../../node_modules/bootstrap-css-only/css/bootstrap.min.css';
 import '../style/style.css';
 import '../../node_modules/bootswatch/dist/superhero/bootstrap.min.css';
+import '../../node_modules/angular-material/angular-material.css';
 
 import angular from 'angular';
+import 'angular-animate';
+import 'angular-toastr';
+import 'angularjs-color-picker';
+
 import uiRouter from 'angular-ui-router';
 import common from './common/common';
 import components from './components/components';
@@ -10,12 +15,15 @@ import { AppComponent } from './app.component';
 import normalizedValuesService from './app.service';
 import D3Service from './d3.service';
 
-const root = angular  
+
+const root = angular
   .module('angularApp', [
-	uiRouter, 
+	'ngAnimate',
+	'toastr',
+	uiRouter,
 	common,
 	components,
-])
+  ])
   .component('app',AppComponent)
 	.service('d3Service', D3Service)
 	.service('normalizedValuesService',normalizedValuesService)

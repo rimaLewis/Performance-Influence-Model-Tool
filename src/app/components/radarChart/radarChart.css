@@ -1,18 +1,14 @@
-.axis {
-    shape-rendering: crispEdges;
+.editPane{
+    border:1px solid grey;
+    width: 400px;
+    margin:5px;
 }
 
-.axis line {
-    stroke: #000000;
-    stroke-width: 2px;
+.inputType{
+
+    border: 1px solid grey;
 }
 
-.axis .ticks line {
-    stroke: #4F4F4F;
-    stroke-width: 2px;
-}
-
-.axis .ticks line.minor{
-    stroke: #CCCCCC;
-    stroke-width:1px;
+.highcharts-container {
+    margin: 0 auto;
 }

@@ -6,6 +6,7 @@ class elephantPlotController {
 	}
 
 
+
 	$onInit(){
 		this.dynamicExpression = 'from the parent controller';
 		this.in = 'from the parent controller';
@@ -17,15 +18,16 @@ class elephantPlotController {
 				type: 'bar',
 			},
 			title: {
-				text: 'Stacked bar chart'
+				text: 'Elephant Plot'
 			},
 			xAxis: {
-				categories: ['Apples', 'Oranges', 'Pears', 'Grapes', 'Bananas']
+				categories: ['A', 'B', 'A*B', '2AB', 'A+B']
 			},
 			yAxis: {
-				min: 0,
+				min: -1,
+				max:1,
 				title: {
-					text: 'Total fruit consumption'
+					text: 'Total Performance'
 				}
 			},
 			legend: {
@@ -36,12 +38,13 @@ class elephantPlotController {
 					stacking: 'normal'
 				}
 			},
+
 			series: [{
 				name: 'John',
 				data: [0.1, 0.2, -0.4, 0.7, -0.2]
 			}, {
 				name: 'Jane',
-				data: [0.2, 0.22, -0.43, -0.32, 0.71]
+				data: [-0.2, 0.22, -0.43, -0.32, 0.71]
 			}, {
 				name: 'Joe',
 				data: [0.73, -0.34, 0.74, -0.62, -0.95]

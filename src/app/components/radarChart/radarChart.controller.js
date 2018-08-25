@@ -1,20 +1,73 @@
-import {assign,forEach} from 'lodash';
+import {assign, forEach} from 'lodash';
 
 class radarChartController {
-	constructor($scope, normalizedValuesService,d3Service, $log, $timeout){
-		assign(this, {$scope, normalizedValuesService,d3Service, $log, $timeout});
+	constructor($scope,$window, normalizedValuesService,d3Service, $log, $timeout, toastr){
+		assign(this, {$scope,$window, normalizedValuesService,d3Service, $log, $timeout, toastr});
+
+		this.$scope.$watch('vm.chartConfig', (newValue, oldValue) =>
+			this.showGraphs()
+		);
 	}
 
-
-
 	$onInit() {
-		this.dynamicExpression = 'from the parent controller';
-		this.in = 'from the parent controller';
-		this.values = this.normalizedValuesService.getNormalizedValues();
 		this.d3 = this.d3Service.getD3();
+		this.data = [];
+		this.renderChart();
+	}
 
+	showGraphs(){
+		this.data = this.normalizedValuesService.getNormalizedValues();
+		this.series = this.data.series;
+		this.labels = this.data.labels;
+		this.renderChart();
+	}
+
+	updatePlotLineColor(){
+		var series = this.chart.series[0];
+		series.color = this.PlotLineColor;
+		series.graph.attr({
+			stroke: this.PlotLineColor
+		});
+		this.chart.legend.colorizeItem(series, series.visible);
+		$.each(series.data, function(i, point) {
+			point.graphic.attr({
+				fill: this.PlotLineColor
+			});
+		});
+		series.redraw();
+		this.toastr.success('Chart Updated', 'Radar Chart');
+	}
+
+	updatePlotLineColor2(){
+		var series = this.chart.series[1];
+		series.color = this.PlotLineColor2;
+		series.graph.attr({
+			stroke: this.PlotLineColor2,
+		});
+		this.chart.legend.colorizeItem(series, series.visible);
+		$.each(series.data, function(i, point) {
+			point.graphic.attr({
+				fill: this.PlotLineColor2
+			});
+		});
+		series.redraw();
+		this.toastr.success('Chart Updated', 'Radar Chart');
+	}
+
+	updateLineWidth(){
+		this.chart.update({
+			plotOptions: {
+				series: {
+					lineWidth: this.PlotLineWidth,
+				}
+			},
+		});
+	}
+
+	renderChart(){
 
 		Highcharts.wrap(Highcharts.Series.prototype, 'drawPoints', function(p) {
+
 			const options = this.options;
 			const symbolCallback = options.marker && options.marker.symbolCallback;
 			const points = this.points;
@@ -38,13 +91,42 @@ class radarChartController {
 			p.call(this);
 		});
 
-
-
-		Highcharts.chart('container', {
+		this.chart = Highcharts.chart('container', {
 
 			chart: {
+				events: {
+					redraw: function () {
+
+						var label = this.renderer.label('The chart was just redrawn', 100, 120)
+							.attr({
+								fill: Highcharts.getOptions().colors[0],
+								padding: 10,
+								r: 5,
+								zIndex: 8
+							})
+							.css({
+								color: '#FFFFFF'
+							})
+							.add();
+
+						setTimeout(function () {
+							label.fadeOut();
+						}, 1000);
+					}
+				},
+				height:600,
+				width:1000,
 				polar: true,
-				animation: true,
+				showAxes: true,
+				// panning: true,
+				zoomType: 'xy',
+				type: 'line',
+				panning: 'xy',
+				panKey: 'shift'
+			},
+
+			mapNavigation: {
+				enabled: true
 			},
 
 			loading: {
@@ -54,10 +136,8 @@ class radarChartController {
 				style: null         // CSS styles for the loading screen that covers the plot area.
 			},
 
-
-
 			title: {
-				text: 'Budget vs spending',
+				text: 'Radar Chart',
 				x: -80
 			},
 
@@ -65,22 +145,59 @@ class radarChartController {
 				size: '80%'
 			},
 
+			/*	scrollbar: {
+					enabled: true
+				},*/
+
 			xAxis: {
+				reversed: false,
+				startOnTick: true,
+				endOnTick: true,
 				gridLineColor: '#a2aba0',
 				// gridLineDashStyle: 'dash',
-				categories: ['Sales', 'Marketing', 'Development', 'Customer Support',
-					'Information Technology', 'Administration', 'new'],
+				// categories: ['Sales', 'Marketing', 'Development', 'Customer Support', 'Information Technology', 'Administration', 'new'],
+				categories : this.labels,
 				tickmarkPlacement: 'on',
-				lineWidth: 0
+				labels: {
+					useHTML:true,//set to true
+					style:{
+						width:'150px',
+						whiteSpace:'normal'//set to normal
+					},
+					step: 1,
+					/*formatter: function () {//use formatter
+						return '<div align="center" style="word-wrap: break-word;word-break: break-all;width:150px">' + this.value + '</div>';
+					}*/
+				},
+				lineWidth: 0,
+				align: 'center',
+				x: 70,
+				useHTML: true,
+				style: {
+					'white-space': 'normal',
+					left: '0px',
+					top: '0px',
+					position: 'absolute'
+				},
 			},
 
 
 			yAxis: {
+				maxPadding: 0,
+				reversed: false,
+				startOnTick: true,
+				endOnTick: true,
 				gridLineColor: '#a2aba0',
 				gridLineDashStyle: 'dash',
 				gridLineInterpolation: 'circle',
 				lineWidth: 1,
-				min: -1,
+				// min: -1,
+				tickPositions: [-1.2,-1, 0, 1],  // -1.2 added to add the smaller inner white circle
+				showLastLabel: true,
+				labels:
+				{
+					enabled: false
+				},
 				plotBands: [{
 					color: '#ffc0cb',
 					from: 0,
@@ -88,8 +205,14 @@ class radarChartController {
 				},{
 					color: '#b8eab8',
 					from: 0,
-					to: +1
+					to: 1
 				}],
+			},
+
+			plotOptions: {
+				series: {
+					lineWidth: 1,
+				},
 			},
 
 			tooltip: {
@@ -98,37 +221,24 @@ class radarChartController {
 			},
 
 			legend: {
-				align: 'right',
-				verticalAlign: 'top',
-				y: 70,
+				title: {
+					text: 'LEGEND<br/><span style="font-size: 9px; color: #666; font-weight: normal; text-align:center;"></span>',
+				},
+				backgroundColor: 'white',
+				borderColor: 'grey',
+				borderWidth: 1,
+				align: 'center',
+				// padding:30,
+				verticalAlign: 'bottom',
+				// y: 70,
 				layout: 'vertical'
 			},
-
-			series: [{
-				name: 'Allocated Budget',
-				marker: {
-					symbolCallback: function() {
-						if( this.y === 0)
-							return 'circle';
-					}
-				},
-				data: [-0.1,0.0, -0.45, -0.7, -0.4, -0.3,0.7],
-				pointPlacement: 'on',
-			}, {
-				name: 'Actual Spending',
-				marker: {
-					symbolCallback: function() {
-						if( this.y === 0)
-							return 'circle';
-					}
-				},
-				data: [0.4, 0.4, 0.6, 0.3, 0.6, 0.02,0.0],
-				pointPlacement: 'on'
-			}]
+			series : this.series,
 
 		});
 	}
-
 }
 
 export default radarChartController;
+
+

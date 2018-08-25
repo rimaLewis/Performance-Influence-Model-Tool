@@ -5,20 +5,12 @@ export  default class normalizedValuesService {
 	}
 
 	$onInit(){
-		this.normalizedValues = [];
-		this.labels  = [];
+		this.plotData = {};
 	}
 
-	setLabels(newLabel){
-		this.labels.push(newLabel);
-	}
 
-	getLabels(){
-		return this.labels;
-	}
-
-	setNormalizedValues(newObj) {
-		this.normalizedValues.push(newObj);
+	setNormalizedValues(data) {
+		this.normalizedValues = data;
 	}
 
 	getNormalizedValues(){

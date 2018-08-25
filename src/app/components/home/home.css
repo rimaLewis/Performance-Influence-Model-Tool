@@ -13,5 +13,6 @@
 }
 
 #myTabContent{
-    background-color: white;
+    /*background-color: white;*/
+    color:black;
 }

@@ -8,5 +8,6 @@ export const TextPlotComponent = {
 	controllerAs : 'vm',
 	bindings :{
 		name : '@',
+		chartConfig: '<',
 	}
 };
