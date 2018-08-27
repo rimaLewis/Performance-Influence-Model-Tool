@@ -25,30 +25,7 @@
 </div>
 
 <div ng-if="vm.fileContent">
-
-    <p>{{vm.selectedFeatures}}</p>
-
     <input type="file" ng-model="vm.fileContentAdded" ng-change="vm.addNewSeries()" file-reader="vm.fileContentAdded" />
-
-    <form>
-        <button ng-click="vm.updatePlotLineColor()">change</button>
-        <div class="form-group">
-            <div class="row">
-                <div class="col-md-3">
-                    <label>Series 1 Color</label>
-                    <input type="text" class="form-control">
-                </div>
-                <div class="col-md-3">
-                    <label>Series 2 Color</label>
-                    <input type="text" class="form-control">
-                </div>
-                <div class="col-md-3">
-                    <label>Series 3 Color</label>
-                    <input type="text" class="form-control">
-                </div>
-            </div>
-        </div>
-    </form>
 
 <ul class="nav nav-tabs">
     <li class="nav-item">
