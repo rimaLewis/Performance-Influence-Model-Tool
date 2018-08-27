@@ -79,10 +79,12 @@ class radarChartController {
 
 			newSeries[j].data = data;
 		}
+		if(!isNil(labels)){
 
-		labels = labels.filter(function( element ) {
-			return element !== null;
-		});
+			labels = labels.filter(function( element ) {
+				return element !== null;
+			});
+		}
 		console.log(' %%%%% ',newSeries);
 		this.series = newSeries;
 		this.labels = labels;

@@ -10,6 +10,8 @@ export const TextPlotComponent = {
 		name : '@',
 		chartConfig: '<',
 		additionalSeries :'<?',
-		features : '<?',
+		textplotSelectedFeatures :'<',
+		textplotChartConfigFilters : '<',
+		textplotChartConfigLabels : '<',
 	}
 };
