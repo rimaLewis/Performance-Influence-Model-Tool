@@ -40,9 +40,9 @@ module.exports = (function makeWebpackConfig () {
 	};
 
 	if (isProd) {
-		config.devtool = 'source-map';
+		config.devtool =  '#inline-source-map';
 	} else {
-		config.devtool = 'eval-source-map';
+		config.devtool =  '#inline-source-map';
 	}
 
 	config.resolve = {

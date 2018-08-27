@@ -8,6 +8,10 @@ export const RadarChartComponent = {
 	controllerAs : 'vm',
 	bindings :{
 		name : '@',
-		chartConfig: '<',
+		chartConfig : '<',
+		additionalSeries :'<?',
+		selectedFeatures :'<',
+		chartConfigFilters : '<',
+		chartConfigLabels : '<',
 	}
 };

@@ -9,5 +9,7 @@ export const TextPlotComponent = {
 	bindings :{
 		name : '@',
 		chartConfig: '<',
+		additionalSeries :'<?',
+		features : '<?',
 	}
 };

@@ -9,13 +9,28 @@ class textPlotController {
 				this.showGraphs();
 			}
 		});
+
+		this.$scope.$watch('vm.additionalSeries', (newValue) =>{
+			if(!isNil(newValue)){
+				this.addNewSeries();
+			}
+		});
+
+		this.$scope.$watch('vm.features', (newValue) =>{
+			if(!isNil(newValue)){
+				this.editSeries();
+			}
+		},true);
+
+
 	}
 
+	editSeries(){
+		// console.log('inside edit series');
+	}
 
 	$onInit(){
-		this.dynamicExpression = 'from the parent controller';
-		this.in = 'from the parent controller';
-		const data = this.normalizedValuesService.getNormalizedValues();
+		this.Highcharts = Highcharts;
 		this.data = [];
 		this.renderChart();
 
@@ -28,9 +43,24 @@ class textPlotController {
 		this.renderChart();
 	}
 
+	addNewSeries(){
+		var additionalSeries = this.additionalSeries.series;
+		for(var i=0; i<additionalSeries.length;i++){
+			this.texplotChart.addSeries({
+				name: additionalSeries[i].name,
+				data: additionalSeries[i].data,
+			});
+		}
+	}
+
 
 	renderChart(){
-		Highcharts.wrap(Highcharts.Series.prototype, 'drawPoints', function(p) {
+
+		/*this.Highcharts.setOptions({
+			colors: ['#058DC7', '#50B432', '#ED561B', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4']
+		});*/
+
+		this.Highcharts.wrap(this.Highcharts.Series.prototype, 'drawPoints', function(p) {
 			const options = this.options;
 			const symbolCallback = options.marker && options.marker.symbolCallback;
 			const points = this.points;
@@ -54,8 +84,7 @@ class textPlotController {
 			p.call(this);
 		});
 
-
-		Highcharts.chart('container2',{
+		this.texplotChart = this.Highcharts.chart('container2',{
 
 			chart: {
 				polar: false,
@@ -69,7 +98,6 @@ class textPlotController {
 				panKey: 'shift',
 
 			},
-
 
 			mapNavigation: {
 				enabled: true
@@ -148,12 +176,8 @@ class textPlotController {
 			plotOptions: {
 				series: {
 					lineWidth: 1,
-					style: {
-						width: '100px'
-					}
 				},
 			},
-
 
 			tooltip: {
 				shared: true,
@@ -169,7 +193,6 @@ class textPlotController {
 				borderWidth: 1,
 				align: 'center',
 				verticalAlign: 'bottom',
-				// y: 70,
 				layout: 'vertical'
 			},
 

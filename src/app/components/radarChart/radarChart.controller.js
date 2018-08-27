@@ -1,4 +1,4 @@
-import {assign, isNil, forEach} from 'lodash';
+import {assign, isNil, forEach, forOwn, cloneDeep, compact} from 'lodash';
 
 class radarChartController {
 	constructor($scope,$window, normalizedValuesService,d3Service, $log, $timeout, toastr){
@@ -9,12 +9,85 @@ class radarChartController {
 				this.showGraphs();
 			}
 		});
+
+		this.$scope.$watch('vm.additionalSeries', (newValue) =>{
+			if(!isNil(newValue)){
+				this.addNewSeries();
+			}
+		});
+
+		this.$scope.$watch('vm.selectedFeatures', (newValue) =>{
+			if(!isNil(newValue)){
+				this.addOrRemoveParams();
+			}
+		},true);
 	}
 
 	$onInit() {
 		this.d3 = this.d3Service.getD3();
 		this.data = [];
 		this.renderChart();
+	}
+
+	addOrRemoveParams(){
+		var labels = cloneDeep(this.chartConfigLabels);
+		var oldSeries = cloneDeep(this.chartConfigFilters);
+		console.log('chartConfigFilters  ',this.chartConfigFilters);
+		/*
+		* oldSeries = [{name : String, data : array],
+		* 			   {name : String, data : array]
+		* 			  ]
+		*
+		* */
+		var newSeries = [];
+		var series = [];
+
+		// new series is nothing but oldseries,
+		// and if any value is false, remove them from the newSeries array
+
+		forOwn(this.chartConfigFilters, function(value, key) {
+			newSeries.push(value);
+		});
+		forOwn(this.selectedFeatures, function(value, key) {
+			if(value === false){
+				var pos = 0;
+				console.log(value +false, 'position', key);
+
+				console.log('labels before splicing', labels);
+				labels[key] = null;
+				console.log('labels after splicing', labels);
+				for(var i=0;i<oldSeries.length;i++)  // looping through each of series data - array
+				{
+					series = oldSeries[i];  // each of the series
+					console.log('series before splicing', series.data);
+					series.data[key]  = null;
+					console.log('series after splicing', series.data);
+					newSeries[pos] = {name : series.name, data: series.data};
+					pos++;
+				}
+			}
+		});
+
+		console.log('final, labels',newSeries, labels);
+
+		for(var j=0;j<newSeries.length;j++){
+			var data = newSeries[j].data;
+
+			data = data.filter(function( element ) {
+				return element !== null;
+			});
+
+			newSeries[j].data = data;
+		}
+
+		labels = labels.filter(function( element ) {
+			return element !== null;
+		});
+		console.log(' %%%%% ',newSeries);
+		this.series = newSeries;
+		this.labels = labels;
+		this.renderChart();
+
 	}
 
 	showGraphs(){
@@ -24,7 +97,19 @@ class radarChartController {
 		this.renderChart();
 	}
 
+	addNewSeries(){
+		var additionalSeries = this.additionalSeries.series;
+		for(var i=0; i<additionalSeries.length;i++){
+			this.radarChart.addSeries({
+				name: additionalSeries[i].name,
+				data: additionalSeries[i].data,
+			});
+		}
+	}
+
 	updatePlotLineColor(){
+		console.log('here');
+		this.PlotLineColor = 'yellow';
 		var series = this.chart.series[0];
 		series.color = this.PlotLineColor;
 		series.graph.attr({
@@ -93,7 +178,7 @@ class radarChartController {
 			p.call(this);
 		});
 
-		this.chart = Highcharts.chart('container', {
+		this.radarChart = Highcharts.chart('container', {
 
 			chart: {
 				events: {
@@ -147,10 +232,6 @@ class radarChartController {
 				size: '80%'
 			},
 
-			/*	scrollbar: {
-					enabled: true
-				},*/
-
 			xAxis: {
 				reversed: false,
 				startOnTick: true,
@@ -195,7 +276,7 @@ class radarChartController {
 				lineWidth: 1,
 				// min: -1,
 				tickPositions: [-1.2,-1, 0, 1],  // -1.2 added to add the smaller inner white circle
-				showLastLabel: true,
+				showLastLabel: false,
 				labels:
 				{
 					enabled: false
@@ -214,6 +295,7 @@ class radarChartController {
 			plotOptions: {
 				series: {
 					lineWidth: 1,
+					connectEnds: true
 				},
 			},
 
@@ -230,14 +312,13 @@ class radarChartController {
 				borderColor: 'grey',
 				borderWidth: 1,
 				align: 'center',
-				// padding:30,
 				verticalAlign: 'bottom',
-				// y: 70,
 				layout: 'vertical'
 			},
 			series : this.series,
 
 		});
+
 	}
 }
 

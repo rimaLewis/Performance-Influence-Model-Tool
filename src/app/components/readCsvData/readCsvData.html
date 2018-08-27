@@ -1,43 +1,77 @@
 <div>
-<textarea ng-model="vm.fileContent" rows="4" cols="75" placeholder="Paste your csv file contents here..."></textarea>
+<textarea ng-model="vm.fileContent" ng-change="vm.radarAndTextPlotData()" rows="4" cols="75" placeholder="Paste your csv file contents here..."></textarea>
     <div class="form-group">
 
-        <input type="file" file-reader="vm.fileContent" />
+        <input type="file" ng-model="vm.fileContent" ng-change="vm.radarAndTextPlotData()" file-reader="vm.fileContent" />
+        <small id="fileHelp" class="form-text text-muted">Select and upload a .csv file. </small>
 
-        <!--<p>{{vm.plotData}}</p>-->
-        <small id="fileHelp" class="form-text text-muted">This is some placeholder block-level help text for the above input. It's a bit lighter and easily wraps to a new line.</small>
-
-
-       <ul class="nav nav-pills">
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-            <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 40px, 0px); top: 0px; left: 0px; will-change: transform;">
-                <a class="dropdown-item"  ng-value="vm.feature" ng-repeat="feature in vm.labels"><input type="checkbox"/>&nbsp;{{feature}}</a>
-            </div>
-            {{vm.feature}}
-        </li>
+        <ul class="nav nav-pills" ng-if="vm.fileContent">
+            <li class="nav-item dropdown">
+                <!--<a href="#" data-toggle="dropdown" class="dropdown-toggle">Select Performance Features<b class="caret"></b></a>-->
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Select Performance Features</a>
+                <ul class="dropdown-menu">
+                    <li ng-repeat="feature in vm.listOfFeatures track by $index">
+                        <div class="checkbox">
+                            <label>
+                                &nbsp;<input type="checkbox" ng-value="vm.selectedFeatures[$index]" ng-model="vm.selectedFeatures[$index]">&nbsp;{{feature}}
+                            </label>
+                        </div>
+                    </li>
+                </ul>
+            </li>
         </ul>
+
 </div>
 </div>
 
 <div ng-if="vm.fileContent">
+
+    <p>{{vm.selectedFeatures}}</p>
+
+    <input type="file" ng-model="vm.fileContentAdded" ng-change="vm.addNewSeries()" file-reader="vm.fileContentAdded" />
+
+    <form>
+        <button ng-click="vm.updatePlotLineColor()">change</button>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-3">
+                    <label>Series 1 Color</label>
+                    <input type="text" class="form-control">
+                </div>
+                <div class="col-md-3">
+                    <label>Series 2 Color</label>
+                    <input type="text" class="form-control">
+                </div>
+                <div class="col-md-3">
+                    <label>Series 3 Color</label>
+                    <input type="text" class="form-control">
+                </div>
+            </div>
+        </div>
+    </form>
+
 <ul class="nav nav-tabs">
     <li class="nav-item">
-        <a class="nav-link active show" data-toggle="tab" href="#radar">Radar Chart</a>
+        <a class="nav-link active show" data-toggle="tab" data-target="#radar">Radar Chart</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link " data-toggle="tab" href="#textplot">Text Plot</a>
+        <a class="nav-link " data-toggle="tab" data-target="#textplot">Text Plot</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link " data-toggle="tab" href="#elephantplot">Elephant Plot</a>
+        <a class="nav-link " data-toggle="tab" data-target="#elephantplot">Elephant Plot</a>
     </li>
 </ul>
 <div id="myTabContent" class="tab-content" style="background-color:white">
     <div class="tab-pane fade active show" id="radar">
-        <radar-chart chart-config="vm.plotData"></radar-chart>
+        <radar-chart chart-config="vm.plotData"
+                     additional-series="vm.plotDataNewSeries"
+                     selected-features="vm.selectedFeatures"
+                     chart-config-filters = "vm.dataToUpdate"
+                     chart-config-labels = "vm.labels"
+        ></radar-chart>
     </div>
     <div class="tab-pane fade" id="textplot">
-        <text-plot chart-config="vm.plotData"></text-plot>
+        <text-plot chart-config="vm.plotData" additional-series="vm.plotDataNewSeries" features="vm.selectedFeatures"></text-plot>
     </div>
     <div class="tab-pane fade" id="elephantplot">
         <elephant-plot  chart-config="vm.elephantConfig"></elephant-plot>
