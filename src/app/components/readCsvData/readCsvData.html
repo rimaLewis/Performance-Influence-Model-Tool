@@ -3,7 +3,12 @@
     <div class="form-group">
 
         <input type="file" ng-model="vm.fileContent" ng-change="vm.radarAndTextPlotData()" file-reader="vm.fileContent" />
+        <label class="image-upload" for="file-input" ng-if="vm.fileContent">
+            <img src="../../icons/plus-sign-button.svg"/>&nbsp;&nbsp;Add a .csv file
+            <input  id="file-input" type="file" ng-model="vm.fileContentAdded" ng-change="vm.addNewSeries()" file-reader="vm.fileContentAdded" />
+        </label>
         <small id="fileHelp" class="form-text text-muted">Select and upload a .csv file. </small>
+
 
         <ul class="nav nav-pills" ng-if="vm.fileContent">
             <li class="nav-item dropdown">
@@ -43,7 +48,9 @@
 </div>
 
 <div ng-if="vm.fileContent">
-    <input type="file" ng-model="vm.fileContentAdded" ng-change="vm.addNewSeries()" file-reader="vm.fileContentAdded" />
+
+
+
 
 <ul class="nav nav-tabs">
     <li class="nav-item">

@@ -11,3 +11,19 @@
     /*background-color: white;*/
     color:black;
 }
+.image-upload > input
+{
+    display: none;
+}
+
+.image-upload img
+{
+
+    width: 25px;
+    cursor: pointer;
+}
+
+.image-upload{
+    margin-left:17%;
+    cursor: pointer;
+}
