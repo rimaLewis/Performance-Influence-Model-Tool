@@ -21,7 +21,25 @@
             </li>
         </ul>
 
-</div>
+        <ul class="nav nav-pills" ng-if="vm.fileContent">
+            <li class="nav-item dropdown">
+                <!--<a href="#" data-toggle="dropdown" class="dropdown-toggle">Select Performance Features<b class="caret"></b></a>-->
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Select Interactions</a>
+                <ul class="dropdown-menu">
+                    <li ng-repeat="interaction in vm.interactions track by $index">
+                        <div class="checkbox">
+                            <label>
+                                &nbsp;<input type="checkbox" ng-value="{{interaction}}" ng-model="vm.selectedInteractions[$index]">&nbsp;{{interaction}}
+                            </label>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+
+
+    </div>
 </div>
 
 <div ng-if="vm.fileContent">
@@ -43,6 +61,7 @@
         <radar-chart chart-config="vm.plotData"
                      additional-series="vm.plotDataNewSeries"
                      selected-features="vm.selectedFeatures"
+                     selected-interactions = "vm.selectedInteractions"
                      chart-config-filters = "vm.dataToUpdate"
                      chart-config-labels = "vm.labels"
         ></radar-chart>
@@ -51,6 +70,7 @@
         <text-plot chart-config="vm.plotData"
                    additional-series="vm.plotDataNewSeries"
                    textplot-selected-features="vm.selectedFeatures"
+                   selected-interactions = "vm.selectedInteractions"
                    textplot-chart-config-filters = "vm.dataToUpdate"
                    textplot-chart-config-labels = "vm.labels"
         ></text-plot>

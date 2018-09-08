@@ -11,6 +11,7 @@ export const RadarChartComponent = {
 		chartConfig : '<',
 		additionalSeries :'<?',
 		selectedFeatures :'<',
+		selectedInteractions : '<',
 		chartConfigFilters : '<',
 		chartConfigLabels : '<',
 	}

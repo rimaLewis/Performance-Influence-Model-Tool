@@ -21,6 +21,12 @@ class radarChartController {
 				this.addOrRemoveParams();
 			}
 		},true);
+
+		this.$scope.$watch('vm.selectedInteractions', (newValue) =>{
+			if(!isNil(newValue)){
+				this.addOrRemoveIneractions();
+			}
+		},true);
 	}
 
 	$onInit() {
@@ -29,15 +35,13 @@ class radarChartController {
 		this.renderChart();
 	}
 
-	addOrRemoveParams(){
+	addOrRemoveIneractions(){
 		var labels = cloneDeep(this.chartConfigLabels);
 		var oldSeries = cloneDeep(this.chartConfigFilters);
-		console.log('chartConfigFilters  ',this.chartConfigFilters);
 		/*
 		* oldSeries = [{name : String, data : array],
 		* 			   {name : String, data : array]
 		* 			  ]
-		*
 		* */
 		var newSeries = [];
 		var series = [];
@@ -45,30 +49,41 @@ class radarChartController {
 		// new series is nothing but oldseries,
 		// and if any value is false, remove them from the newSeries array
 
-		forOwn(this.chartConfigFilters, function(value, key) {
+		forOwn(this.chartConfigFilters, function(value) {
 			newSeries.push(value);
 		});
-		forOwn(this.selectedFeatures, function(value, key) {
-			if(value === false){
-				var pos = 0;
-				console.log(value +false, 'position', key);
 
-				console.log('labels before splicing', labels);
-				labels[key] = null;
-				console.log('labels after splicing', labels);
-				for(var i=0;i<oldSeries.length;i++)  // looping through each of series data - array
-				{
-					series = oldSeries[i];  // each of the series
-					console.log('series before splicing', series.data);
-					series.data[key]  = null;
-					console.log('series after splicing', series.data);
-					newSeries[pos] = {name : series.name, data: series.data};
-					pos++;
-				}
+		forOwn(this.selectedInteractions, function(value, key) {
+			var keyPos = key;
+			// selectedInteractions = {0:true, 1 :false};
+			if(value === false){
+
+
+
+				forEach(labels,function (label, j) {
+					var count;
+					if (!isNil(label)) {
+						count = (label.match(/\*/g) || []).length;
+						if (count === parseInt(keyPos)) {
+
+
+							var pos = 0;
+							labels[j] = null;
+							for(var i=0;i<oldSeries.length;i++)  // looping through each of series data - array
+							{
+								series = oldSeries[i];  // each of the series
+								series.data[j]  = null;
+								newSeries[pos] = {name : series.name, data: series.data};
+								pos++;
+							}
+
+
+						}
+					}
+				});
+
 			}
 		});
-
-		console.log('final, labels',newSeries, labels);
 
 		for(var j=0;j<newSeries.length;j++){
 			var data = newSeries[j].data;
@@ -85,7 +100,58 @@ class radarChartController {
 				return element !== null;
 			});
 		}
-		console.log(' %%%%% ',newSeries);
+		this.series = newSeries;
+		this.labels = labels;
+		this.renderChart();
+
+
+	}
+
+	addOrRemoveParams(){
+		var labels = cloneDeep(this.chartConfigLabels);
+		var oldSeries = cloneDeep(this.chartConfigFilters);
+		/*
+		* oldSeries = [{name : String, data : array],
+		* 			   {name : String, data : array]
+		* 			  ]
+		* */
+		var newSeries = [];
+		var series = [];
+
+		// new series is nothing but oldseries,
+		// and if any value is false, remove them from the newSeries array
+
+		forOwn(this.chartConfigFilters, function(value, key) {
+			newSeries.push(value);
+		});
+		forOwn(this.selectedFeatures, function(value, key) {
+			if(value === false){
+				var pos = 0;
+				labels[key] = null;
+				for(var i=0;i<oldSeries.length;i++)  // looping through each of series data - array
+				{
+					series = oldSeries[i];  // each of the series
+					series.data[key]  = null;
+					newSeries[pos] = {name : series.name, data: series.data};
+					pos++;
+				}
+			}
+		});
+		for(var j=0;j<newSeries.length;j++){
+			var data = newSeries[j].data;
+
+			data = data.filter(function( element ) {
+				return element !== null;
+			});
+
+			newSeries[j].data = data;
+		}
+		if(!isNil(labels)){
+
+			labels = labels.filter(function( element ) {
+				return element !== null;
+			});
+		}
 		this.series = newSeries;
 		this.labels = labels;
 		this.renderChart();
@@ -110,7 +176,6 @@ class radarChartController {
 	}
 
 	updatePlotLineColor(){
-		console.log('here');
 		this.PlotLineColor = 'yellow';
 		var series = this.chart.series[0];
 		series.color = this.PlotLineColor;

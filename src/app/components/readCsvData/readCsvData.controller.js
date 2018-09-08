@@ -1,4 +1,4 @@
-import {assign,forEach, isNil,isEmpty,isEqual} from 'lodash';
+import {assign,forEach, isNil,isEmpty,uniq} from 'lodash';
 
 
 class readCsvDataController {
@@ -10,6 +10,7 @@ class readCsvDataController {
 			if(!isNil(newValue)){
 				this.radarAndTextPlotData();
 				this.dataForFilters(this.fileContent);
+				this.dataForInteractions(this.fileContent);
 			}
 		});
 
@@ -36,10 +37,29 @@ class readCsvDataController {
 		this.normalizedValuesService = this.normalizedValuesService;
 		this.d3 = this.d3Service.getD3();
 		this.selectedFeatures = {};
+		this.selectedInteractions = {};
 		this.dataToUpdate = [];
 		this.indexForEditData = 0;
 	}
 
+	dataForInteractions(fileContent){
+		
+		var interactions = [];
+		var lines = fileContent.split('\n');
+		this.labels = lines[0].split(';');
+	    this.labels.shift();
+		console.log('this.labels -----------',this.labels);
+		forEach(this.labels,function (value){
+			var count = (value.match(/\*/g) || []).length;
+			interactions.push(count);
+		});
+		this.interactions =  uniq(interactions);
+		console.log(this.interactions);
+		this.interactions.forEach((d,i ) => {
+			this.selectedInteractions[i] = true ;
+		});
+
+	}
 
 	dataForFilters(dataToSplit){
 
@@ -47,6 +67,7 @@ class readCsvDataController {
 		this.labels = lines[0].split(';');
 		this.labels.shift();
 		this.listOfFeatures = this.labels;
+		console.log(this.selectedFeatures);
 		this.listOfFeatures.forEach((d,i ) => {
 			this.selectedFeatures[i] = true ;
 		});
@@ -80,25 +101,17 @@ class readCsvDataController {
 					var rounded = Math.round(scaled * 1000) / 1000;
 					normalizedArray.push(rounded);
 				});
-				console.log('normalizedArray ' , normalizedArray)
 				this.dataToUpdate[this.indexForEditData] = {name : 'Group ' + groupName, data: normalizedArray};
 				this.indexForEditData++;
 			}
 		}
-		console.log('this.dataToUpdate ------------',this.dataToUpdate);
 	}
 
 
 
 	addNewSeries(){
-		console.log('inside add new series');
 
 		//check if all the labels are same
-
-		/*console.log('old labels', this.labels,'new labels', this.newlabels);
-		var isCompatible = isEqual(this.newlabels ,this.labels);
-		console.log('isCompatible', isCompatible);*/
-
 
 		// if same compute the new series data
 		this.plotDataNewSeries = {};
