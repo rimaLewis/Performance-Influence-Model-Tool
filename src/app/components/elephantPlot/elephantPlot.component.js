@@ -9,5 +9,6 @@ export const ElephantPlotComponent = {
 	bindings :{
 		name : '@',
 		chartConfig: '<',
+		additionalSeries :'<?',
 	}
 };

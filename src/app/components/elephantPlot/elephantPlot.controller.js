@@ -9,6 +9,12 @@ class elephantPlotController {
 				this.showGraphs();
 			}
 		});
+
+		this.$scope.$watch('vm.additionalSeries', (newValue) =>{
+			if(!isNil(newValue)){
+				this.addNewSeries();
+			}
+		});
 	}
 
 
@@ -26,11 +32,15 @@ class elephantPlotController {
 	}
 
 
-
+	addNewSeries(){
+		this.series = this.additionalSeries.series;
+		this.labels = this.additionalSeries.labels;
+		this.renderChart();
+	}
 
 	renderChart() {
 
-		Highcharts.chart('container3', {
+		this.elephantPlot = Highcharts.chart('container3', {
 			chart: {
 				type: 'bar',
 				width:1000,

@@ -1,34 +1,25 @@
-import {assign,forEach, isNil,isEmpty,uniq,zip} from 'lodash';
+import {assign,forEach, isNil,isEmpty,uniq,zip,concat} from 'lodash';
 
 
 class readCsvDataController {
 	constructor($scope, normalizedValuesService,d3Service){
 		assign(this, {$scope, normalizedValuesService,d3Service});
 
-		this.$scope.$watch('vm.fileContent', (newValue) =>
-		{
+		this.$scope.$watch('vm.fileContent', (newValue) => {
 			if(!isNil(newValue)){
 				this.radarAndTextPlotData();
 				this.dataForFilters(this.fileContent);
 				this.dataForInteractions(this.fileContent);
-			}
-		});
-
-		this.$scope.$watch('vm.fileContent', (newValue) =>{
-			if(!isNil(newValue)) {
 				this.elephantPlotData();
 			}
 		});
 
-		this.$scope.$watch('vm.fileContentAdded', (newValue) =>
-		{
+		this.$scope.$watch('vm.fileContentAdded', (newValue) => {
 			if(!isNil(newValue)){
 				this.addNewSeries();
+				this.addNewSeriesElephant();
 			}
 		});
-
-
-
 	}
 
 
@@ -48,13 +39,11 @@ class readCsvDataController {
 		var lines = fileContent.split('\n');
 		this.labels = lines[0].split(';');
 	    this.labels.shift();
-		console.log('this.labels -----------',this.labels);
 		forEach(this.labels,function (value){
 			var count = (value.match(/\*/g) || []).length;
 			interactions.push(count);
 		});
 		this.interactions =  uniq(interactions);
-		console.log(this.interactions);
 		this.interactions.forEach((d,i ) => {
 			this.selectedInteractions[i] = true ;
 		});
@@ -67,7 +56,6 @@ class readCsvDataController {
 		this.labels = lines[0].split(';');
 		this.labels.shift();
 		this.listOfFeatures = this.labels;
-		console.log(this.selectedFeatures);
 		this.listOfFeatures.forEach((d,i ) => {
 			this.selectedFeatures[i] = true ;
 		});
@@ -107,18 +95,66 @@ class readCsvDataController {
 		}
 	}
 
-
-
 	addNewSeries(){
+		var fileContent = this.fileContentAdded;
+		this.labelsNew = this.csvToLabels(fileContent);
+		this.seriesNew = this.csvToChartData(fileContent);
+		this.plotDataNewSeries  = {labels : this.labelsNew, series: this.seriesNew};
+		this.dataForFilters(this.fileContentAdded);
 
-		//check if all the labels are same
+	}
 
-		// if same compute the new series data
-		this.plotDataNewSeries = {};
-		var lines = this.fileContentAdded.split('\n');
-		this.labelsNew = lines[0].split(';');
-		this.labelsNew.shift();
-		this.seriesNew = [];
+	addNewSeriesElephant(){
+		var newFileContent = this.fileContentAdded;
+		var oldFileContent = this.fileContent;
+
+		this.labelsOld = this.csvToLabels(oldFileContent);
+		this.seriesOld = this.csvToElephantData(oldFileContent);
+
+		this.labelsNew = this.csvToLabels(newFileContent);
+		this.seriesNew = this.csvToElephantData(newFileContent);
+
+		var finalArray = concat(this.seriesOld,this.seriesNew);
+		this.addNewElephantSeries = [];
+
+		var arrayData = [];
+		var groups = [];
+		for (var i = 0, l = finalArray.length; i < l; i++) {
+			groups.push(finalArray[i].name);
+			var obj1 = finalArray[i];
+			var obj2 = finalArray[i+1];
+			var obj3 = finalArray[i+2];
+			var obj4 = finalArray[i+3];
+			if(!isNil(obj1) && !isNil(obj2) && !isNil(obj3)&& !isNil(obj4)){
+
+				arrayData = zip(obj1.data,obj2.data,obj3.data,obj4.data);
+			}
+		}
+		var index = 0;
+		for(var k=0;k<this.labelsNew.length;k++){
+			this.addNewElephantSeries[index] = {name : this.labelsNew[k], data: arrayData[k], pointPlacement: 'on' };
+			index++;
+		}
+
+		this.plotNewSeriesElephant  = {labels : groups, series: this.addNewElephantSeries};
+
+	}
+
+	csvToLabels(data){
+		this.plotData = {};
+		var lines = data.split('\n');
+		var labels = lines[0].split(';');
+		labels.shift();
+		return labels;
+	}
+
+	csvToChartData(data){
+
+		this.plotData = {};
+		var lines = data.split('\n');
+		this.labels = lines[0].split(';');
+		this.labels.shift();
+		var series = [];
 		var groups;
 		var index = 0;
 		for(var i=1;i<lines.length;i++){
@@ -148,7 +184,7 @@ class readCsvDataController {
 					var rounded = Math.round(scaled * 1000) / 1000;
 					normalizedArray.push(rounded);
 				});
-				this.seriesNew[index] = {name : 'Group ' + groupName, data: normalizedArray, marker: {
+				series[index] = {name : 'Group ' + groupName, data: normalizedArray, marker: {
 					symbolCallback: function() {
 						if( this.y === 0)
 							return 'circle';
@@ -157,20 +193,17 @@ class readCsvDataController {
 				index++;
 			}
 		}
-		this.plotDataNewSeries  = {labels : this.labelsNew, series: this.seriesNew};
-		this.dataForFilters(this.fileContentAdded);
-		// if not throw an error
+		return series;
 
 	}
 
-	elephantPlotData(){
-
+	csvToElephantData(data){
 		this.elephantConfig = {};
-		var lines = this.fileContent.split('\n');
+		var lines = data.split('\n');
 		this.labels = lines[0].split(';');
 		this.labels.shift();
 
-		this.elephantSeries = [];
+		var elephantSeries = [];
 		var groups;
 		var index = 0;
 		for(var i=1;i<lines.length;i++){
@@ -190,26 +223,35 @@ class readCsvDataController {
 					var rounded = Math.round(newVal * 1000) / 1000;
 					finalArray.push(rounded);
 				});
-				this.elephantSeries[index] = {name : 'Group ' + groupName, data: finalArray, pointPlacement: 'on' };
+				elephantSeries[index] = {name : 'Group ' + groupName, data: finalArray, pointPlacement: 'on' };
 				index++;
 			}
 		}
+		return elephantSeries;
+
+	}
+
+	elephantPlotData(){
+		var fileContent = this.fileContent;
+		this.labels = this.csvToLabels(fileContent);
+		this.series = this.csvToElephantData(fileContent);
+		this.elephantSeries = [];
 
 		var arrayData = [];
 		var groups = [];
-		for (var i = 0, l = this.elephantSeries.length; i < l; i++) {
-			groups.push(this.elephantSeries[i].name);
-			var obj1 = this.elephantSeries[i];
-			var obj2 = this.elephantSeries[i+1];
+		for (var i = 0, l = this.series.length; i < l; i++) {
+			groups.push(this.series[i].name);
+			var obj1 = this.series[i];
+			var obj2 = this.series[i+1];
 			if(!isNil(obj1) && !isNil(obj2)){
 				arrayData = zip(obj1.data,obj2.data);
 			}
 		}
 
-		var index2 = 0;
+		var index = 0;
 		for(var k=0;k<this.labels.length;k++){
-			this.elephantSeries[index2] = {name : this.labels[k], data: arrayData[k], pointPlacement: 'on' };
-			index2++;
+			this.elephantSeries[index] = {name : this.labels[k], data: arrayData[k], pointPlacement: 'on' };
+			index++;
 		}
 
 		this.elephantConfig  = {labels : groups, series: this.elephantSeries};
@@ -217,50 +259,9 @@ class readCsvDataController {
 	}
 
 	radarAndTextPlotData(){
-
-		this.plotData = {};
-		var lines = this.fileContent.split('\n');
-		this.labels = lines[0].split(';');
-		this.labels.shift();
-		this.series = [];
-		var groups;
-		var index = 0;
-		for(var i=1;i<lines.length;i++){
-			groups = lines[i].split(';');
-			var groupName = groups[0];
-			groups.shift();
-			if(!isEmpty(groups))
-		{
-			//math.abs takes the absolute value only, +a converts string to int
-				var maxVal = this.d3.max(groups, function(d,i){
-					var a =  Math.abs(d);
-					return +a;
-				});
-				var minVal = this.d3.min(groups, function(d,i){
-					var a =  Math.abs(d);
-					return +a;
-				});
-
-			// linear scale is used to normalize values, domain is the range from max to min values, range is the output range
-				var scale = this.d3.scaleLinear();
-				scale.domain([minVal, maxVal]);
-				scale.range([0, 1]);
-
-				let normalizedArray = [];
-				forEach(groups, function(value) {
-					var scaled = scale(value);
-					var rounded = Math.round(scaled * 1000) / 1000;
-					normalizedArray.push(rounded);
-				});
-				this.series[index] = {name : 'Group ' + groupName, data: normalizedArray, marker: {
-					symbolCallback: function() {
-						if( this.y === 0)
-							return 'circle';
-					}
-				}, pointPlacement: 'on' };
-				index++;
-			}
-		}
+		var fileContent = this.fileContent;
+		this.labels = this.csvToLabels(fileContent);
+		this.series = this.csvToChartData(fileContent);
 		this.plotData  = {labels : this.labels, series: this.series};
 		this.normalizedValuesService.setNormalizedValues(this.plotData);
 	}
