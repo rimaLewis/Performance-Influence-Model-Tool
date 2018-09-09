@@ -25,7 +25,11 @@ class elephantPlotController {
 		this.renderChart();
 	}
 
+
+
+
 	renderChart() {
+
 		Highcharts.chart('container3', {
 			chart: {
 				type: 'bar',
@@ -69,7 +73,7 @@ class elephantPlotController {
 				}
 			},
 
-			series: this.series
+			series: (this.series),
 		});
 
 	}

@@ -1,4 +1,4 @@
-import {assign,forEach, isNil,isEmpty,uniq} from 'lodash';
+import {assign,forEach, isNil,isEmpty,uniq,zip} from 'lodash';
 
 
 class readCsvDataController {
@@ -195,7 +195,24 @@ class readCsvDataController {
 			}
 		}
 
-		this.elephantConfig  = {labels : this.labels, series: this.elephantSeries};
+		var arrayData = [];
+		var groups = [];
+		for (var i = 0, l = this.elephantSeries.length; i < l; i++) {
+			groups.push(this.elephantSeries[i].name);
+			var obj1 = this.elephantSeries[i];
+			var obj2 = this.elephantSeries[i+1];
+			if(!isNil(obj1) && !isNil(obj2)){
+				arrayData = zip(obj1.data,obj2.data);
+			}
+		}
+
+		var index2 = 0;
+		for(var k=0;k<this.labels.length;k++){
+			this.elephantSeries[index2] = {name : this.labels[k], data: arrayData[k], pointPlacement: 'on' };
+			index2++;
+		}
+
+		this.elephantConfig  = {labels : groups, series: this.elephantSeries};
 		this.normalizedValuesService.setDataForElephantPlot(this.elephantConfig);
 	}
 

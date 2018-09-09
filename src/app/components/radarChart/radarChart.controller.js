@@ -57,16 +57,11 @@ class radarChartController {
 			var keyPos = key;
 			// selectedInteractions = {0:true, 1 :false};
 			if(value === false){
-
-
-
 				forEach(labels,function (label, j) {
 					var count;
 					if (!isNil(label)) {
 						count = (label.match(/\*/g) || []).length;
 						if (count === parseInt(keyPos)) {
-
-
 							var pos = 0;
 							labels[j] = null;
 							for(var i=0;i<oldSeries.length;i++)  // looping through each of series data - array
@@ -76,12 +71,9 @@ class radarChartController {
 								newSeries[pos] = {name : series.name, data: series.data};
 								pos++;
 							}
-
-
 						}
 					}
 				});
-
 			}
 		});
 
