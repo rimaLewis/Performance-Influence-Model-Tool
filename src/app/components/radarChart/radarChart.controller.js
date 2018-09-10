@@ -1,8 +1,8 @@
 import {assign, isNil, forEach, forOwn, cloneDeep, compact} from 'lodash';
 
 class radarChartController {
-	constructor($scope,$window, normalizedValuesService,d3Service, $log, $timeout, toastr){
-		assign(this, {$scope,$window, normalizedValuesService,d3Service, $log, $timeout, toastr});
+	constructor($scope,$window, normalizedValuesService,d3Service, colorService, $log, $timeout, toastr){
+		assign(this, {$scope,$window, normalizedValuesService,d3Service, colorService, $log, $timeout, toastr});
 
 		this.$scope.$watch('vm.chartConfig', (newValue) =>{
 			if(!isNil(newValue)){
@@ -160,9 +160,11 @@ class radarChartController {
 	addNewSeries(){
 		var additionalSeries = this.additionalSeries.series;
 		for(var i=0; i<additionalSeries.length;i++){
+			var color = (this.colorService.getRandomColor()).rgb;
 			this.radarChart.addSeries({
 				name: additionalSeries[i].name,
 				data: additionalSeries[i].data,
+				color: color,
 			});
 		}
 	}

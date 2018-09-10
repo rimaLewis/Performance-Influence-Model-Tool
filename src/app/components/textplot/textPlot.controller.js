@@ -1,8 +1,8 @@
 import {assign, cloneDeep, forEach, forOwn, isNil} from 'lodash';
 
 class textPlotController {
-	constructor($scope, normalizedValuesService){
-		assign(this, {$scope, normalizedValuesService});
+	constructor($scope, normalizedValuesService, colorService){
+		assign(this, {$scope, normalizedValuesService, colorService});
 
 		this.$scope.$watch('vm.chartConfig', (newValue) =>{
 			if(!isNil(newValue)){
@@ -165,9 +165,11 @@ class textPlotController {
 	addNewSeries(){
 		var additionalSeries = this.additionalSeries.series;
 		for(var i=0; i<additionalSeries.length;i++){
+			var color = (this.colorService.getRandomColor()).rgb;
 			this.texplotChart.addSeries({
 				name: additionalSeries[i].name,
 				data: additionalSeries[i].data,
+				color,
 			});
 		}
 	}

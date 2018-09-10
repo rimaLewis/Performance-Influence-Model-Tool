@@ -14,6 +14,7 @@ import components from './components/components';
 import { AppComponent } from './app.component';
 import normalizedValuesService from './app.service';
 import D3Service from './d3.service';
+import colorsService from './colors.service';
 
 
 const root = angular
@@ -23,8 +24,9 @@ const root = angular
 	uiRouter,
 	common,
 	components,
-  ])
+])
   .component('app',AppComponent)
+	.service('colorService',colorsService)
 	.service('d3Service', D3Service)
 	.service('normalizedValuesService',normalizedValuesService)
   .name;
