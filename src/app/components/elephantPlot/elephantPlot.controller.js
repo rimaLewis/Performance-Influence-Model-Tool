@@ -35,8 +35,10 @@ class elephantPlotController {
 	addNewSeries(){
 		this.series = this.additionalSeries.series;
 		this.labels = this.additionalSeries.labels;
+		console.log(' this.additionalSeries', this.additionalSeries);
 		this.renderChart();
 	}
+
 
 	renderChart() {
 
@@ -50,14 +52,14 @@ class elephantPlotController {
 				text: 'Elephant Plot'
 			},
 			xAxis: {
-				tickmarkPlacement:'on',
+				// tickmarkPlacement:'on',
 				categories: this.labels,
 			},
 			yAxis: {
 				tickmarkPlacement:'on',
 				min: 0,
 				max: 1,
-				startOnTick: true,
+				startOnTick: false,
 				title: {
 					text: 'Total Performance'
 				}
@@ -79,7 +81,16 @@ class elephantPlotController {
 
 			plotOptions: {
 				series: {
-					stacking: 'normal'
+					stacking: 'normal',
+					events :{
+						hide: function(){
+							console.log('this series is hidden',this.processedYData, this.name);
+
+						},
+						show: function(){
+							console.log('this series is shown',this.processedYData,this.name);
+						}
+					}
 				}
 			},
 

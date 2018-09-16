@@ -159,6 +159,7 @@ class radarChartController {
 
 	addNewSeries(){
 		var additionalSeries = this.additionalSeries.series;
+		console.log(this.additionalSeries)
 		for(var i=0; i<additionalSeries.length;i++){
 			var color = (this.colorService.getRandomColor()).rgb;
 			this.radarChart.addSeries({
@@ -309,9 +310,6 @@ class radarChartController {
 						whiteSpace:'normal'//set to normal
 					},
 					step: 1,
-					/*formatter: function () {//use formatter
-						return '<div align="center" style="word-wrap: break-word;word-break: break-all;width:150px">' + this.value + '</div>';
-					}*/
 				},
 				lineWidth: 0,
 				align: 'center',

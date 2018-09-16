@@ -2,11 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d674602b-3c3b-4ae8-908f-49b5ca596e2b" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/app/colors.service.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/elephantPlot/elephantPlot.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/elephantPlot/elephantPlot.controller.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/components/radarChart/radarChart.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/radarChart/radarChart.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/readCsvData/readCsvData.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/readCsvData/readCsvData.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/readCsvData/readCsvData.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/readCsvData/readCsvData.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/components/textplot/textPlot.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/textplot/textPlot.controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/index.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -23,11 +24,9 @@
       <file leaf-file-name="radarChart.controller.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/components/radarChart/radarChart.controller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="168" column="9" lean-forward="true" selection-start-line="168" selection-start-column="9" selection-end-line="168" selection-end-column="9" />
+            <state relative-caret-position="204">
+              <caret line="12" column="64" lean-forward="true" selection-start-line="12" selection-start-column="64" selection-end-line="12" selection-end-column="64" />
               <folding>
-                <element signature="n#!!block;n#addOrRemoveIneractions#0;n#radarChartController#0" />
-                <element signature="n#!!block;n#addOrRemoveParams#0;n#radarChartController#0" />
                 <element signature="n#!!block;n#showGraphs#0;n#radarChartController#0" />
                 <element signature="n#!!block;n#updatePlotLineColor#0;n#radarChartController#0" />
                 <element signature="n#!!block;n#updatePlotLineColor2#0;n#radarChartController#0" />
@@ -39,11 +38,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="textPlot.controller.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="textPlot.controller.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/app/components/textplot/textPlot.controller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="254">
-              <caret line="171" column="22" selection-start-line="171" selection-start-column="22" selection-end-line="171" selection-end-column="22" />
+            <state relative-caret-position="236">
+              <caret line="210" column="19" lean-forward="true" selection-start-line="210" selection-start-column="19" selection-end-line="210" selection-end-column="19" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
@@ -54,11 +53,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="colors.service.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/app/colors.service.js">
+      <file leaf-file-name="readCsvData.component.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/app/components/readCsvData/readCsvData.component.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="9" column="28" selection-start-line="9" selection-start-column="28" selection-end-line="9" selection-end-column="28" />
+            <state relative-caret-position="34">
+              <caret line="3" column="37" selection-start-line="3" selection-start-column="37" selection-end-line="3" selection-end-column="37" />
             </state>
           </provider>
         </entry>
@@ -66,7 +65,7 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="291">
+            <state relative-caret-position="204">
               <caret line="28" column="26" selection-start-line="28" selection-start-column="14" selection-end-line="28" selection-end-column="26" />
               <folding>
                 <element signature="e#0#69#0" expanded="true" />
@@ -75,25 +74,15 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="app.service.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/app/app.service.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" column="5" selection-end-line="28" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="readCsvData.controller.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/components/readCsvData/readCsvData.controller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="69" column="13" lean-forward="true" selection-start-line="68" selection-start-column="32" selection-end-line="69" selection-end-column="13" />
+            <state relative-caret-position="199">
+              <caret line="217" column="30" selection-start-line="217" selection-start-column="13" selection-end-line="217" selection-end-column="30" />
               <folding>
+                <element signature="n#!!block;n#dataForInteractions#0;n#readCsvDataController#0" />
+                <element signature="n#!!block;n#dataForFilters#0;n#readCsvDataController#0" />
                 <element signature="n#!!block;n#addNewSeries#0;n#readCsvDataController#0" />
-                <element signature="n#!!block;n#csvToLabels#0;n#readCsvDataController#0" />
-                <element signature="n#!!block;n#csvToChartData#0;n#readCsvDataController#0" />
-                <element signature="n#!!block;n#csvToElephantData#0;n#readCsvDataController#0" />
                 <element signature="n#!!block;n#radarAndTextPlotData#0;n#readCsvDataController#0" />
               </folding>
             </state>
@@ -103,8 +92,8 @@
       <file leaf-file-name="readCsvData.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/components/readCsvData/readCsvData.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1309">
-              <caret line="77" column="29" selection-start-line="77" selection-start-column="19" selection-end-line="77" selection-end-column="29" />
+            <state relative-caret-position="136">
+              <caret line="8" column="16" lean-forward="true" selection-start-line="8" selection-start-column="16" selection-end-line="8" selection-end-column="16" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#div#1;n#!!top" expanded="true" />
               </folding>
@@ -115,8 +104,11 @@
       <file leaf-file-name="elephantPlot.controller.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/components/elephantPlot/elephantPlot.controller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="680">
-              <caret line="40" column="19" selection-start-line="40" selection-start-column="19" selection-end-line="40" selection-end-column="19" />
+            <state relative-caret-position="190">
+              <caret line="54" column="42" lean-forward="true" selection-start-line="54" selection-start-column="42" selection-end-line="54" selection-end-column="42" />
+              <folding>
+                <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -124,7 +116,7 @@
       <file leaf-file-name="radarChart.component.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/components/radarChart/radarChart.component.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
+            <state relative-caret-position="187">
               <caret line="11" column="31" lean-forward="true" selection-start-line="11" selection-start-column="8" selection-end-line="11" selection-end-column="31" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
@@ -133,11 +125,20 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="textPlot.component.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/app/components/textplot/textPlot.component.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="11" column="31" lean-forward="true" selection-start-line="11" selection-start-column="31" selection-end-line="11" selection-end-column="31" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="elephantPlot.component.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/components/elephantPlot/elephantPlot.component.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="170">
-              <caret line="11" column="24" selection-start-line="11" selection-start-column="8" selection-end-line="11" selection-end-column="24" />
+              <caret line="11" column="31" lean-forward="true" selection-start-line="11" selection-start-column="31" selection-end-line="11" selection-end-column="31" />
             </state>
           </provider>
         </entry>
@@ -146,36 +147,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>foreach</find>
-      <find>forEach</find>
-      <find>series</find>
-      <find>toast</find>
-      <find>wrap</find>
-      <find>color</find>
-      <find>xaxi</find>
-      <find>pank</find>
-      <find>additionalSeries</find>
-      <find>updatePlotData</find>
-      <find>setofAllSeries</find>
-      <find>split</find>
-      <find>updatePl</find>
-      <find>devtool</find>
-      <find>filter</find>
-      <find>compact</find>
       <find>dataForInteraction</find>
       <find>this.dataTo</find>
-      <find>dataToUpdate</find>
       <find>chartConfigFilters</find>
       <find>selectedFeatures</find>
       <find>eleph</find>
       <find>index</find>
-      <find>plotDataNewSeries</find>
       <find>radarChart</find>
       <find>console.l</find>
       <find>console</find>
       <find>dataForFilters</find>
-      <find>indexForEditData</find>
       <find>normalizedValuesService</find>
+      <find>plotDataNewSeries</find>
+      <find>interac</find>
+      <find>type=&quot;fi</find>
+      <find>recalculateData</find>
+      <find>getOptions</find>
+      <find>renderer</find>
+      <find>addNewSeries</find>
+      <find>dataToUpdate</find>
+      <find>indexForEditData</find>
+      <find>wrap</find>
+      <find>addNewSeriesElephantPlot</find>
+      <find>groups</find>
+      <find>additional</find>
+      <find>labelsNew</find>
+      <find>this.labelsNew</find>
+      <find>arrayData</find>
+      <find>dataToUpdateElephant</find>
+      <find>elephantConfigNew</find>
+      <find>yaxis</find>
     </findStrings>
     <replaceStrings>
       <replace>$ctrl</replace>
@@ -238,13 +239,13 @@
         <option value="$PROJECT_DIR$/src/app/components/textplot/textPlot.component.js" />
         <option value="$PROJECT_DIR$/src/app/components/readCsvData/readCsvData.css" />
         <option value="$PROJECT_DIR$/src/app/components/elephantPlot/elephantPlot.component.js" />
+        <option value="$PROJECT_DIR$/src/app/index.js" />
+        <option value="$PROJECT_DIR$/src/app/colors.service.js" />
+        <option value="$PROJECT_DIR$/src/app/components/radarChart/radarChart.controller.js" />
+        <option value="$PROJECT_DIR$/src/app/components/readCsvData/readCsvData.controller.js" />
         <option value="$PROJECT_DIR$/src/app/components/readCsvData/readCsvData.html" />
         <option value="$PROJECT_DIR$/src/app/components/elephantPlot/elephantPlot.controller.js" />
-        <option value="$PROJECT_DIR$/src/app/components/readCsvData/readCsvData.controller.js" />
-        <option value="$PROJECT_DIR$/src/app/index.js" />
-        <option value="$PROJECT_DIR$/src/app/components/radarChart/radarChart.controller.js" />
         <option value="$PROJECT_DIR$/src/app/components/textplot/textPlot.controller.js" />
-        <option value="$PROJECT_DIR$/src/app/colors.service.js" />
       </list>
     </option>
   </component>
@@ -306,6 +307,30 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="elephantPlot" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Performance-Influence-Model-Tool" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Performance-Influence-Model-Tool" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="radarChart" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Performance-Influence-Model-Tool" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Performance-Influence-Model-Tool" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="readCsvData" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Performance-Influence-Model-Tool" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Performance-Influence-Model-Tool" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
               <item name="textplot" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
@@ -315,7 +340,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="SearchEverywhereHistoryKey" value="web&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/webpack.config.js&#10;eslint.json&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/.eslintrc.json&#10;packa&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/package.json&#10;pack&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/package.json&#10;webp&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/webpack.config.js&#10;package.json&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/package.json&#10;package&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/package.json&#10;packag&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/package.json&#10;eslint.&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/.eslintrc.json&#10;eslin&#9;null&#9;null&#10;env&#9;null&#9;null&#10;webpa&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/webpack.config.js&#10;lifec&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/node_modules/@angular/core/src/metadata/lifecycle_hooks.d.ts&#10;webpack&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/webpack.config.js&#10;read&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/src/app/components/readCsvData/readCsvData.html&#10;home&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/src/app/components/home/home.html&#10;index.js&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/src/app/components/readCsvData/index.js&#10;user.ser&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/src/app/components/users/users.service.js&#10;style&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/src/style/style.css&#10;app.js&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/src/app/app.js&#10;inde&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/src/index.html&#10;pac&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/package.json&#10;index.html&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/src/index.html&#10;package.j&#9;FILE&#9;file://C:/Users/Rima/Desktop/seed/my-angular-webpack/package.json&#10;app&#9;FILE&#9;file://C:/Users/Rima/Desktop/seed/my-angular-webpack/src/app/app.js&#10;materialize.min&#9;FILE&#9;file://C:/Users/Rima/Desktop/seed/my-angular-webpack/node_modules/materialize-css/dist/css/materialize.min.css" />
+    <property name="SearchEverywhereHistoryKey" value="index.html&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/src/index.html&#10;web&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/webpack.config.js&#10;eslint.json&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/.eslintrc.json&#10;packa&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/package.json&#10;pack&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/package.json&#10;webp&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/webpack.config.js&#10;package.json&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/package.json&#10;package&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/package.json&#10;packag&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/package.json&#10;eslint.&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/.eslintrc.json&#10;eslin&#9;null&#9;null&#10;env&#9;null&#9;null&#10;webpa&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/webpack.config.js&#10;lifec&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/node_modules/@angular/core/src/metadata/lifecycle_hooks.d.ts&#10;webpack&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/webpack.config.js&#10;read&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/src/app/components/readCsvData/readCsvData.html&#10;home&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/src/app/components/home/home.html&#10;index.js&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/src/app/components/readCsvData/index.js&#10;user.ser&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/src/app/components/users/users.service.js&#10;style&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/src/style/style.css&#10;app.js&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/src/app/app.js&#10;inde&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/src/index.html&#10;pac&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/package.json&#10;package.j&#9;FILE&#9;file://C:/Users/Rima/Desktop/seed/my-angular-webpack/package.json&#10;app&#9;FILE&#9;file://C:/Users/Rima/Desktop/seed/my-angular-webpack/src/app/app.js&#10;materialize.min&#9;FILE&#9;file://C:/Users/Rima/Desktop/seed/my-angular-webpack/node_modules/materialize-css/dist/css/materialize.min.css" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
@@ -398,18 +423,21 @@
       <workItem from="1536419217332" duration="6127000" />
       <workItem from="1536481565440" duration="2620000" />
       <workItem from="1536485106093" duration="18022000" />
-      <workItem from="1536566832881" duration="1491000" />
+      <workItem from="1536566832881" duration="6256000" />
+      <workItem from="1536821750946" duration="2795000" />
+      <workItem from="1537000157133" duration="3364000" />
+      <workItem from="1537089884899" duration="14080000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="394053000" />
+    <option name="totallyTimeSpent" value="419057000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24404761" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2217262" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50074404" side_tool="true" weight="0.27887788" />
@@ -418,7 +446,7 @@
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.49925596" visible="true" weight="0.2972136" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" sideWeight="0.49925596" visible="true" weight="0.48142415" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="TypeScript" order="8" />
@@ -434,18 +462,18 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info id="npm" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.23809524" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24404761" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="TypeScript" order="11" />
-      <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49925596" weight="0.19814241" />
+      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49925596" weight="0.2972136" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50074404" side_tool="true" weight="0.27887788" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32972136" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -459,7 +487,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="15" />
+      <option name="time" value="16" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -624,13 +652,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/components/home/home.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" selection-start-line="12" selection-end-line="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.eslintrc.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -645,20 +666,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="24" column="19" selection-start-line="24" selection-start-column="19" selection-end-line="24" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/components/textplot/textPlot.component.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="13" column="28" selection-start-line="13" selection-start-column="8" selection-end-line="13" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/app/icons/plus-sign-button.svg">
       <provider selected="true" editor-type-id="images" />
     </entry>
@@ -669,68 +676,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/components/radarChart/radarChart.html">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/components/readCsvData/readCsvData.component.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="3" column="37" selection-start-line="3" selection-start-column="37" selection-end-line="3" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/app/components/elephantPlot/elephantPlot.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="4" column="31" selection-start-line="4" selection-start-column="21" selection-end-line="4" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/components/elephantPlot/elephantPlot.component.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="11" column="24" selection-start-line="11" selection-start-column="8" selection-end-line="11" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/components/readCsvData/readCsvData.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1309">
-          <caret line="77" column="29" selection-start-line="77" selection-start-column="19" selection-end-line="77" selection-end-column="29" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#1;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/components/radarChart/radarChart.component.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="11" column="31" lean-forward="true" selection-start-line="11" selection-start-column="8" selection-end-line="11" selection-end-column="31" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/components/elephantPlot/elephantPlot.controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="680">
-          <caret line="40" column="19" selection-start-line="40" selection-start-column="19" selection-end-line="40" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/components/readCsvData/readCsvData.controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="69" column="13" lean-forward="true" selection-start-line="68" selection-start-column="32" selection-end-line="69" selection-end-column="13" />
-          <folding>
-            <element signature="n#!!block;n#addNewSeries#0;n#readCsvDataController#0" />
-            <element signature="n#!!block;n#csvToLabels#0;n#readCsvDataController#0" />
-            <element signature="n#!!block;n#csvToChartData#0;n#readCsvDataController#0" />
-            <element signature="n#!!block;n#csvToElephantData#0;n#readCsvDataController#0" />
-            <element signature="n#!!block;n#radarAndTextPlotData#0;n#readCsvDataController#0" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -741,9 +690,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="73" selection-start-line="9" selection-start-column="73" selection-end-line="9" selection-end-column="73" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/components/home/home.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" selection-start-line="12" selection-end-line="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/components/radarChart/radarChart.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/app/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="291">
+        <state relative-caret-position="204">
           <caret line="28" column="26" selection-start-line="28" selection-start-column="14" selection-end-line="28" selection-end-column="26" />
           <folding>
             <element signature="e#0#69#0" expanded="true" />
@@ -751,26 +717,25 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/components/textplot/textPlot.controller.js">
+    <entry file="file://$PROJECT_DIR$/src/app/colors.service.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="254">
-          <caret line="171" column="22" selection-start-line="171" selection-start-column="22" selection-end-line="171" selection-end-column="22" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
-          </folding>
+        <state relative-caret-position="-606">
+          <caret line="9" column="28" selection-start-line="9" selection-start-column="28" selection-end-line="9" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/components/readCsvData/readCsvData.component.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="3" column="37" selection-start-line="3" selection-start-column="37" selection-end-line="3" selection-end-column="37" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/app/components/radarChart/radarChart.controller.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="168" column="9" lean-forward="true" selection-start-line="168" selection-start-column="9" selection-end-line="168" selection-end-column="9" />
+        <state relative-caret-position="204">
+          <caret line="12" column="64" lean-forward="true" selection-start-line="12" selection-start-column="64" selection-end-line="12" selection-end-column="64" />
           <folding>
-            <element signature="n#!!block;n#addOrRemoveIneractions#0;n#radarChartController#0" />
-            <element signature="n#!!block;n#addOrRemoveParams#0;n#radarChartController#0" />
             <element signature="n#!!block;n#showGraphs#0;n#radarChartController#0" />
             <element signature="n#!!block;n#updatePlotLineColor#0;n#radarChartController#0" />
             <element signature="n#!!block;n#updatePlotLineColor2#0;n#radarChartController#0" />
@@ -781,10 +746,73 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/colors.service.js">
+    <entry file="file://$PROJECT_DIR$/src/app/components/radarChart/radarChart.component.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="9" column="28" selection-start-line="9" selection-start-column="28" selection-end-line="9" selection-end-column="28" />
+        <state relative-caret-position="187">
+          <caret line="11" column="31" lean-forward="true" selection-start-line="11" selection-start-column="8" selection-end-line="11" selection-end-column="31" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/components/textplot/textPlot.component.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="11" column="31" lean-forward="true" selection-start-line="11" selection-start-column="31" selection-end-line="11" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/components/elephantPlot/elephantPlot.component.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="11" column="31" lean-forward="true" selection-start-line="11" selection-start-column="31" selection-end-line="11" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/components/readCsvData/readCsvData.controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="199">
+          <caret line="217" column="30" selection-start-line="217" selection-start-column="13" selection-end-line="217" selection-end-column="30" />
+          <folding>
+            <element signature="n#!!block;n#dataForInteractions#0;n#readCsvDataController#0" />
+            <element signature="n#!!block;n#dataForFilters#0;n#readCsvDataController#0" />
+            <element signature="n#!!block;n#addNewSeries#0;n#readCsvDataController#0" />
+            <element signature="n#!!block;n#radarAndTextPlotData#0;n#readCsvDataController#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/components/readCsvData/readCsvData.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="16" lean-forward="true" selection-start-line="8" selection-start-column="16" selection-end-line="8" selection-end-column="16" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#1;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/components/elephantPlot/elephantPlot.controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="54" column="42" lean-forward="true" selection-start-line="54" selection-start-column="42" selection-end-line="54" selection-end-column="42" />
+          <folding>
+            <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/components/textplot/textPlot.controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="236">
+          <caret line="210" column="19" lean-forward="true" selection-start-line="210" selection-start-column="19" selection-end-line="210" selection-end-column="19" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

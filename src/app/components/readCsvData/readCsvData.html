@@ -2,10 +2,10 @@
 <textarea ng-model="vm.fileContent" ng-change="vm.radarAndTextPlotData()" rows="4" cols="75" placeholder="Paste your csv file contents here..."></textarea>
     <div class="form-group">
 
-        <input type="file" ng-model="vm.fileContent" ng-change="vm.radarAndTextPlotData()" file-reader="vm.fileContent" />
+        <input type="file"  accept=".csv" ng-model="vm.fileContent" ng-change="vm.radarAndTextPlotData()" file-reader="vm.fileContent" />
         <label class="image-upload" for="file-input" ng-if="vm.fileContent">
             <img src="../../icons/plus-sign-button.svg"/>&nbsp;&nbsp;Add a .csv file
-            <input  id="file-input" type="file" ng-model="vm.fileContentAdded" ng-change="vm.addNewSeries()" file-reader="vm.fileContentAdded" />
+            <input  id="file-input" accept=".csv" type="file" ng-model="vm.fileContentAdded" ng-change="vm.addNewSeries()" file-reader="vm.fileContentAdded" />
         </label>
         <small id="fileHelp" class="form-text text-muted">Select and upload a .csv file. </small>
 
@@ -84,7 +84,7 @@
     </div>
     <div class="tab-pane fade" id="elephantplot">
         <elephant-plot  chart-config="vm.elephantConfig"
-                        additional-series=" vm.plotNewSeriesElephant"></elephant-plot>
+                        additional-series=" vm.elephantConfigNew"></elephant-plot>
     </div>
 </div>
 </div>
