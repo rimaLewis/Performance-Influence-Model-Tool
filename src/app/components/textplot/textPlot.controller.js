@@ -238,8 +238,8 @@ class textPlotController {
 			},
 
 			xAxis: [{
-				startOnTick: false,
-				endOnTick: false,
+				startOnTick: true,
+				endOnTick: true,
 				gridLineColor: '#a2aba0',
 				gridLineDashStyle: 'dash',
 				categories: this.labels,

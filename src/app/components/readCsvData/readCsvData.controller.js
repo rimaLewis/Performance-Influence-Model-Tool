@@ -44,6 +44,9 @@ class readCsvDataController {
 
 		// for elephant plot
 		this.dataToUpdateElephant = [];
+		this.allCsvData = [];
+		this.allGroups = [];
+		this.allLabels = [];
 	}
 
 	dataForInteractions(fileContent){
@@ -52,13 +55,11 @@ class readCsvDataController {
 		var lines = fileContent.split('\n');
 		this.labels = lines[0].split(';');
 		this.labels.shift();
-		console.log('this.labels -----------',this.labels);
 		forEach(this.labels,function (value){
 			var count = (value.match(/\*/g) || []).length;
 			interactions.push(count);
 		});
 		this.interactions =  uniq(interactions);
-		console.log(this.interactions);
 		this.interactions.forEach((d,i ) => {
 			this.selectedInteractions[i] = true ;
 		});
@@ -71,7 +72,6 @@ class readCsvDataController {
 		this.labels = lines[0].split(';');
 		this.labels.shift();
 		this.listOfFeatures = this.labels;
-		console.log(this.selectedFeatures);
 		this.listOfFeatures.forEach((d,i ) => {
 			this.selectedFeatures[i] = true ;
 		});
@@ -163,9 +163,11 @@ class readCsvDataController {
 		this.dataForFilters(this.fileContentAdded);
 	}
 
+
 	addNewSeriesElephantPlot(){
 
 		var lines = this.fileContentAdded.split('\n');
+
 		var labelsNew = lines[0].split(';');
 		labelsNew.shift();
 		this.dataToUpdateElephant = [];
@@ -178,6 +180,7 @@ class readCsvDataController {
 			groups.shift();
 			if(!isEmpty(groups))
 			{
+				this.allCsvData.push(groups);
 				//math.abs takes the absolute value only, +a converts string to int
 				var additionVal = this.d3.sum(groups, function(value){
 					return Math.abs(value);
@@ -203,21 +206,18 @@ class readCsvDataController {
 				arrayData =zip(obj1.data,obj2.data) ;
 			}
 		}
-
+		this.allGroups.push(this.groups);
 		// append the old data with new data of new csv file
 		for(var j=0;j<this.arrayData.length;j++){
 			this.arrayData[j].push.apply(this.arrayData[j], arrayData[j]);
 		}
 
-		console.log(labelsNew,this.arrayData);
 		for(var k=0;k<labelsNew.length;k++){
 			this.dataToUpdateElephant[index2] = {name : labelsNew[k], data: this.arrayData[k], pointPlacement: 'on' };
 			index2++;
 		}
-
 		this.elephantConfigNew  = {labels : this.groups, series: this.dataToUpdateElephant};
-
-		console.log('additional series ele plot',this.dataToUpdateElephant);
+		this.normalizedValuesService.setAllSeriesForElephantPlot(this.elephantConfigNew);
 	}
 
 	elephantPlotData(){
@@ -225,8 +225,8 @@ class readCsvDataController {
 		this.elephantConfig = {};
 		var lines = this.fileContent.split('\n');
 		this.labels = lines[0].split(';');
+		this.allLabels = this.labels;
 		this.labels.shift();
-
 		this.elephantSeries = [];
 		var groups;
 		var index = 0;
@@ -236,6 +236,8 @@ class readCsvDataController {
 			groups.shift();
 			if(!isEmpty(groups))
 			{
+				this.allCsvData.push(groups);
+
 				//math.abs takes the absolute value only, +a converts string to int
 				var additionVal = this.d3.sum(groups, function(value){
 					return Math.abs(value);
@@ -262,14 +264,13 @@ class readCsvDataController {
 				this.arrayData = zip(obj1.data,obj2.data);
 			}
 		}
-
 		var index2 = 0;
 		for(var k=0;k<this.labels.length;k++){
 			this.elephantSeries[index2] = {name : this.labels[k], data: this.arrayData[k], pointPlacement: 'on' };
 			index2++;
 		}
-		console.log('groups',this.groups);
 		this.elephantConfig  = {labels : this.groups, series: this.elephantSeries};
+		this.normalizedValuesService.setAllSeriesForElephantPlot(this.elephantConfig);
 		this.normalizedValuesService.setDataForElephantPlot(this.elephantConfig);
 	}
 

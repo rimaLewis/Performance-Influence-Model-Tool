@@ -32,7 +32,6 @@ class radarChartController {
 	$onInit() {
 		this.d3 = this.d3Service.getD3();
 		this.data = [];
-		this.renderChart();
 	}
 
 	addOrRemoveIneractions(){
@@ -159,7 +158,6 @@ class radarChartController {
 
 	addNewSeries(){
 		var additionalSeries = this.additionalSeries.series;
-		console.log(this.additionalSeries)
 		for(var i=0; i<additionalSeries.length;i++){
 			var color = (this.colorService.getRandomColor()).rgb;
 			this.radarChart.addSeries({
@@ -375,6 +373,9 @@ class radarChartController {
 				layout: 'vertical'
 			},
 			series : this.series,
+			exporting: {
+				showTable: true
+			}
 
 		});
 

@@ -70,8 +70,9 @@
                      selected-features="vm.selectedFeatures"
                      selected-interactions = "vm.selectedInteractions"
                      chart-config-filters = "vm.dataToUpdate"
-                     chart-config-labels = "vm.labels"
-        ></radar-chart>
+                     chart-config-labels = "vm.labels">
+
+        </radar-chart>
     </div>
     <div class="tab-pane fade" id="textplot">
         <text-plot chart-config="vm.plotData"
@@ -79,12 +80,18 @@
                    textplot-selected-features="vm.selectedFeatures"
                    selected-interactions = "vm.selectedInteractions"
                    textplot-chart-config-filters = "vm.dataToUpdate"
-                   textplot-chart-config-labels = "vm.labels"
-        ></text-plot>
+                   textplot-chart-config-labels = "vm.labels">
+
+        </text-plot>
     </div>
     <div class="tab-pane fade" id="elephantplot">
         <elephant-plot  chart-config="vm.elephantConfig"
-                        additional-series=" vm.elephantConfigNew"></elephant-plot>
+                        additional-series=" vm.elephantConfigNew"
+                        all-csv-data="vm.allCsvData"
+                        all-groups="vm.groups"
+                        all-labels ="vm.allLabels"
+                        selected-features="vm.selectedFeatures">
+        </elephant-plot>
     </div>
 </div>
 </div>

@@ -10,5 +10,9 @@ export const ElephantPlotComponent = {
 		name : '@',
 		chartConfig: '<',
 		additionalSeries :'<?',
+		allCsvData : '<',
+		allGroups : '<',
+		allLabels :'<',
+		selectedFeatures :'<',
 	}
 };

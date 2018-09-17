@@ -1,8 +1,8 @@
-import {assign, isNil} from 'lodash';
+import {assign, forEach, isNil, zip, cloneDeep, forOwn, isEmpty} from 'lodash';
 
 class elephantPlotController {
-	constructor($scope, normalizedValuesService){
-		assign(this, {$scope, normalizedValuesService});
+	constructor($scope, normalizedValuesService,d3Service){
+		assign(this, {$scope, normalizedValuesService,d3Service});
 
 		this.$scope.$watch('vm.chartConfig', (newValue) =>{
 			if(!isNil(newValue)){
@@ -15,8 +15,17 @@ class elephantPlotController {
 				this.addNewSeries();
 			}
 		});
+
+		this.$scope.$watch('vm.selectedFeatures', (newValue) =>{
+			if(!isNil(newValue)){
+				this.addOrRemoveParams();
+			}
+		},true);
 	}
 
+	$onInit(){
+		this.d3 = this.d3Service.getD3();
+	}
 
 	showGraphs(){
 		this.data = this.normalizedValuesService.getDataForElephantPlot();
@@ -25,16 +34,87 @@ class elephantPlotController {
 		this.renderPlot();
 	}
 
-	addNewSeries(){
-		this.series = this.additionalSeries.series;
-		this.labels = this.additionalSeries.labels;
-		console.log(' this.additionalSeries', this.additionalSeries);
+	addOrRemoveParams(){
+
+		var index2 =0;
+		var index= 0;
+		console.log(this.allCsvData);
+		var allData = cloneDeep(this.allCsvData);
+
+		var newElephantSeries = [];
+		this.updatedSeries = [];
+		var d3 = this.d3;
+
+
+		for(var i=0; i< allData.length;i++){
+			//math.abs takes the absolute value only, +a converts string to int
+			var additionVal = this.d3.sum(allData[i], function(value){
+				return Math.abs(value);
+			});
+
+			var finalArray = [];
+			forEach(allData[i], function(value) {
+				var newVal = Math.abs(value) / additionVal;
+				var rounded = Math.round(newVal * 1000) / 1000;
+				finalArray.push(rounded);
+			});
+			newElephantSeries[index] = { data: finalArray, pointPlacement: 'on' };
+			index++;
+		}
+
+		forOwn(this.selectedFeatures, function(value, key) {
+			if(value === false){
+				for(var a=0; a< allData.length;a++){
+					const eachGroupData =  (allData[a]);
+					eachGroupData[key] = '0';
+					var additionVal = d3.sum(eachGroupData, function(value){
+						return Math.abs(value);
+					});
+
+					var finalArray = [];
+					forEach(eachGroupData, function(value) {
+						var newVal = Math.abs(value) / additionVal;
+						var rounded = Math.round(newVal * 1000) / 1000;
+						finalArray.push(rounded);
+					});
+					newElephantSeries[index2] = { data: finalArray, pointPlacement: 'on' };
+					index2++;
+				}
+			}
+		});
+
+		this.arrayData = [];
+		for (var i = 0, l = newElephantSeries.length; i < l; i++) {
+			var obj1 = newElephantSeries[i];
+			var obj2 = newElephantSeries[i+1];
+			if(!isNil(obj1) && !isNil(obj2)){
+				this.arrayData = zip(obj1.data,obj2.data);
+			}
+		}
+		var index3 = 0;
+		if(this.arrayData.length !==0 ){
+			for(var k=0;k<this.allLabels.length;k++){
+				this.updatedSeries[index3] = {name : this.allLabels[k], data: this.arrayData[k], pointPlacement: 'on' };
+				index3++;
+			}
+		}
+
+		this.series = this.updatedSeries;
+		console.log(this.updatedSeries);
+		this.labels = this.allGroups;
 		this.renderPlot();
 	}
 
+	addNewSeries(){
+		this.series = this.additionalSeries.series;
+		this.labels = this.additionalSeries.labels;
+		this.renderPlot();
+	}
+
+
+
 	renderPlot(){
-		const data = this.series;
-		const labels = this.labels;
+		const that = this;
 		var me = {
 			init: function(){
 				me.hijackHighcharts();
@@ -51,8 +131,9 @@ class elephantPlotController {
 					title: {
 						text: 'Elephant Plot'
 					},
+
 					xAxis: {
-						categories: labels,
+						categories: that.labels,
 					},
 
 					yAxis: {
@@ -64,30 +145,13 @@ class elephantPlotController {
 							text: 'Total Performance'
 						},
 						reversedStacks: false,
-						stackLabels: {
-							enabled: true,
-						}
+
 					},
 
-					/*plotOptions: {
-						bar: {
-							stacking: 'normal'
-						}
-					},*/
 					plotOptions: {
 						series: {
 							stacking: 'normal',
-							events :{
-								hide: function(){
-									console.log('this series is hidden',this.processedYData, this.name);
-									me.init();
 
-								},
-								show: function(){
-									console.log('this series is shown',this.processedYData,this.name);
-									me.init();
-								}
-							}
 						}
 					},
 
@@ -107,7 +171,7 @@ class elephantPlotController {
 					tooltip: {
 						followPointer: true, // keeps the tooltip with the current block
 					},
-					series: data,
+					series: that.series,
 				});
 			},
 			/**
@@ -163,7 +227,6 @@ class elephantPlotController {
 			}
 		};
 		me.init();
-
 	}
 
 	renderChart() {
@@ -210,11 +273,9 @@ class elephantPlotController {
 					stacking: 'normal',
 					events :{
 						hide: function(){
-							console.log('this series is hidden',this.processedYData, this.name);
 
 						},
 						show: function(){
-							console.log('this series is shown',this.processedYData,this.name);
 						}
 					}
 				}
