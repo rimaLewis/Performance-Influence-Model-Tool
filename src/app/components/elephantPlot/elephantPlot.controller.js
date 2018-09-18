@@ -35,10 +35,6 @@ class elephantPlotController {
 	}
 
 	addOrRemoveParams(){
-
-		var index2 =0;
-		var index= 0;
-		console.log(this.allCsvData);
 		var allData = cloneDeep(this.allCsvData);
 
 		var newElephantSeries = [];
@@ -58,12 +54,12 @@ class elephantPlotController {
 				var rounded = Math.round(newVal * 1000) / 1000;
 				finalArray.push(rounded);
 			});
-			newElephantSeries[index] = { data: finalArray, pointPlacement: 'on' };
-			index++;
+			newElephantSeries.push(finalArray);
 		}
 
 		forOwn(this.selectedFeatures, function(value, key) {
 			if(value === false){
+				newElephantSeries = [];
 				for(var a=0; a< allData.length;a++){
 					const eachGroupData =  (allData[a]);
 					eachGroupData[key] = '0';
@@ -77,20 +73,13 @@ class elephantPlotController {
 						var rounded = Math.round(newVal * 1000) / 1000;
 						finalArray.push(rounded);
 					});
-					newElephantSeries[index2] = { data: finalArray, pointPlacement: 'on' };
-					index2++;
+					newElephantSeries.push(finalArray);
 				}
 			}
 		});
 
 		this.arrayData = [];
-		for (var i = 0, l = newElephantSeries.length; i < l; i++) {
-			var obj1 = newElephantSeries[i];
-			var obj2 = newElephantSeries[i+1];
-			if(!isNil(obj1) && !isNil(obj2)){
-				this.arrayData = zip(obj1.data,obj2.data);
-			}
-		}
+		this.arrayData = zip(...newElephantSeries);
 		var index3 = 0;
 		if(this.arrayData.length !==0 ){
 			for(var k=0;k<this.allLabels.length;k++){
@@ -100,7 +89,6 @@ class elephantPlotController {
 		}
 
 		this.series = this.updatedSeries;
-		console.log(this.updatedSeries);
 		this.labels = this.allGroups;
 		this.renderPlot();
 	}

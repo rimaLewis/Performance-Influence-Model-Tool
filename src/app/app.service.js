@@ -20,14 +20,11 @@ export  default class normalizedValuesService {
 
 	setAllSeriesForElephantPlot(data){
 		this.allSeriesEPlot.push(data);
-		console.log('after setting the data in service', this.allSeriesEPlot);
 	}
-
-
+	
 	getAllSeriesForElephantPlot(){
 		return this.allSeriesEPlot;
 	}
-
 
 
 	setNormalizedValues(data) {

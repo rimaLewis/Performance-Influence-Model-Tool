@@ -373,9 +373,9 @@ class radarChartController {
 				layout: 'vertical'
 			},
 			series : this.series,
-			exporting: {
+			/*exporting: {
 				showTable: true
-			}
+			}*/
 
 		});
 

@@ -192,20 +192,14 @@ class readCsvDataController {
 					var rounded = Math.round(newVal * 1000) / 1000;
 					finalArray.push(rounded);
 				});
-				this.dataToUpdateElephant[index] = {name : 'Group ' + groupName, data: finalArray, pointPlacement: 'on' };
-				index++;
+				this.dataToUpdateElephant.push(finalArray);
+				const name = 'Group ' + groupName;
+				this.groups.push(name);
 			}
 		}
 
 		var arrayData = [];
-		for (var i = 0, l = this.dataToUpdateElephant.length; i < l; i++) {
-			this.groups.push(this.dataToUpdateElephant[i].name);
-			var obj1 = this.dataToUpdateElephant[i];
-			var obj2 = this.dataToUpdateElephant[i+1];
-			if(!isNil(obj1) && !isNil(obj2)){
-				arrayData =zip(obj1.data,obj2.data) ;
-			}
-		}
+		arrayData =zip(...this.dataToUpdateElephant) ;
 		this.allGroups.push(this.groups);
 		// append the old data with new data of new csv file
 		for(var j=0;j<this.arrayData.length;j++){
@@ -228,6 +222,7 @@ class readCsvDataController {
 		this.allLabels = this.labels;
 		this.labels.shift();
 		this.elephantSeries = [];
+		this.groups = [];
 		var groups;
 		var index = 0;
 		for(var i=1;i<lines.length;i++){
@@ -249,21 +244,14 @@ class readCsvDataController {
 					var rounded = Math.round(newVal * 1000) / 1000;
 					finalArray.push(rounded);
 				});
-				this.elephantSeries[index] = {name : 'Group ' + groupName, data: finalArray, pointPlacement: 'on' };
-				index++;
+				this.elephantSeries.push(finalArray);
+				const name = 'Group ' + groupName;
+				this.groups.push(name);
 			}
 		}
 
 		this.arrayData = [];
-		this.groups = [];
-		for (var i = 0, l = this.elephantSeries.length; i < l; i++) {
-			this.groups.push(this.elephantSeries[i].name);
-			var obj1 = this.elephantSeries[i];
-			var obj2 = this.elephantSeries[i+1];
-			if(!isNil(obj1) && !isNil(obj2)){
-				this.arrayData = zip(obj1.data,obj2.data);
-			}
-		}
+		this.arrayData = zip(...this.elephantSeries);
 		var index2 = 0;
 		for(var k=0;k<this.labels.length;k++){
 			this.elephantSeries[index2] = {name : this.labels[k], data: this.arrayData[k], pointPlacement: 'on' };
