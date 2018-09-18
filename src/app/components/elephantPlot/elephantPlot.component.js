@@ -14,5 +14,6 @@ export const ElephantPlotComponent = {
 		allGroups : '<',
 		allLabels :'<',
 		selectedFeatures :'<',
+		selectedInteractions : '<',
 	}
 };

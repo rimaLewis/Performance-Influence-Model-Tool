@@ -21,6 +21,14 @@ class elephantPlotController {
 				this.addOrRemoveParams();
 			}
 		},true);
+
+		this.$scope.$watch('vm.selectedInteractions', (newValue) =>{
+			if(!isNil(newValue)){
+				this.addOrRemoveInteractions();
+			}
+		},true);
+
+
 	}
 
 	$onInit(){
@@ -34,16 +42,80 @@ class elephantPlotController {
 		this.renderPlot();
 	}
 
+	addOrRemoveInteractions(){
+
+		var allData = cloneDeep(this.allCsvData);
+		var newSeriesEP = [];
+		var labels = this.allLabels;
+		this.updatedSeriesEP = [];
+		var d3 = this.d3;
+
+		for(var i=0; i< allData.length;i++){
+			var additionVal = this.d3.sum(allData[i], function(value){
+				return Math.abs(value);
+			});
+
+			var finalArray = [];
+			forEach(allData[i], function(value) {
+				var newVal = Math.abs(value) / additionVal;
+				var rounded = Math.round(newVal * 1000) / 1000;
+				finalArray.push(rounded);
+			});
+			newSeriesEP.push(finalArray);
+		}
+
+		forOwn(this.selectedInteractions, function(value, key) {
+			if(value === false){
+				var keyPos = key;
+				forEach(labels,function (label, j) {
+					var count;
+					if (!isNil(label)) {
+						count = (label.match(/\*/g) || []).length;
+						if (count === parseInt(keyPos)) {
+							newSeriesEP = [];
+							for(var a=0; a< allData.length;a++){
+								const eachGroupData =  (allData[a]);
+								eachGroupData[j] = '0';
+								var additionVal = d3.sum(eachGroupData, function(value){
+									return Math.abs(value);
+								});
+
+								var finalArray = [];
+								forEach(eachGroupData, function(value) {
+									var newVal = Math.abs(value) / additionVal;
+									var rounded = Math.round(newVal * 1000) / 1000;
+									finalArray.push(rounded);
+								});
+								newSeriesEP.push(finalArray);
+							}
+						}
+					}
+				});
+			}
+		});
+
+		this.arrayDataNew = [];
+		this.arrayDataNew = zip(...newSeriesEP);
+		var index3 = 0;
+		if(this.arrayDataNew.length !==0 ){
+			for(var k=0;k<this.allLabels.length;k++){
+				this.updatedSeriesEP[index3] = {name : this.allLabels[k], data: this.arrayDataNew[k], pointPlacement: 'on' };
+				index3++;
+			}
+		}
+
+		this.series = this.updatedSeriesEP;
+		this.labels = this.allGroups;
+		this.renderPlot();
+	}
+
 	addOrRemoveParams(){
 		var allData = cloneDeep(this.allCsvData);
-
 		var newElephantSeries = [];
 		this.updatedSeries = [];
 		var d3 = this.d3;
 
-
 		for(var i=0; i< allData.length;i++){
-			//math.abs takes the absolute value only, +a converts string to int
 			var additionVal = this.d3.sum(allData[i], function(value){
 				return Math.abs(value);
 			});

@@ -21,7 +21,7 @@ export  default class normalizedValuesService {
 	setAllSeriesForElephantPlot(data){
 		this.allSeriesEPlot.push(data);
 	}
-	
+
 	getAllSeriesForElephantPlot(){
 		return this.allSeriesEPlot;
 	}
