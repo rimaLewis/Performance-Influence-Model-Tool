@@ -14,5 +14,6 @@ export const TextPlotComponent = {
 		selectedInteractions : '<',
 		textplotChartConfigFilters : '<',
 		textplotChartConfigLabels : '<',
+		chartVizInfo :'<'
 	}
 };

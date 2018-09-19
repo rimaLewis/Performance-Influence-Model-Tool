@@ -41,18 +41,38 @@
                 </ul>
             </li>
         </ul>
-
-
-
+        <table border="1"  ng-if="vm.fileContent" class="blueTable">
+            <thead>
+            <tr>
+                <th ng-repeat="column in vm.configElementHeaders"
+                    ng-init="isXX = column.indexOf('XX') === 0">
+                    <span ng-if="isXX">{{column.substring(3).replace('_', ' ')}}</span>
+                    <span ng-if="!isXX">{{column}}</span>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="row in vm.configElement">
+                <td ng-repeat="column in vm.configElementHeaders" ng-init="isXX = column.indexOf('XX') === 0">
+                    <div ng-if="isXX" >
+                        <span> </span>
+                        <div ng-switch="row[column].type">
+                            <color-picker ng-switch-when="INPUT_TYPE" ng-model="row[column].lineColor"></color-picker>
+                            <input min="1" ng-switch-when='NUMBER_INPUT' ng-model="row[column].lineWidth" type="number" />
+                        </div>
+                    </div>
+                    <div ng-if="!isXX" >
+                        <span> {{row[column]}}</span>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 
 <div ng-if="vm.fileContent">
-
-
-
-
-<ul class="nav nav-tabs">
+    <ul class="nav nav-tabs">
     <li class="nav-item">
         <a class="nav-link active show" data-toggle="tab" data-target="#radar">Radar Chart</a>
     </li>
@@ -70,7 +90,8 @@
                      selected-features="vm.selectedFeatures"
                      selected-interactions = "vm.selectedInteractions"
                      chart-config-filters = "vm.dataToUpdate"
-                     chart-config-labels = "vm.labels">
+                     chart-config-labels = "vm.labels"
+                     chart-viz-info ="vm.configElement">
 
         </radar-chart>
     </div>
@@ -80,7 +101,8 @@
                    textplot-selected-features="vm.selectedFeatures"
                    selected-interactions = "vm.selectedInteractions"
                    textplot-chart-config-filters = "vm.dataToUpdate"
-                   textplot-chart-config-labels = "vm.labels">
+                   textplot-chart-config-labels = "vm.labels"
+                   chart-viz-info ="vm.configElement">
 
         </text-plot>
     </div>

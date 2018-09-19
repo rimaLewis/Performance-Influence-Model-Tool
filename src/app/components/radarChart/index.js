@@ -3,7 +3,7 @@ import { RadarChartComponent} from './radarChart.component';
 import './radarChart.css';
 
 const radarchart = angular
-	.module('radarchart', [])
+	.module('radarchart', ['color.picker'])
 	.component('radarChart', RadarChartComponent)
 	.name;
 

@@ -1,4 +1,4 @@
-import {assign, cloneDeep, forEach, forOwn, isNil} from 'lodash';
+import {assign, cloneDeep, forEach, forOwn, isNil, map} from 'lodash';
 
 class textPlotController {
 	constructor($scope, normalizedValuesService, colorService){
@@ -28,8 +28,36 @@ class textPlotController {
 			}
 		},true);
 
+		this.$scope.$watch('vm.chartVizInfo', (newValue) =>{
+			if(!isNil(newValue)){
+				this.updateChartVisualization();
+			}
+		},true);
 
 	}
+
+	updateChartVisualization(){
+		const lineColor = map(map(this.chartVizInfo, 'XX_LINE_COLOR'), 'lineColor');
+		const lineWidth = map(map(this.chartVizInfo, 'XX_LINE_WIDTH'), 'lineWidth');
+		this.texplotChart.series.forEach((value,i) => {
+			value.color = lineColor[i];
+			value.graph.attr({
+				stroke: lineColor[i]
+			});
+			// value.lineWidth = lineWidth[i],
+			/*	value.update({
+					lineWidth: lineWidth[i],
+				});*/
+			this.texplotChart.legend.colorizeItem(value, value.visible);
+			/*$.each(value.data, function(i, point) {
+				point.graphic.attr({
+					fill: lineColor[i]
+				});
+			});*/
+			value.redraw();
+		});
+	}
+
 
 	addOrRemoveIneractions(){
 		var labels = cloneDeep(this.textplotChartConfigLabels);

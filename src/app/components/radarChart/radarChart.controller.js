@@ -1,4 +1,4 @@
-import {assign, isNil, forEach, forOwn, cloneDeep, compact} from 'lodash';
+import {assign, isNil, forEach, forOwn, cloneDeep, map} from 'lodash';
 
 class radarChartController {
 	constructor($scope,$window, normalizedValuesService,d3Service, colorService, $log, $timeout, toastr){
@@ -27,11 +27,39 @@ class radarChartController {
 				this.addOrRemoveIneractions();
 			}
 		},true);
+
+		this.$scope.$watch('vm.chartVizInfo', (newValue) =>{
+			if(!isNil(newValue)){
+				this.updateChartVisualization();
+			}
+		},true);
 	}
 
 	$onInit() {
 		this.d3 = this.d3Service.getD3();
 		this.data = [];
+	}
+
+	updateChartVisualization(){
+		const lineColor = map(map(this.chartVizInfo, 'XX_LINE_COLOR'), 'lineColor');
+		const lineWidth = map(map(this.chartVizInfo, 'XX_LINE_WIDTH'), 'lineWidth');
+		this.radarChart.series.forEach((value,i) => {
+			value.color = lineColor[i];
+			value.graph.attr({
+				stroke: lineColor[i]
+			});
+			// value.lineWidth = lineWidth[i],
+		/*	value.update({
+				lineWidth: lineWidth[i],
+			});*/
+			this.radarChart.legend.colorizeItem(value, value.visible);
+			$.each(value.data, function(i, point) {
+				point.graphic.attr({
+					fill: lineColor[i]
+				});
+			});
+			value.redraw();
+		});
 	}
 
 	addOrRemoveIneractions(){
@@ -182,6 +210,9 @@ class radarChartController {
 			});
 		});
 		series.redraw();
+
+
+
 		this.toastr.success('Chart Updated', 'Radar Chart');
 	}
 

@@ -1,9 +1,11 @@
 import angular from 'angular';
 import { readCsvDataComponent} from './readCsvData.component';
+import 'angularjs-color-picker';
+import 'angularjs-color-picker/dist/angularjs-color-picker.css';
 import './readCsvData.css';
 
 const readCsvData = angular
-	.module('readCsvData', [])
+	.module('readCsvData', ['color.picker'])
 	.component('readcsvdata', readCsvDataComponent)
 	.directive('fileReader', function() {
 		return {

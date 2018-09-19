@@ -1,4 +1,4 @@
-import {assign,forEach, isNil,isEmpty,uniq,zip} from 'lodash';
+import {assign,forEach, isNil,isEmpty,uniq,zip, map} from 'lodash';
 
 
 class readCsvDataController {
@@ -28,12 +28,14 @@ class readCsvDataController {
 			}
 		});
 
-
-
 	}
 
 
 	$onInit(){
+
+		this.configElement= [];
+		this.configElementHeaders = ['GROUP','XX_LINE_WIDTH','XX_LINE_COLOR'];
+
 		this.d3 = this.d3Service.getD3();
 		this.selectedFeatures = {};
 		this.selectedInteractions = {};
@@ -48,6 +50,7 @@ class readCsvDataController {
 		this.allGroups = [];
 		this.allLabels = [];
 	}
+
 
 	dataForInteractions(fileContent){
 
@@ -109,6 +112,28 @@ class readCsvDataController {
 				this.indexForEditData++;
 			}
 		}
+
+		this.setTableConfigData();
+	}
+	setTableConfigData(){
+	    const groups = map(this.dataToUpdate, 'name');
+		this.configElement = [];
+		groups.forEach(value => {
+			const newElement = {
+				'GROUP': value,
+				'XX_LINE_WIDTH':{
+					'type': [
+						'NUMBER_INPUT'
+					],
+				},
+				'XX_LINE_COLOR': {
+					'type': [
+						'INPUT_TYPE'
+					],
+				}
+			};
+			this.configElement.push(newElement);
+		});
 	}
 
 	addNewSeries(){
@@ -310,6 +335,8 @@ class readCsvDataController {
 		this.plotData  = {labels : this.labels, series: this.series};
 		this.normalizedValuesService.setNormalizedValues(this.plotData);
 	}
+
+
 
 }
 
