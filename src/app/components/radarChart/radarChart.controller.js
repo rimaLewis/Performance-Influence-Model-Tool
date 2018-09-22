@@ -1,7 +1,9 @@
 import {assign, isNil, forEach, forOwn, cloneDeep, map} from 'lodash';
 
+
+
 class radarChartController {
-	constructor($scope,$window, normalizedValuesService,d3Service, colorService, $log, $timeout, toastr){
+	constructor($scope,$window, normalizedValuesService,d3Service ,colorService, $log, $timeout, toastr){
 		assign(this, {$scope,$window, normalizedValuesService,d3Service, colorService, $log, $timeout, toastr});
 
 		this.$scope.$watch('vm.chartConfig', (newValue) =>{
@@ -35,6 +37,7 @@ class radarChartController {
 		},true);
 	}
 
+
 	$onInit() {
 		this.d3 = this.d3Service.getD3();
 		this.data = [];
@@ -48,7 +51,8 @@ class radarChartController {
 			value.graph.attr({
 				stroke: lineColor[i]
 			});
-			// value.lineWidth = lineWidth[i],
+			value.lineWidth = lineWidth[i];
+			console.log(lineWidth[i]);
 		/*	value.update({
 				lineWidth: lineWidth[i],
 			});*/
@@ -179,9 +183,19 @@ class radarChartController {
 
 	showGraphs(){
 		this.data = this.normalizedValuesService.getNormalizedValues();
+
+		this.data.series.forEach(function(obj) { obj.marker ={
+			symbolCallback: function() {
+				if( this.y === 0)
+					return 'circle';
+			}
+		};});
+
 		this.series = this.data.series;
+		console.log('series',this.series);
 		this.labels = this.data.labels;
 		this.renderChart();
+		this.toastr.success('Chart Updated', 'Radar Chart');
 	}
 
 	addNewSeries(){
@@ -196,64 +210,23 @@ class radarChartController {
 		}
 	}
 
-	updatePlotLineColor(){
-		this.PlotLineColor = 'yellow';
-		var series = this.chart.series[0];
-		series.color = this.PlotLineColor;
-		series.graph.attr({
-			stroke: this.PlotLineColor
-		});
-		this.chart.legend.colorizeItem(series, series.visible);
-		$.each(series.data, function(i, point) {
-			point.graphic.attr({
-				fill: this.PlotLineColor
-			});
-		});
-		series.redraw();
-
-
-
-		this.toastr.success('Chart Updated', 'Radar Chart');
-	}
-
-	updatePlotLineColor2(){
-		var series = this.chart.series[1];
-		series.color = this.PlotLineColor2;
-		series.graph.attr({
-			stroke: this.PlotLineColor2,
-		});
-		this.chart.legend.colorizeItem(series, series.visible);
-		$.each(series.data, function(i, point) {
-			point.graphic.attr({
-				fill: this.PlotLineColor2
-			});
-		});
-		series.redraw();
-		this.toastr.success('Chart Updated', 'Radar Chart');
-	}
-
-	updateLineWidth(){
-		this.chart.update({
-			plotOptions: {
-				series: {
-					lineWidth: this.PlotLineWidth,
-				}
-			},
-		});
-	}
 
 	renderChart(){
 
 		Highcharts.wrap(Highcharts.Series.prototype, 'drawPoints', function(p) {
+			console.log('inside the markerfn');
 
 			const options = this.options;
 			const symbolCallback = options.marker && options.marker.symbolCallback;
 			const points = this.points;
-
+			console.log('points', points);
 			if (symbolCallback && points.length) {
 				points.forEach(point => {
+
 					const symbol = symbolCallback.call(point);
+
 					if (symbol) {
+						console.log('each symbol ---------', symbol);
 						point.update({
 							marker: {
 								fillColor: '#FFFFFF',

@@ -19,24 +19,26 @@ var isProd = ENV === 'build';
 
 /*
 * Webpack requires a config objects to set all the defaults
-* We are returning a self invoked function that returns the 
+* We are returning a self invoked function that returns the
 * config object below
 */
 
 module.exports = (function makeWebpackConfig () {
 
-	var config = {};
+	var config = {
+		mode:'development',
+	};
 
 	config.entry = {
 		app: './src/app/index.js'
 	};
-  
-  
+
+
 	config.output = {
 		path: path.resolve(__dirname, './dist'),
 		publicPath: isProd ? '/' : 'http://localhost:8080/',
 		filename: isProd ? '[name].[hash].js' : '[name].bundle.js',
-		chunkFilename: isProd ? '[name].[hash].js' : '[name].bundle.js'
+		chunkFilename: isProd ? '[name].[hash].js' : '[name].bundle.js',
 	};
 
 	if (isProd) {
@@ -46,60 +48,61 @@ module.exports = (function makeWebpackConfig () {
 	}
 
 	config.resolve = {
-		modulesDirectories: [
+		modules: [
 			'node_modules',
 			'src/'
 		]
 	};
 
 	config.module = {
-		preLoaders: [],
-		loaders: [{
+		// rules: [],
+		rules: [{
 			test: /\.js$/,
-			loaders: ['ng-annotate', 'babel'],
+			loaders:  ['ng-annotate-loader', 'babel-loader'],
 			exclude: /node_modules/
 		}, {
 			test: /\.css$/,
-			loaders: ['style', 'css?sourceMap']
+			loaders: ['style-loader', 'css-loader?sourceMap']
 		},
 		{
 			test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)$/,
-			loader: 'file'
-		}, {
+			loader: 'url-loader'
+		},
+		{
 			test: /\.html$/,
-			loader: 'html?minimize=false',
+			loader: 'html-loader?minimize=false',
 			exclude: /index\.html/
 		}]
 	};
 
 	config.plugins = [];
-  
-	config.plugins.push(
-    new HtmlWebpackPlugin({
-	title: 'Performance Evaluation Tool',
-	template: './src/index.html',
-	inject: 'body'
-})
-  );
 
-  // run if build phase
+	config.plugins.push(
+		new HtmlWebpackPlugin({
+			title: 'Performance Evaluation Tool',
+			template: './src/index.html',
+			inject: 'body'
+		})
+	);
+
+	// run if build phase
 	if (isProd) {
 		config.plugins.push(
-      new webpack.NoErrorsPlugin(),
-      new webpack.optimize.DedupePlugin(),
-      new webpack.optimize.UglifyJsPlugin(),
-      new CopyWebpackPlugin([{
-	from: path.resolve(__dirname, './src')
-}], { ignore: ['*.html'] })
-    );
+			new webpack.NoErrorsPlugin(),
+			new webpack.optimize.DedupePlugin(),
+			new webpack.optimize.UglifyJsPlugin(),
+			new CopyWebpackPlugin([{
+				from: path.resolve(__dirname, './src')
+			}], { ignore: ['*.html'] })
+		);
 	}
 
-  // set dev server for testing options
+	// set dev server for testing options
 	config.devServer = {
 		contentBase: './src',
 		stats: 'minimal'
 	};
 
-  // return config object
+	// return config object
 	return config;
 }());

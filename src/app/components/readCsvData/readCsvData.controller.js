@@ -2,8 +2,8 @@ import {assign,forEach, isNil,isEmpty,uniq,zip, map} from 'lodash';
 
 
 class readCsvDataController {
-	constructor($scope, normalizedValuesService,d3Service){
-		assign(this, {$scope, normalizedValuesService,d3Service});
+	constructor($scope, normalizedValuesService,d3Service,$mdSidenav,$element){
+		assign(this, {$scope, normalizedValuesService,d3Service,$mdSidenav,$element});
 
 		this.$scope.$watch('vm.fileContent', (newValue) =>
 		{
@@ -31,7 +31,15 @@ class readCsvDataController {
 	}
 
 
+
+
 	$onInit(){
+
+
+		this.vegetables = ['Corn' ,'Onions' ,'Kale' ,'Arugula' ,'Peas', 'Zucchini'];
+		this.searchTerm = '';
+
+		// The md-select directive eats keydown events for some quick select
 
 		this.configElement= [];
 		this.configElementHeaders = ['GROUP','XX_LINE_WIDTH','XX_LINE_COLOR'];
@@ -51,6 +59,14 @@ class readCsvDataController {
 		this.allLabels = [];
 	}
 
+
+	clearSearchTerm() {
+		this.searchTerm = '';
+	}
+
+	openLeftMenu () {
+		this.$mdSidenav('left').toggle();
+	}
 
 	dataForInteractions(fileContent){
 
@@ -115,6 +131,7 @@ class readCsvDataController {
 
 		this.setTableConfigData();
 	}
+
 	setTableConfigData(){
 	    const groups = map(this.dataToUpdate, 'name');
 		this.configElement = [];
@@ -175,19 +192,13 @@ class readCsvDataController {
 					var rounded = Math.round(scaled * 1000) / 1000;
 					normalizedArray.push(rounded);
 				});
-				this.seriesNew[index] = {name : 'Group ' + groupName, data: normalizedArray, marker: {
-					symbolCallback: function() {
-						if( this.y === 0)
-							return 'circle';
-					}
-				}, pointPlacement: 'on' };
+				this.seriesNew[index] = {name : 'Group ' + groupName, data: normalizedArray };
 				index++;
 			}
 		}
 		this.plotDataNewSeries  = {labels : this.labelsNew, series: this.seriesNew};
 		this.dataForFilters(this.fileContentAdded);
 	}
-
 
 	addNewSeriesElephantPlot(){
 
@@ -287,6 +298,12 @@ class readCsvDataController {
 		this.normalizedValuesService.setDataForElephantPlot(this.elephantConfig);
 	}
 
+
+	/**
+	 * Constructor for <code>AjaxRequest</code> class
+	 * @param url the url for the request<p/>
+	 */
+
 	radarAndTextPlotData(){
 
 		this.plotData = {};
@@ -323,21 +340,13 @@ class readCsvDataController {
 					var rounded = Math.round(scaled * 1000) / 1000;
 					normalizedArray.push(rounded);
 				});
-				this.series[index] = {name : 'Group ' + groupName, data: normalizedArray, marker: {
-					symbolCallback: function() {
-						if( this.y === 0)
-							return 'circle';
-					}
-				}, pointPlacement: 'on' };
+				this.series[index] = {name : 'Group ' + groupName, data: normalizedArray };
 				index++;
 			}
 		}
 		this.plotData  = {labels : this.labels, series: this.series};
 		this.normalizedValuesService.setNormalizedValues(this.plotData);
 	}
-
-
-
 }
 
 export default readCsvDataController;
