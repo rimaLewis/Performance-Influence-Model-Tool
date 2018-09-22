@@ -18,13 +18,15 @@ class textPlotController {
 
 		this.$scope.$watch('vm.textplotSelectedFeatures', (newValue) =>{
 			if(!isNil(newValue)){
-				this.editSeries();
+				const type = 'features';
+				this.setDataToOriginalData(type);
 			}
 		},true);
 
 		this.$scope.$watch('vm.selectedInteractions', (newValue) =>{
 			if(!isNil(newValue)){
-				this.addOrRemoveIneractions();
+				const type = 'interactions';
+				this.setDataToOriginalData(type);
 			}
 		},true);
 
@@ -36,6 +38,15 @@ class textPlotController {
 
 	}
 
+	$onInit(){
+		this.Highcharts = Highcharts;
+		this.data = [];
+		this.renderChart();
+	}
+
+	/**
+	 * update the line color of each chart when a color from color picker is selected
+	 */
 	updateChartVisualization(){
 		const lineColor = map(map(this.chartVizInfo, 'XX_LINE_COLOR'), 'lineColor');
 		const lineWidth = map(map(this.chartVizInfo, 'XX_LINE_WIDTH'), 'lineWidth');
@@ -45,102 +56,94 @@ class textPlotController {
 				stroke: lineColor[i]
 			});
 			// value.lineWidth = lineWidth[i],
-			/*	value.update({
-					lineWidth: lineWidth[i],
-				});*/
 			this.texplotChart.legend.colorizeItem(value, value.visible);
-			/*$.each(value.data, function(i, point) {
-				point.graphic.attr({
-					fill: lineColor[i]
-				});
-			});*/
 			value.redraw();
 		});
 	}
 
 
-	addOrRemoveIneractions(){
+	/**
+	 * oldSeries = [{name : String, data : array],
+	 * 			   {name : String, data : array]
+	 * 			  ]
+	 *new series is nothing but oldseries,
+	 * and if any value is false, remove them from the newSeries array
+	 * @param type 'features' or 'interactions'
+	 */
+	setDataToOriginalData(type){
 		var labels = cloneDeep(this.textplotChartConfigLabels);
 		var oldSeries = cloneDeep(this.textplotChartConfigFilters);
-
-		var newSeries = [];
-		var series = [];
-
-		// new series is nothing but oldseries,
-		// and if any value is false, remove them from the newSeries array
-
+		const that = this;
+		this.newSeries = [];
 		forOwn(this.textplotChartConfigFilters, function(value) {
-			newSeries.push(value);
+			that.newSeries.push(value);
 		});
 
-		forOwn(this.selectedInteractions, function(value, key) {
-			var keyPos = key;
-			// selectedInteractions = {0:true, 1 :false};
-			if(value === false){
-				forEach(labels,function (label, j) {
-					var count;
-					if (!isNil(label)) {
-						count = (label.match(/\*/g) || []).length;
-						if (count === parseInt(keyPos)) {
-							var pos = 0;
-							labels[j] = null;
-							for(var i=0;i<oldSeries.length;i++)  // looping through each of series data - array
-							{
-								series = oldSeries[i];  // each of the series
-								series.data[j]  = null;
-								newSeries[pos] = {name : series.name, data: series.data};
-								pos++;
-							}
-
-						}
-					}
-				});
-
-			}
-		});
-
-		for(var j=0;j<newSeries.length;j++){
-			var data = newSeries[j].data;
-
-			data = data.filter(function( element ) {
-				return element !== null;
-			});
-
-			newSeries[j].data = data;
+		if(type === 'features'){
+			this.addOrRemoveParams(labels,oldSeries);
+		}else if (type === 'interactions'){
+			this.addOrRemoveIneractions(labels,oldSeries);
 		}
-		if(!isNil(labels)){
 
+		if(!isNil(this.newSeries)) {
+			for (let i = 0; i < this.newSeries.length;i++) {
+				var data = this.newSeries[i].data;
+				data = data.filter(function (element) {
+					return element !== null;
+				});
+				this.newSeries[i].data = data;
+			}
+		}
+
+		if(!isNil(labels)){
 			labels = labels.filter(function( element ) {
 				return element !== null;
 			});
 		}
-		this.series = newSeries;
+		this.series = this.newSeries;
 		this.labels = labels;
 		this.renderChart();
-
-
-
 	}
 
-
-	editSeries(){
-		var labels = cloneDeep(this.textplotChartConfigLabels);
-		var oldSeries = cloneDeep(this.textplotChartConfigFilters);
-		/*
-		* oldSeries = [{name : String, data : array],
-		* 			   {name : String, data : array]
-		* 			  ]
-		*
-		* */
-		var newSeries = [];
-		var series = [];
-
-		// new series is nothing but oldseries,
-		// and if any value is false, remove them from the newSeries array
-
-		forOwn(this.textplotChartConfigFilters, function(value, key) {
-			newSeries.push(value);
+	/**
+	 *
+	 * @param labels - array of original labels
+	 * @param oldSeries - array of original series
+	 */
+	addOrRemoveIneractions(labels,oldSeries){
+		let series;
+		const that = this;
+		forOwn(this.selectedInteractions, function(value, key) {
+			if(value === false){
+				forEach(labels,function (label, j) {
+					let count;
+					if (!isNil(label)) {
+						count = (label.match(/\*/g) || []).length;
+						if (count === parseInt(key)) {
+							let pos = 0;
+							labels[j] = null;
+							for(let i=0;i<oldSeries.length;i++)  // looping through each of series data - array
+							{
+								series = oldSeries[i];  // each of the series
+								series.data[j]  = null;
+								that.newSeries[pos] = {name : series.name, data: series.data};
+								pos++;
+							}
+						}
+					}
+				});
+			}
 		});
+	}
+
+	/**
+	 *
+	 * @param labels - array of original labels
+	 * @param oldSeries - array of original series
+	 */
+	addOrRemoveParams(labels,oldSeries){
+		let series;
+		const that = this;
 		forOwn(this.textplotSelectedFeatures, function(value, key) {
 			if(value === false){
 				var pos = 0;
@@ -149,40 +152,16 @@ class textPlotController {
 				{
 					series = oldSeries[i];  // each of the series
 					series.data[key]  = null;
-					newSeries[pos] = {name : series.name, data: series.data};
+					that.newSeries[pos] = {name : series.name, data: series.data};
 					pos++;
 				}
 			}
 		});
-		for(var j=0;j<newSeries.length;j++){
-			var data = newSeries[j].data;
-
-			data = data.filter(function( element ) {
-				return element !== null;
-			});
-
-			newSeries[j].data = data;
-		}
-
-		if(!isNil(labels)){
-
-			labels = labels.filter(function( element ) {
-				return element !== null;
-			});
-		}
-		this.series = newSeries;
-		this.labels = labels;
-		this.renderChart();
-
 	}
 
-	$onInit(){
-		this.Highcharts = Highcharts;
-		this.data = [];
-		this.renderChart();
-
-	}
-
+	/**
+	 * set the data required by highcharts when a csv file is uploaded.
+	 */
 	showGraphs(){
 		this.data = this.normalizedValuesService.getNormalizedValues();
 		this.series = this.data.series;
@@ -190,10 +169,13 @@ class textPlotController {
 		this.renderChart();
 	}
 
+	/**
+	 * set the data required by highcharts when an additional csv file is uploaded.
+	 */
 	addNewSeries(){
-		var additionalSeries = this.additionalSeries.series;
-		for(var i=0; i<additionalSeries.length;i++){
-			var color = (this.colorService.getRandomColor()).rgb;
+		const additionalSeries = this.additionalSeries.series;
+		for(let i=0; i<additionalSeries.length;i++){
+			const color = (this.colorService.getRandomColor()).rgb;
 			this.texplotChart.addSeries({
 				name: additionalSeries[i].name,
 				data: additionalSeries[i].data,
@@ -202,11 +184,16 @@ class textPlotController {
 		}
 	}
 
-
+	/**
+	 * Highcharts config required to render the Radar chart
+	 *
+	 */
 	renderChart(){
 
-
-
+		/**
+		 * updates the marker symbol to a different one if the value is exactly zero
+		 *
+		 */
 		this.Highcharts.wrap(this.Highcharts.Series.prototype, 'drawPoints', function(p) {
 			const options = this.options;
 			const symbolCallback = options.marker && options.marker.symbolCallback;

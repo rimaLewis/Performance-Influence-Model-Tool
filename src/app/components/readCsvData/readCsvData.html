@@ -73,38 +73,13 @@
 </div>
 
 
-<div>
-    <h1 class="md-title">Select Features Below</h1>
-    <div layout="row">
-        <md-input-container>
-            {{vm.selectedFeatures}}
-            <label>Features</label>
-            <md-select ng-model="vm.selectedFeatures"
-                       md-on-close="vm.clearSearchTerm()"
-                       data-md-container-class="selectdemoSelectHeader"
-                       multiple>
-                <md-select-header class="demo-select-header">
-                    <input ng-model="vm.searchTerm"
-                           ng-keydown="$event.stopPropagation()"
-                           type="search"
-                           placeholder="Search for a Feature.."
-                           class="demo-header-searchbox md-text">
-                </md-select-header>
-                <md-optgroup label="features">
-                    <md-option ng-value="feature" ng-repeat="feature in vm.listOfFeatures | filter:vm.searchTerm">{{feature}}</md-option>
-                </md-optgroup>
-            </md-select>
-        </md-input-container>
-    </div>
-</div>
-
 <div ng-cloak  ng-if="vm.fileContent">
     <md-content>
         <md-tabs md-dynamic-height md-border-bottom>
             <md-tab label="Radar Chart">
                 <md-content class="md-padding">
                     <radar-chart chart-config="vm.plotData"
-                                 additional-series="vm.plotDataNewSeries"
+                                 additional-series="vm.additionalSeriesForRadarAndTextplot"
                                  selected-features="vm.selectedFeatures"
                                  selected-interactions = "vm.selectedInteractions"
                                  chart-config-filters = "vm.dataToUpdate"
@@ -116,7 +91,7 @@
             <md-tab label="Text Plot">
                 <md-content class="md-padding">
                     <text-plot chart-config="vm.plotData"
-                               additional-series="vm.plotDataNewSeries"
+                               additional-series="vm.additionalSeriesForRadarAndTextplot"
                                textplot-selected-features="vm.selectedFeatures"
                                selected-interactions = "vm.selectedInteractions"
                                textplot-chart-config-filters = "vm.dataToUpdate"
@@ -141,58 +116,3 @@
     </md-content>
 </div>
 
-
-
-
-
-
-<!--<div ng-if="vm.fileContent">
-    <ul class="nav nav-tabs">
-    <li class="nav-item">
-        <a class="nav-link active show" data-toggle="tab" data-target="#radar">Radar Chart</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link " data-toggle="tab" data-target="#textplot">Text Plot</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link " data-toggle="tab" data-target="#elephantplot">Elephant Plot</a>
-    </li>
-</ul>
-
-
-
-
-<div id="myTabContent" class="tab-content" style="background-color:white">
-    <div class="tab-pane fade active show" id="radar">
-        <radar-chart chart-config="vm.plotData"
-                     additional-series="vm.plotDataNewSeries"
-                     selected-features="vm.selectedFeatures"
-                     selected-interactions = "vm.selectedInteractions"
-                     chart-config-filters = "vm.dataToUpdate"
-                     chart-config-labels = "vm.labels"
-                     chart-viz-info ="vm.configElement">
-
-        </radar-chart>
-    </div>
-    <div class="tab-pane fade" id="textplot">
-        <text-plot chart-config="vm.plotData"
-                   additional-series="vm.plotDataNewSeries"
-                   textplot-selected-features="vm.selectedFeatures"
-                   selected-interactions = "vm.selectedInteractions"
-                   textplot-chart-config-filters = "vm.dataToUpdate"
-                   textplot-chart-config-labels = "vm.labels"
-                   chart-viz-info ="vm.configElement">
-        </text-plot>
-    </div>
-    <div class="tab-pane fade" id="elephantplot">
-        <elephant-plot  chart-config="vm.elephantConfig"
-                        additional-series=" vm.elephantConfigNew"
-                        all-csv-data="vm.allCsvData"
-                        all-groups="vm.groups"
-                        all-labels ="vm.allLabels"
-                        selected-features="vm.selectedFeatures"
-                        selected-interactions = "vm.selectedInteractions">
-        </elephant-plot>
-    </div>
-</div>
-</div>-->

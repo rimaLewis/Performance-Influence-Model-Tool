@@ -20,13 +20,15 @@ class radarChartController {
 
 		this.$scope.$watch('vm.selectedFeatures', (newValue) =>{
 			if(!isNil(newValue)){
-				this.addOrRemoveParams();
+				const type = 'features';
+				this.setDataToOriginalData(type);
 			}
 		},true);
 
 		this.$scope.$watch('vm.selectedInteractions', (newValue) =>{
 			if(!isNil(newValue)){
-				this.addOrRemoveIneractions();
+				const type = 'interactions';
+				this.setDataToOriginalData(type);
 			}
 		},true);
 
@@ -43,6 +45,9 @@ class radarChartController {
 		this.data = [];
 	}
 
+	/**
+	 * update the line color of each chart when a color from color picker is selected
+	 */
 	updateChartVisualization(){
 		const lineColor = map(map(this.chartVizInfo, 'XX_LINE_COLOR'), 'lineColor');
 		const lineWidth = map(map(this.chartVizInfo, 'XX_LINE_WIDTH'), 'lineWidth');
@@ -52,10 +57,6 @@ class radarChartController {
 				stroke: lineColor[i]
 			});
 			value.lineWidth = lineWidth[i];
-			console.log(lineWidth[i]);
-		/*	value.update({
-				lineWidth: lineWidth[i],
-			});*/
 			this.radarChart.legend.colorizeItem(value, value.visible);
 			$.each(value.data, function(i, point) {
 				point.graphic.attr({
@@ -66,40 +67,71 @@ class radarChartController {
 		});
 	}
 
-	addOrRemoveIneractions(){
-		var labels = cloneDeep(this.chartConfigLabels);
-		var oldSeries = cloneDeep(this.chartConfigFilters);
-		/*
-		* oldSeries = [{name : String, data : array],
-		* 			   {name : String, data : array]
-		* 			  ]
-		* */
-		var newSeries = [];
-		var series = [];
-
-		// new series is nothing but oldseries,
-		// and if any value is false, remove them from the newSeries array
-
+	/**
+	 * oldSeries = [{name : String, data : array],
+	 * 			   {name : String, data : array]
+	 * 			  ]
+	 *new series is nothing but oldseries,
+	 * and if any value is false, remove them from the newSeries array
+	 * @param type 'features' or 'interactions'
+	 */
+	setDataToOriginalData(type){
+		let labels = cloneDeep(this.chartConfigLabels);
+		const oldSeries = cloneDeep(this.chartConfigFilters);
+		const that = this;
+		this.newSeries = [];
 		forOwn(this.chartConfigFilters, function(value) {
-			newSeries.push(value);
+			that.newSeries.push(value);
 		});
 
+		if(type === 'features'){
+			this.addOrRemoveParams(labels,oldSeries);
+		}else if (type === 'interactions'){
+			this.addOrRemoveIneractions(labels,oldSeries);
+		}
+
+		if(!isNil(this.newSeries)){
+			for(let i=0;i<this.newSeries.length;i++){
+				let data = this.newSeries[i].data;
+				data = data.filter(function( element ) {
+					return element !== null;
+				});
+				this.newSeries[i].data = data;
+			}
+		}
+
+		if(!isNil(labels)){
+			labels = labels.filter(function( element ) {
+				return element !== null;
+			});
+		}
+		this.series = this.newSeries;
+		this.labels = labels;
+		this.renderChart();
+	}
+
+	/**
+	 *
+	 * @param labels - array of original labels
+	 * @param oldSeries - array of original series
+	 */
+	addOrRemoveIneractions(labels,oldSeries){
+		let series;
+		const that = this;
 		forOwn(this.selectedInteractions, function(value, key) {
-			var keyPos = key;
-			// selectedInteractions = {0:true, 1 :false};
 			if(value === false){
 				forEach(labels,function (label, j) {
-					var count;
+					let count;
 					if (!isNil(label)) {
 						count = (label.match(/\*/g) || []).length;
-						if (count === parseInt(keyPos)) {
-							var pos = 0;
+						if (count === parseInt(key)) {
+							let pos = 0;
 							labels[j] = null;
-							for(var i=0;i<oldSeries.length;i++)  // looping through each of series data - array
+							for(let i=0;i<oldSeries.length;i++)  // looping through each of series data - array
 							{
 								series = oldSeries[i];  // each of the series
 								series.data[j]  = null;
-								newSeries[pos] = {name : series.name, data: series.data};
+								that.newSeries[pos] = {name : series.name, data: series.data};
 								pos++;
 							}
 						}
@@ -107,101 +139,48 @@ class radarChartController {
 				});
 			}
 		});
-
-		for(var j=0;j<newSeries.length;j++){
-			var data = newSeries[j].data;
-
-			data = data.filter(function( element ) {
-				return element !== null;
-			});
-
-			newSeries[j].data = data;
-		}
-		if(!isNil(labels)){
-
-			labels = labels.filter(function( element ) {
-				return element !== null;
-			});
-		}
-		this.series = newSeries;
-		this.labels = labels;
-		this.renderChart();
-
-
 	}
 
-	addOrRemoveParams(){
-		var labels = cloneDeep(this.chartConfigLabels);
-		var oldSeries = cloneDeep(this.chartConfigFilters);
-		/*
-		* oldSeries = [{name : String, data : array],
-		* 			   {name : String, data : array]
-		* 			  ]
-		* */
-		var newSeries = [];
-		var series = [];
-
-		// new series is nothing but oldseries,
-		// and if any value is false, remove them from the newSeries array
-
-		forOwn(this.chartConfigFilters, function(value, key) {
-			newSeries.push(value);
-		});
+	/**
+	 *
+	 * @param labels - array of original labels
+	 * @param oldSeries - array of original series
+	 */
+	addOrRemoveParams(labels,oldSeries){
+		let series;
+		const that = this;
 		forOwn(this.selectedFeatures, function(value, key) {
 			if(value === false){
-				var pos = 0;
+				let pos = 0;
 				labels[key] = null;
-				for(var i=0;i<oldSeries.length;i++)  // looping through each of series data - array
+				for(let  i=0;i<oldSeries.length;i++)  // looping through each of series data - array
 				{
 					series = oldSeries[i];  // each of the series
 					series.data[key]  = null;
-					newSeries[pos] = {name : series.name, data: series.data};
+					that.newSeries[pos] = {name : series.name, data: series.data};
 					pos++;
 				}
 			}
 		});
-		for(var j=0;j<newSeries.length;j++){
-			var data = newSeries[j].data;
-
-			data = data.filter(function( element ) {
-				return element !== null;
-			});
-
-			newSeries[j].data = data;
-		}
-		if(!isNil(labels)){
-
-			labels = labels.filter(function( element ) {
-				return element !== null;
-			});
-		}
-		this.series = newSeries;
-		this.labels = labels;
-		this.renderChart();
-
 	}
 
+	/**
+	 * set the data required by highcharts when a csv file is uploaded.
+	 */
 	showGraphs(){
 		this.data = this.normalizedValuesService.getNormalizedValues();
-
-		this.data.series.forEach(function(obj) { obj.marker ={
-			symbolCallback: function() {
-				if( this.y === 0)
-					return 'circle';
-			}
-		};});
-
 		this.series = this.data.series;
-		console.log('series',this.series);
 		this.labels = this.data.labels;
 		this.renderChart();
-		this.toastr.success('Chart Updated', 'Radar Chart');
 	}
 
+	/**
+	 * set the data required by highcharts when an additional csv file is uploaded.
+	 */
 	addNewSeries(){
-		var additionalSeries = this.additionalSeries.series;
-		for(var i=0; i<additionalSeries.length;i++){
-			var color = (this.colorService.getRandomColor()).rgb;
+		const additionalSeries = this.additionalSeries.series;
+		for(let i=0; i<additionalSeries.length;i++){
+			let color = (this.colorService.getRandomColor()).rgb;
 			this.radarChart.addSeries({
 				name: additionalSeries[i].name,
 				data: additionalSeries[i].data,
@@ -210,23 +189,28 @@ class radarChartController {
 		}
 	}
 
-
+	/**
+	 * Highcharts config required to render the Radar chart
+	 *
+	 */
 	renderChart(){
 
+		/**
+		 * updates the marker symbol to a different one if the value is exactly zero
+		 *
+		 */
 		Highcharts.wrap(Highcharts.Series.prototype, 'drawPoints', function(p) {
-			console.log('inside the markerfn');
 
 			const options = this.options;
 			const symbolCallback = options.marker && options.marker.symbolCallback;
 			const points = this.points;
-			console.log('points', points);
+
 			if (symbolCallback && points.length) {
 				points.forEach(point => {
 
 					const symbol = symbolCallback.call(point);
 
 					if (symbol) {
-						console.log('each symbol ---------', symbol);
 						point.update({
 							marker: {
 								fillColor: '#FFFFFF',
@@ -245,39 +229,12 @@ class radarChartController {
 		this.radarChart = Highcharts.chart('container', {
 
 			chart: {
-				events: {
-					redraw: function () {
-
-						var label = this.renderer.label('The chart was just redrawn', 100, 120)
-							.attr({
-								fill: Highcharts.getOptions().colors[0],
-								padding: 10,
-								r: 5,
-								zIndex: 8
-							})
-							.css({
-								color: '#FFFFFF'
-							})
-							.add();
-
-						setTimeout(function () {
-							label.fadeOut();
-						}, 1000);
-					}
-				},
 				height:600,
 				width:1000,
 				polar: true,
 				showAxes: true,
-				// panning: true,
-				zoomType: 'xy',
 				type: 'line',
-				panning: 'xy',
-				panKey: 'shift'
-			},
 
-			mapNavigation: {
-				enabled: true
 			},
 
 			loading: {
@@ -301,8 +258,6 @@ class radarChartController {
 				startOnTick: true,
 				endOnTick: true,
 				gridLineColor: '#a2aba0',
-				// gridLineDashStyle: 'dash',
-				// categories: ['Sales', 'Marketing', 'Development', 'Customer Support', 'Information Technology', 'Administration', 'new'],
 				categories : this.labels,
 				tickmarkPlacement: 'on',
 				labels: {
@@ -377,12 +332,8 @@ class radarChartController {
 				layout: 'vertical'
 			},
 			series : this.series,
-			/*exporting: {
-				showTable: true
-			}*/
 
 		});
-
 	}
 }
 

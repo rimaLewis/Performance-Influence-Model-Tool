@@ -8,39 +8,33 @@ class readCsvDataController {
 		this.$scope.$watch('vm.fileContent', (newValue) =>
 		{
 			if(!isNil(newValue)){
-				this.radarAndTextPlotData();
-				this.dataForFilters(this.fileContent);
-				this.dataForInteractions(this.fileContent);
+				const csvrawData = newValue;
+				this.getChartDataForRadarAndTextplot(csvrawData);
+				this.dataForFilters(csvrawData);
+				this.dataForInteractions(csvrawData);
 			}
 		});
 
 		this.$scope.$watch('vm.fileContent', (newValue) =>{
 			if(!isNil(newValue)) {
-				this.elephantPlotData();
+				const csvrawData = newValue;
+				this.getChartDataForElephantPlot(csvrawData);
 			}
 		});
 
 		this.$scope.$watch('vm.fileContentAdded', (newValue) =>
 		{
 			if(!isNil(newValue)){
-				this.addNewSeries();
-				this.addNewSeriesElephantPlot();
+				const additionalCsvData = newValue;
+				this.dataForFilters(additionalCsvData);
+				this.addNewSeriesToRadarAndTextplot(additionalCsvData);
+				this.addNewSeriesElephantPlot(additionalCsvData);
 			}
 		});
 
 	}
 
-
-
-
 	$onInit(){
-
-
-		this.vegetables = ['Corn' ,'Onions' ,'Kale' ,'Arugula' ,'Peas', 'Zucchini'];
-		this.searchTerm = '';
-
-		// The md-select directive eats keydown events for some quick select
-
 		this.configElement= [];
 		this.configElementHeaders = ['GROUP','XX_LINE_WIDTH','XX_LINE_COLOR'];
 
@@ -53,25 +47,19 @@ class readCsvDataController {
 		this.indexForEditData = 0;
 
 		// for elephant plot
-		this.dataToUpdateElephant = [];
 		this.allCsvData = [];
 		this.allGroups = [];
 		this.allLabels = [];
 	}
 
-
-	clearSearchTerm() {
-		this.searchTerm = '';
-	}
-
-	openLeftMenu () {
-		this.$mdSidenav('left').toggle();
-	}
-
+	/**
+	 * reads csv data to get the labels, get the count on no of * each labels has.
+	 * with these values create the interactions dropdown with all values set to true
+	 */
 	dataForInteractions(fileContent){
 
-		var interactions = [];
-		var lines = fileContent.split('\n');
+		let interactions = [];
+		const lines = fileContent.split('\n');
 		this.labels = lines[0].split(';');
 		this.labels.shift();
 		forEach(this.labels,function (value){
@@ -85,55 +73,30 @@ class readCsvDataController {
 
 	}
 
+	/**
+	 * reads csv data to get the labels, these labels are displayed in the features dropdown.
+	 * all the values are set to true
+	 */
 	dataForFilters(dataToSplit){
 
-		var lines = dataToSplit.split('\n');
+		const lines = dataToSplit.split('\n');
 		this.labels = lines[0].split(';');
 		this.labels.shift();
 		this.listOfFeatures = this.labels;
 		this.listOfFeatures.forEach((d,i ) => {
 			this.selectedFeatures[i] = true ;
 		});
-
-		var groups;
-
-		for(var i=1;i<lines.length;i++){
-			groups = lines[i].split(';');
-			var groupName = groups[0];
-			groups.shift();
-			if(!isEmpty(groups))
-			{
-				//math.abs takes the absolute value only, +a converts string to int
-				var maxVal = this.d3.max(groups, function(d,i){
-					var a =  Math.abs(d);
-					return +a;
-				});
-				var minVal = this.d3.min(groups, function(d,i){
-					var a =  Math.abs(d);
-					return +a;
-				});
-
-				// linear scale is used to normalize values, domain is the range from max to min values, range is the output range
-				var scale = this.d3.scaleLinear();
-				scale.domain([minVal, maxVal]);
-				scale.range([0, 1]);
-
-				let normalizedArray = [];
-				forEach(groups, function(value) {
-					var scaled = scale(value);
-					var rounded = Math.round(scaled * 1000) / 1000;
-					normalizedArray.push(rounded);
-				});
-				this.dataToUpdate[this.indexForEditData] = {name : 'Group ' + groupName, data: normalizedArray};
-				this.indexForEditData++;
-			}
-		}
-
+		this.dataToUpdate.push(...this.getSeries(dataToSplit));
 		this.setTableConfigData();
 	}
 
+	/**
+	 * reads this.dataToUpdate to create an array of groups,
+	 * for each of these groups a new row in table with the corresponding group name is appended to update the chart line colors etc
+	 *
+	 */
 	setTableConfigData(){
-	    const groups = map(this.dataToUpdate, 'name');
+		const groups = map(this.dataToUpdate, 'name');
 		this.configElement = [];
 		groups.forEach(value => {
 			const newElement = {
@@ -153,199 +116,208 @@ class readCsvDataController {
 		});
 	}
 
-	addNewSeries(){
 
-		//check if all the labels are same
+	/**
+	 * updates this.groups array to have all the groups added so far.
+	 * updates this.arrayData to have all normalized values added so far.
+	 * updates dataToUpdateElephant to have all the series added so far.
+	 *
+	 */
+	addNewSeriesElephantPlot(additionalCsvData){
 
-		// if same compute the new series data
-		this.plotDataNewSeries = {};
-		var lines = this.fileContentAdded.split('\n');
-		this.labelsNew = lines[0].split(';');
-		this.labelsNew.shift();
-		this.seriesNew = [];
-		var groups;
-		var index = 0;
-		for(var i=1;i<lines.length;i++){
-			groups = lines[i].split(';');
-			var groupName = groups[0];
-			groups.shift();
-			if(!isEmpty(groups))
-			{
-				//math.abs takes the absolute value only, +a converts string to int
-				var maxVal = this.d3.max(groups, function(d,i){
-					var a =  Math.abs(d);
-					return +a;
-				});
-				var minVal = this.d3.min(groups, function(d,i){
-					var a =  Math.abs(d);
-					return +a;
-				});
-
-				// linear scale is used to normalize values, domain is the range from max to min values, range is the output range
-				var scale = this.d3.scaleLinear();
-				scale.domain([minVal, maxVal]);
-				scale.range([0, 1]);
-
-				let normalizedArray = [];
-				forEach(groups, function(value) {
-					var scaled = scale(value);
-					var rounded = Math.round(scaled * 1000) / 1000;
-					normalizedArray.push(rounded);
-				});
-				this.seriesNew[index] = {name : 'Group ' + groupName, data: normalizedArray };
-				index++;
-			}
-		}
-		this.plotDataNewSeries  = {labels : this.labelsNew, series: this.seriesNew};
-		this.dataForFilters(this.fileContentAdded);
-	}
-
-	addNewSeriesElephantPlot(){
-
-		var lines = this.fileContentAdded.split('\n');
-
-		var labelsNew = lines[0].split(';');
+		let dataToUpdateElephant = [];
+		const lines = additionalCsvData.split('\n');
+		const labelsNew = lines[0].split(';');
 		labelsNew.shift();
-		this.dataToUpdateElephant = [];
-		var groups;
-		var index = 0;
-		var index2= 0;
-		for(var i=1;i<lines.length;i++){
-			groups = lines[i].split(';');
-			var groupName = groups[0];
-			groups.shift();
-			if(!isEmpty(groups))
-			{
-				this.allCsvData.push(groups);
-				//math.abs takes the absolute value only, +a converts string to int
-				var additionVal = this.d3.sum(groups, function(value){
-					return Math.abs(value);
-				});
 
-				var finalArray = [];
-				forEach(groups, function(value) {
-					var newVal = Math.abs(value) / additionVal;
-					var rounded = Math.round(newVal * 1000) / 1000;
-					finalArray.push(rounded);
-				});
-				this.dataToUpdateElephant.push(finalArray);
-				const name = 'Group ' + groupName;
-				this.groups.push(name);
-			}
-		}
+		let ElephantPlotWithAdditionalCsvData = this.getSeriesForElephantPlot(additionalCsvData);
+		this.groups.push(...this.getGroupsForElephantPlot(additionalCsvData));
 
-		var arrayData = [];
-		arrayData =zip(...this.dataToUpdateElephant) ;
+		let arrayData =zip(...ElephantPlotWithAdditionalCsvData) ;
 		this.allGroups.push(this.groups);
+
 		// append the old data with new data of new csv file
-		for(var j=0;j<this.arrayData.length;j++){
-			this.arrayData[j].push.apply(this.arrayData[j], arrayData[j]);
+		for(let i=0;i<this.arrayData.length;i++){
+			this.arrayData[i].push.apply(this.arrayData[i], arrayData[i]);
 		}
 
-		for(var k=0;k<labelsNew.length;k++){
-			this.dataToUpdateElephant[index2] = {name : labelsNew[k], data: this.arrayData[k], pointPlacement: 'on' };
-			index2++;
+		let index =0;
+		for(let k=0;k<labelsNew.length;k++){
+			dataToUpdateElephant[index] = {name : labelsNew[k], data: this.arrayData[k], pointPlacement: 'on' };
+			index++;
 		}
-		this.elephantConfigNew  = {labels : this.groups, series: this.dataToUpdateElephant};
+		this.elephantConfigNew  = {labels : this.groups, series: dataToUpdateElephant};
 		this.normalizedValuesService.setAllSeriesForElephantPlot(this.elephantConfigNew);
-	}
-
-	elephantPlotData(){
-
-		this.elephantConfig = {};
-		var lines = this.fileContent.split('\n');
-		this.labels = lines[0].split(';');
-		this.allLabels = this.labels;
-		this.labels.shift();
-		this.elephantSeries = [];
-		this.groups = [];
-		var groups;
-		var index = 0;
-		for(var i=1;i<lines.length;i++){
-			groups = lines[i].split(';');
-			var groupName = groups[0];
-			groups.shift();
-			if(!isEmpty(groups))
-			{
-				this.allCsvData.push(groups);
-
-				//math.abs takes the absolute value only, +a converts string to int
-				var additionVal = this.d3.sum(groups, function(value){
-					return Math.abs(value);
-				});
-
-				var finalArray = [];
-				forEach(groups, function(value) {
-					var newVal = Math.abs(value) / additionVal;
-					var rounded = Math.round(newVal * 1000) / 1000;
-					finalArray.push(rounded);
-				});
-				this.elephantSeries.push(finalArray);
-				const name = 'Group ' + groupName;
-				this.groups.push(name);
-			}
-		}
-
-		this.arrayData = [];
-		this.arrayData = zip(...this.elephantSeries);
-		var index2 = 0;
-		for(var k=0;k<this.labels.length;k++){
-			this.elephantSeries[index2] = {name : this.labels[k], data: this.arrayData[k], pointPlacement: 'on' };
-			index2++;
-		}
-		this.elephantConfig  = {labels : this.groups, series: this.elephantSeries};
-		this.normalizedValuesService.setAllSeriesForElephantPlot(this.elephantConfig);
-		this.normalizedValuesService.setDataForElephantPlot(this.elephantConfig);
 	}
 
 
 	/**
-	 * Constructor for <code>AjaxRequest</code> class
-	 * @param url the url for the request<p/>
+	 * reads the csv data and creates the series data with the normalized arrays values that are calculated
+	 * returns  array of series, ex: series = [0.3,0.34]
 	 */
-
-	radarAndTextPlotData(){
-
-		this.plotData = {};
-		var lines = this.fileContent.split('\n');
-		this.labels = lines[0].split(';');
-		this.labels.shift();
-		this.series = [];
-		var groups;
-		var index = 0;
-		for(var i=1;i<lines.length;i++){
+	getSeriesForElephantPlot(csvrawData){
+		let lines = csvrawData.split('\n');
+		let elephantSeries = [];
+		let groups;
+		for(let i=1;i<lines.length;i++){
 			groups = lines[i].split(';');
-			var groupName = groups[0];
 			groups.shift();
 			if(!isEmpty(groups))
 			{
 				//math.abs takes the absolute value only, +a converts string to int
-				var maxVal = this.d3.max(groups, function(d,i){
-					var a =  Math.abs(d);
+				var additionVal = this.d3.sum(groups, function(value){
+					return Math.abs(value);
+				});
+
+				var finalArray = [];
+				forEach(groups, function(value) {
+					var newVal = Math.abs(value) / additionVal;
+					var rounded = Math.round(newVal * 1000) / 1000;
+					finalArray.push(rounded);
+				});
+				elephantSeries.push(finalArray);
+			}
+		}
+		return elephantSeries;
+	}
+
+	/**
+	 *
+	 * reads the csv data and writes all the groups to a new groupsArr
+	 * returns array of groups. ex : ['Group A', 'Group B']
+	 */
+	getGroupsForElephantPlot(csvrawData) {
+
+		let lines = csvrawData.split('\n');
+		let groupsArr = [];
+		let groups;
+		for (let i = 1; i < lines.length; i++) {
+			groups = lines[i].split(';');
+			let groupName = groups[0];
+			groups.shift();
+			if (!isEmpty(groups)) {
+				this.allCsvData.push(groups);
+				const name = 'Group ' + groupName;
+				groupsArr.push(name);
+			}
+		}
+		return groupsArr;
+	}
+
+
+	/**
+	 * set the chart data in a format required by highcharts
+	 * elephantConfig = { labels : arrays , series : object }
+	 * ex : labels = ['Group A', 'Group B']
+	 * ex : series = { name : 'root' , data : [0.232, 0.23]}
+	 */
+	getChartDataForElephantPlot(csvrawData){
+
+		let elephantConfig;
+
+		const lines = csvrawData.split('\n');
+		const labels = lines[0].split(';');
+		this.allLabels = labels;
+		labels.shift();
+		let elephantSeries = this.getSeriesForElephantPlot(csvrawData);
+		this.groups = this.getGroupsForElephantPlot(csvrawData);
+
+		this.arrayData;
+		this.arrayData = zip(...elephantSeries);
+		let index = 0;
+		for(let k=0;k<labels.length;k++){
+			elephantSeries[index] = {name : labels[k], data: this.arrayData[k], pointPlacement: 'on' };
+			index++;
+		}
+		elephantConfig  = {labels : this.groups, series: elephantSeries};
+		this.normalizedValuesService.setAllSeriesForElephantPlot(elephantConfig);
+		this.normalizedValuesService.setDataForElephantPlot(elephantConfig);
+	}
+
+
+	/**
+	 * return array of labels
+	 * @param csv raw data
+	 */
+	getLabels(csvrawData){
+		const lines = csvrawData.split('\n');
+		const labels = lines[0].split(';');
+		labels.shift();
+		return labels;
+	}
+
+	/**
+	 * return array of series. each serie is an object of the format
+	 * series =  {name : 'Group A', data: normalizedArray }
+	 * normalizedArray is array of normalized values for that group
+	 * @param csv raw data
+	 */
+	getSeries(csvrawData){
+		const eachRow = csvrawData.split('\n');
+		let series = [];
+		let groups;
+		let index = 0;
+		for(let i=1;i<eachRow.length;i++){
+			groups = eachRow[i].split(';');
+			let groupName = groups[0];
+			groups.shift();
+			if(!isEmpty(groups))
+			{
+				//math.abs takes the absolute value only, +a converts string to int
+				const maxVal = this.d3.max(groups, function(d){
+					const a =  Math.abs(d);
 					return +a;
 				});
-				var minVal = this.d3.min(groups, function(d,i){
-					var a =  Math.abs(d);
+
+				const minVal = this.d3.min(groups, function(d){
+					const a =  Math.abs(d);
 					return +a;
 				});
 
 				// linear scale is used to normalize values, domain is the range from max to min values, range is the output range
-				var scale = this.d3.scaleLinear();
+				const scale = this.d3.scaleLinear();
 				scale.domain([minVal, maxVal]);
 				scale.range([0, 1]);
 
 				let normalizedArray = [];
 				forEach(groups, function(value) {
-					var scaled = scale(value);
-					var rounded = Math.round(scaled * 1000) / 1000;
+					const scaled = scale(value);
+					const rounded = Math.round(scaled * 1000) / 1000;
 					normalizedArray.push(rounded);
 				});
-				this.series[index] = {name : 'Group ' + groupName, data: normalizedArray };
+				series[index] = {name : 'Group ' + groupName, data: normalizedArray };
 				index++;
 			}
 		}
-		this.plotData  = {labels : this.labels, series: this.series};
-		this.normalizedValuesService.setNormalizedValues(this.plotData);
+		return series;
+	}
+
+
+	/**
+	 * set the data that radar chart and text plot
+	 * chartData is an object of the format below
+	 * chartDataForRadarAndTextplot = { labels : array of labels, series : array of each series}
+	 * @param csv raw data
+	 */
+	getChartDataForRadarAndTextplot(csvrawData){
+		this.chartDataForRadarAndTextplot = {};
+		this.labels = this.getLabels(csvrawData);
+		this.series = this.getSeries(csvrawData);
+		this.chartDataForRadarAndTextplot  = {labels : this.labels, series: this.series};
+		this.normalizedValuesService.setNormalizedValues(this.chartDataForRadarAndTextplot);
+	}
+
+	/**
+	 * set the data that radar chart and text plot
+	 * chartData is an object of the format below
+	 * additionalSeriesForRadarAndTextplot = { labels : array of labels, series : array of each series}
+	 * @param csv raw data
+	 */
+	addNewSeriesToRadarAndTextplot(additionalCsvData){
+		this.additionalSeriesForRadarAndTextplot = {};
+		this.labelsNew = this.getLabels(additionalCsvData);
+		this.seriesNew = this.getSeries(additionalCsvData);
+		this.additionalSeriesForRadarAndTextplot  = {labels : this.labelsNew, series: this.seriesNew};
 	}
 }
 

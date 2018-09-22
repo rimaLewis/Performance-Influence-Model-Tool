@@ -35,6 +35,10 @@ class elephantPlotController {
 		this.d3 = this.d3Service.getD3();
 	}
 
+	/**
+	 * sets the data required for renderPlot
+	 * renderPlot renders the elephant plot
+	 */
 	showGraphs(){
 		this.data = this.normalizedValuesService.getDataForElephantPlot();
 		this.series = this.data.series;
@@ -42,50 +46,55 @@ class elephantPlotController {
 		this.renderPlot();
 	}
 
-	addOrRemoveInteractions(){
+	/**
+	 * when an interaction or feature change is applied, the series data for elephantPlot is set to show all the features and interactions
+	 * any interaction or feature which is false is then removed appropriatley to show the updated Elephant Plot
+	 * returns the series with all data (as on load of a csv file)
+	 */
+	getUpdatedEPSeries(){
 
-		var allData = cloneDeep(this.allCsvData);
-		var newSeriesEP = [];
-		var labels = this.allLabels;
-		this.updatedSeriesEP = [];
-		var d3 = this.d3;
-
-		for(var i=0; i< allData.length;i++){
-			var additionVal = this.d3.sum(allData[i], function(value){
+		let newSeriesEP = [];
+		const allData = cloneDeep(this.allCsvData);
+		for(let i=0; i< allData.length;i++){
+			const additionVal = this.d3.sum(allData[i], function(value){
 				return Math.abs(value);
 			});
 
-			var finalArray = [];
+			let finalArray = [];
 			forEach(allData[i], function(value) {
-				var newVal = Math.abs(value) / additionVal;
-				var rounded = Math.round(newVal * 1000) / 1000;
+				const newVal = Math.abs(value) / additionVal;
+				const rounded = Math.round(newVal * 1000) / 1000;
 				finalArray.push(rounded);
 			});
 			newSeriesEP.push(finalArray);
 		}
+		return newSeriesEP;
+	}
+
+	/**
+	 * when an interaction is removed, the labels is checked to match the interaction applied
+	 * that label and its value is removed to reflect the changes
+	 *
+	 */
+	addOrRemoveInteractions(){
+		const allData = cloneDeep(this.allCsvData);
+		const labels = this.allLabels;
+		let newSeriesEP = this.getUpdatedEPSeries();
+
+		const that = this;
 
 		forOwn(this.selectedInteractions, function(value, key) {
 			if(value === false){
-				var keyPos = key;
-				forEach(labels,function (label, j) {
-					var count;
+				forEach(labels,function (label, i) {
 					if (!isNil(label)) {
-						count = (label.match(/\*/g) || []).length;
-						if (count === parseInt(keyPos)) {
+						let count = (label.match(/\*/g) || []).length;
+						if (count === parseInt(key)) {
 							newSeriesEP = [];
-							for(var a=0; a< allData.length;a++){
+							for(let a=0; a< allData.length;a++){
 								const eachGroupData =  (allData[a]);
-								eachGroupData[j] = '0';
-								var additionVal = d3.sum(eachGroupData, function(value){
-									return Math.abs(value);
-								});
+								eachGroupData[i] = '0';
 
-								var finalArray = [];
-								forEach(eachGroupData, function(value) {
-									var newVal = Math.abs(value) / additionVal;
-									var rounded = Math.round(newVal * 1000) / 1000;
-									finalArray.push(rounded);
-								});
+								const finalArray = that.reCalculateEPData(eachGroupData);
 								newSeriesEP.push(finalArray);
 							}
 						}
@@ -94,85 +103,88 @@ class elephantPlotController {
 			}
 		});
 
-		this.arrayDataNew = [];
-		this.arrayDataNew = zip(...newSeriesEP);
-		var index3 = 0;
-		if(this.arrayDataNew.length !==0 ){
-			for(var k=0;k<this.allLabels.length;k++){
-				this.updatedSeriesEP[index3] = {name : this.allLabels[k], data: this.arrayDataNew[k], pointPlacement: 'on' };
-				index3++;
-			}
-		}
-
-		this.series = this.updatedSeriesEP;
+		this.series = this.getZippedData(newSeriesEP);
 		this.labels = this.allGroups;
 		this.renderPlot();
 	}
 
+	/**
+	 * interaction or feature change, the EP is recalculated to show the remaining values importance
+	 * return the array of values that are recomputed.
+	 *
+	 */
+	reCalculateEPData(eachGroupData){
+		const additionVal = this.d3.sum(eachGroupData, function(value){
+			return Math.abs(value);
+		});
+
+		let finalArray = [];
+		forEach(eachGroupData, function(value) {
+			var newVal = Math.abs(value) / additionVal;
+			var rounded = Math.round(newVal * 1000) / 1000;
+			finalArray.push(rounded);
+		});
+		return finalArray;
+	}
+
+	/**
+	 * zips two arrays to form one array. ex arr1 = [1,2] arr2 = [3,4] zippedArray = [[1,3] , [2,4]]
+	 * return the array of zipped values
+	 * zipped values are required for elephant plot to render
+	 */
+	getZippedData(newSeriesEP){
+		let updatedSeriesEP = [];
+		let arrayDataNew = zip(...newSeriesEP);
+		let index = 0;
+		if(arrayDataNew.length !==0 ){
+			for(var k=0;k<this.allLabels.length;k++){
+				updatedSeriesEP[index] = {name : this.allLabels[k], data: arrayDataNew[k], pointPlacement: 'on' };
+				index++;
+			}
+		}
+		return updatedSeriesEP;
+	}
+
+	/**
+	 * when a feature is applied or removed, the data is updated and recalculated to plot updated EP
+	 * the feature if applied is false, and the value at that index is made to 0, and recalculated its importance
+	 */
 	addOrRemoveParams(){
 		var allData = cloneDeep(this.allCsvData);
-		var newElephantSeries = [];
-		this.updatedSeries = [];
-		var d3 = this.d3;
-
-		for(var i=0; i< allData.length;i++){
-			var additionVal = this.d3.sum(allData[i], function(value){
-				return Math.abs(value);
-			});
-
-			var finalArray = [];
-			forEach(allData[i], function(value) {
-				var newVal = Math.abs(value) / additionVal;
-				var rounded = Math.round(newVal * 1000) / 1000;
-				finalArray.push(rounded);
-			});
-			newElephantSeries.push(finalArray);
-		}
+		var newElephantSeries = this.getUpdatedEPSeries();
+		const that = this;
 
 		forOwn(this.selectedFeatures, function(value, key) {
 			if(value === false){
 				newElephantSeries = [];
-				for(var a=0; a< allData.length;a++){
+				for(let a=0; a< allData.length;a++){
 					const eachGroupData =  (allData[a]);
 					eachGroupData[key] = '0';
-					var additionVal = d3.sum(eachGroupData, function(value){
-						return Math.abs(value);
-					});
-
-					var finalArray = [];
-					forEach(eachGroupData, function(value) {
-						var newVal = Math.abs(value) / additionVal;
-						var rounded = Math.round(newVal * 1000) / 1000;
-						finalArray.push(rounded);
-					});
+					const finalArray = that.reCalculateEPData(eachGroupData);
 					newElephantSeries.push(finalArray);
 				}
 			}
 		});
 
-		this.arrayData = [];
-		this.arrayData = zip(...newElephantSeries);
-		var index3 = 0;
-		if(this.arrayData.length !==0 ){
-			for(var k=0;k<this.allLabels.length;k++){
-				this.updatedSeries[index3] = {name : this.allLabels[k], data: this.arrayData[k], pointPlacement: 'on' };
-				index3++;
-			}
-		}
-
-		this.series = this.updatedSeries;
+		this.series =this.getZippedData(newElephantSeries);
 		this.labels = this.allGroups;
 		this.renderPlot();
 	}
 
+	/**
+	 * if an additional csv file is uploaded, the variables that renderPlot function requires are updated
+	 * and the renderPlot() is called to show the new added csv file
+	 */
 	addNewSeries(){
 		this.series = this.additionalSeries.series;
 		this.labels = this.additionalSeries.labels;
 		this.renderPlot();
 	}
 
-
-
+	/**
+	 * Highcharts config required to render the Elephant Plot
+	 * hijackHighcharts(): this function sorts the values, and displays the bar with the highest value first.
+	 */
 	renderPlot(){
 		const that = this;
 		var me = {
@@ -215,7 +227,6 @@ class elephantPlotController {
 						}
 					},
 
-
 					legend: {
 						title: {
 							text: 'LEGEND<br/><span style="font-size: 9px; color: #666; font-weight: normal; text-align:center;"></span>',
@@ -246,10 +257,10 @@ class elephantPlotController {
 			 */
 			hijackHighcharts: function(){
 				Highcharts.Chart.prototype.renderSeries = function(){
-					var each = Highcharts.each,
-						is_bar = this.options.chart.type == 'bar',
-						far_left,
-						current_left;
+					let each = Highcharts.each;
+					let	is_bar = this.options.chart.type == 'bar';
+					let	far_left;
+					let current_left;
 					var bars = {};
 
 					each(this.series, function (serie) {
@@ -288,64 +299,6 @@ class elephantPlotController {
 		};
 		me.init();
 	}
-
-	renderChart() {
-
-		this.elephantPlot = Highcharts.chart('container3', {
-			chart: {
-				type: 'bar',
-				width:1000,
-				height:600,
-			},
-			title: {
-				text: 'Elephant Plot'
-			},
-			xAxis: {
-				// tickmarkPlacement:'on',
-				categories: this.labels,
-			},
-			yAxis: {
-				tickmarkPlacement:'on',
-				min: 0,
-				max: 1,
-				startOnTick: false,
-				title: {
-					text: 'Total Performance'
-				}
-			},
-
-
-			legend: {
-				title: {
-					text: 'LEGEND<br/><span style="font-size: 9px; color: #666; font-weight: normal; text-align:center;"></span>',
-				},
-				backgroundColor: 'white',
-				borderColor: 'grey',
-				borderWidth: 1,
-				align: 'center',
-				verticalAlign: 'bottom',
-				// y: 70,
-				layout: 'vertical'
-			},
-
-			plotOptions: {
-				series: {
-					stacking: 'normal',
-					events :{
-						hide: function(){
-
-						},
-						show: function(){
-						}
-					}
-				}
-			},
-
-			series: (this.series),
-		});
-
-	}
-
 
 }
 
