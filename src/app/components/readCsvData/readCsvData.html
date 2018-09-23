@@ -58,7 +58,7 @@
                         <span> </span>
                         <div ng-switch="row[column].type">
                             <color-picker ng-switch-when="INPUT_TYPE" ng-model="row[column].lineColor"></color-picker>
-                            <input min="1" ng-switch-when='NUMBER_INPUT' ng-model="row[column].lineWidth" type="number" />
+                            <input min="1" ng-switch-when='NUMBER_INPUT' ng-model="row[column].lineWidth" type="number" step="0.1"/>
                         </div>
                     </div>
                     <div ng-if="!isXX" >

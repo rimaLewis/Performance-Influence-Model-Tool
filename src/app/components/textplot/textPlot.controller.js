@@ -51,12 +51,11 @@ class textPlotController {
 		const lineColor = map(map(this.chartVizInfo, 'XX_LINE_COLOR'), 'lineColor');
 		const lineWidth = map(map(this.chartVizInfo, 'XX_LINE_WIDTH'), 'lineWidth');
 		this.texplotChart.series.forEach((value,i) => {
-			value.color = lineColor[i];
-			value.graph.attr({
-				stroke: lineColor[i]
-			});
-			// value.lineWidth = lineWidth[i],
-			this.texplotChart.legend.colorizeItem(value, value.visible);
+			value.options.color = lineColor[i];
+			lineWidth[i] = (lineWidth[i] ===  undefined) ? 1 : lineWidth[i];
+			value.options.lineWidth = lineWidth[i];
+
+			value.update(value.options);
 			value.redraw();
 		});
 	}
@@ -79,15 +78,21 @@ class textPlotController {
 			that.newSeries.push(value);
 		});
 
-		if(type === 'features'){
-			this.addOrRemoveParams(labels,oldSeries);
-		}else if (type === 'interactions'){
-			this.addOrRemoveIneractions(labels,oldSeries);
-		}
+		type === 'features' ? this.addOrRemoveParams(labels,oldSeries) : this.addOrRemoveIneractions(labels,oldSeries);
 
 		if(!isNil(this.newSeries)) {
 			for (let i = 0; i < this.newSeries.length;i++) {
 				var data = this.newSeries[i].data;
+
+				// for each series, a callback function is added, to check if the value is 0, if its zero - a different marker symbol is shown.
+				this.newSeries[i].marker = {
+					symbolCallback: function() {
+						if( this.y === 0)
+							return 'circle';
+					}
+				};
+
+				//remove all the values from the array that are set to null
 				data = data.filter(function (element) {
 					return element !== null;
 				});
@@ -103,6 +108,7 @@ class textPlotController {
 		this.series = this.newSeries;
 		this.labels = labels;
 		this.renderChart();
+		this.updateChartVisualization();
 	}
 
 	/**

@@ -97,11 +97,11 @@ class readCsvDataController {
 	 */
 	setTableConfigData(){
 		const groups = map(this.dataToUpdate, 'name');
-		this.configElement = [];
-		groups.forEach(value => {
+		for(let i=this.configElement.length;i<this.dataToUpdate.length;i++) {
+			const value = groups[i];
 			const newElement = {
 				'GROUP': value,
-				'XX_LINE_WIDTH':{
+				'XX_LINE_WIDTH': {
 					'type': [
 						'NUMBER_INPUT'
 					],
@@ -112,8 +112,8 @@ class readCsvDataController {
 					],
 				}
 			};
-			this.configElement.push(newElement);
-		});
+			this.configElement[i] = newElement;
+		}
 	}
 
 

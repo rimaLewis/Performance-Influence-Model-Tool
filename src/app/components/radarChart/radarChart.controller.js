@@ -52,19 +52,16 @@ class radarChartController {
 		const lineColor = map(map(this.chartVizInfo, 'XX_LINE_COLOR'), 'lineColor');
 		const lineWidth = map(map(this.chartVizInfo, 'XX_LINE_WIDTH'), 'lineWidth');
 		this.radarChart.series.forEach((value,i) => {
-			value.color = lineColor[i];
-			value.graph.attr({
-				stroke: lineColor[i]
-			});
-			value.lineWidth = lineWidth[i];
-			this.radarChart.legend.colorizeItem(value, value.visible);
-			$.each(value.data, function(i, point) {
-				point.graphic.attr({
-					fill: lineColor[i]
-				});
-			});
+
+			value.options.color = lineColor[i];
+			lineWidth[i] = (lineWidth[i] ===  undefined) ? 1 : lineWidth[i];
+			value.options.lineWidth = lineWidth[i];
+			
+			value.update(value.options);
 			value.redraw();
+
 		});
+
 	}
 
 	/**
@@ -76,6 +73,7 @@ class radarChartController {
 	 * @param type 'features' or 'interactions'
 	 */
 	setDataToOriginalData(type){
+
 		let labels = cloneDeep(this.chartConfigLabels);
 		const oldSeries = cloneDeep(this.chartConfigFilters);
 		const that = this;
@@ -84,15 +82,23 @@ class radarChartController {
 			that.newSeries.push(value);
 		});
 
-		if(type === 'features'){
-			this.addOrRemoveParams(labels,oldSeries);
-		}else if (type === 'interactions'){
-			this.addOrRemoveIneractions(labels,oldSeries);
-		}
+		type === 'features' ? this.addOrRemoveParams(labels,oldSeries) : this.addOrRemoveIneractions(labels,oldSeries);
 
 		if(!isNil(this.newSeries)){
 			for(let i=0;i<this.newSeries.length;i++){
 				let data = this.newSeries[i].data;
+
+				// for each series, a callback function is added, to check if the value is 0, if its zero - a different marker symbol is shown.
+				this.newSeries[i].marker = {
+					symbolCallback: function() {
+						if( this.y === 0)
+							return 'circle';
+					}
+				};
+
+				this.newSeries[i].pointPlacement = 'on';
+
+				//remove all the values from the array that are set to null
 				data = data.filter(function( element ) {
 					return element !== null;
 				});
@@ -106,8 +112,10 @@ class radarChartController {
 			});
 		}
 		this.series = this.newSeries;
+		// console.log('series', this.series);
 		this.labels = labels;
 		this.renderChart();
+		this.updateChartVisualization();
 	}
 
 	/**
