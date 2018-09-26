@@ -1,4 +1,4 @@
-import {assign, isNil, forEach, forOwn, cloneDeep, map} from 'lodash';
+import {assign, isNil, forEach, forOwn, cloneDeep, map, find, uniq} from 'lodash';
 
 
 
@@ -20,15 +20,18 @@ class radarChartController {
 
 		this.$scope.$watch('vm.selectedFeatures', (newValue) =>{
 			if(!isNil(newValue)){
-				const type = 'features';
-				this.setDataToOriginalData(type);
+				// this.updateSelectedInteractions();
+				const type='features';
+				this.update(type);
 			}
 		},true);
 
 		this.$scope.$watch('vm.selectedInteractions', (newValue) =>{
 			if(!isNil(newValue)){
-				const type = 'interactions';
-				this.setDataToOriginalData(type);
+				// this.updateSelectedFeatures();
+				const type='interactions';
+				this.update(type);
+
 			}
 		},true);
 
@@ -49,6 +52,8 @@ class radarChartController {
 	 * update the line color of each chart when a color from color picker is selected
 	 */
 	updateChartVisualization(){
+
+		console.log(this.chartVizInfo);
 		const lineColor = map(map(this.chartVizInfo, 'XX_LINE_COLOR'), 'lineColor');
 		const lineWidth = map(map(this.chartVizInfo, 'XX_LINE_WIDTH'), 'lineWidth');
 		this.radarChart.series.forEach((value,i) => {
@@ -56,11 +61,85 @@ class radarChartController {
 			value.options.color = lineColor[i];
 			lineWidth[i] = (lineWidth[i] ===  undefined) ? 1 : lineWidth[i];
 			value.options.lineWidth = lineWidth[i];
-			
+
 			value.update(value.options);
 			value.redraw();
 
 		});
+	}
+
+
+	update(type){
+		let labels =  cloneDeep(this.chartConfigLabels);
+		let features = cloneDeep(this.selectedFeatures); // (this.selectedFeatures);
+		let interactions =  cloneDeep(this.selectedInteractions);// (this.selectedInteractions);
+		/*console.log(' before features',features );
+		console.log(' before interactions',interactions );
+		console.log(' before labels',labels );*/
+
+		if(type === 'interactions'){
+			forOwn(interactions, function(value, key) {
+				if(value === false){
+					forEach(labels,function (label, j) {
+						let count;
+						if (!isNil(label)) {
+							count = (label.match(/\*/g) || []).length;
+							if (count === parseInt(key)) {
+								labels[j] = null;
+							}
+						}
+					});
+				}
+			});
+
+			if(!isNil(labels)){
+				labels.forEach(function(value,key){
+					if(labels[key] === null){
+						features[key] = false;
+					}else{
+						features[key] = true;
+					}
+				});
+				this.selectedFeatures = features;
+			}
+		}else if (type === 'features'){
+
+			let interactionsToBeUpdated;
+			let count = null;
+			let countArr = [];
+			forOwn(features, function(value, key) {
+				if(value === false){
+					count  =  (labels[key].match(/\*/g) || []).length;
+					countArr.push(count);
+				}
+			});
+
+			uniq(countArr);
+
+			var newCount;
+			for(let i=0; i<countArr.length;i++){
+
+				for (var key in features) {
+					var item = features[key];
+
+					newCount  =  (labels[key].match(/\*/g) || []).length;
+					if(newCount === countArr[i] && item === true) {
+						interactions[countArr[i]] = true;
+						break;
+					}else{
+						interactions[countArr[i]] = false;
+					}
+				}
+				this.selectedInteractions = interactions;
+			}
+
+			// console.log('after interactions', interactions);
+		}
+
+		// console.log('after labels',labels);
+		// console.log('after interactions', this.selectedInteractions);
+		// console.log('after features',this.selectedFeatures );
+		this.setDataToOriginalData(type);
 
 	}
 
@@ -73,7 +152,6 @@ class radarChartController {
 	 * @param type 'features' or 'interactions'
 	 */
 	setDataToOriginalData(type){
-
 		let labels = cloneDeep(this.chartConfigLabels);
 		const oldSeries = cloneDeep(this.chartConfigFilters);
 		const that = this;
@@ -112,11 +190,29 @@ class radarChartController {
 			});
 		}
 		this.series = this.newSeries;
-		// console.log('series', this.series);
 		this.labels = labels;
 		this.renderChart();
 		this.updateChartVisualization();
+		this.getLineColorsAndWidth();
 	}
+
+	/**
+	 * Get the colors and line width of each series to fill in the data in table
+	 *
+	 */
+	getLineColorsAndWidth(){
+
+		this.radarChart.series.forEach((value,j) => {
+			for(let i=0;i<this.chartVizInfo.length;i++){
+				if( i === j){
+					this.chartVizInfo[i].XX_LINE_COLOR.lineColor = value.lineColor;
+					this.chartVizInfo[i].XX_LINE_WIDTH.lineWidth = value.lineWidth;
+				}
+			}
+		});
+
+	}
+
 
 	/**
 	 *
@@ -157,6 +253,7 @@ class radarChartController {
 	addOrRemoveParams(labels,oldSeries){
 		let series;
 		const that = this;
+
 		forOwn(this.selectedFeatures, function(value, key) {
 			if(value === false){
 				let pos = 0;
@@ -188,14 +285,18 @@ class radarChartController {
 	addNewSeries(){
 		const additionalSeries = this.additionalSeries.series;
 		for(let i=0; i<additionalSeries.length;i++){
-			let color = (this.colorService.getRandomColor()).rgb;
+
+			this.radarChart.series[i].setData(additionalSeries[i].data);
+			/*let color = (this.colorService.getRandomColor()).rgb;
 			this.radarChart.addSeries({
 				name: additionalSeries[i].name,
 				data: additionalSeries[i].data,
 				color: color,
-			});
+			});*/
 		}
+		this.getLineColorsAndWidth();
 	}
+
 
 	/**
 	 * Highcharts config required to render the Radar chart
@@ -242,7 +343,6 @@ class radarChartController {
 				polar: true,
 				showAxes: true,
 				type: 'line',
-
 			},
 
 			loading: {
@@ -340,8 +440,11 @@ class radarChartController {
 				layout: 'vertical'
 			},
 			series : this.series,
-
+			/*exporting: {
+				showTable: true
+			}*/
 		});
+
 	}
 }
 

@@ -1,6 +1,6 @@
 import '../../node_modules/bootstrap-css-only/css/bootstrap.min.css';
-import '../style/style.css';
-import '../../node_modules/bootswatch/dist/lux/bootstrap.min.css';
+// import '../style/style.css';
+import '../../node_modules/bootswatch/dist/simplex/bootstrap.min.css';
 
 import '../../node_modules/angular/angular';
 import '../../node_modules/angular-aria/angular-aria';

@@ -127,7 +127,7 @@ class elephantPlotController {
 		return finalArray;
 	}
 
-	/**
+	/**plotOptions
 	 * zips two arrays to form one array. ex arr1 = [1,2] arr2 = [3,4] zippedArray = [[1,3] , [2,4]]
 	 * return the array of zipped values
 	 * zipped values are required for elephant plot to render
@@ -195,13 +195,46 @@ class elephantPlotController {
 			render: function( container ){
 				$('#' + container ).highcharts({
 					chart: {
+						events: {
+							redraw: function () {
+								// chart.reflow();
+								var label = this.renderer.label('The chart was just redrawn !!!!', 100, 120)
+									.attr({
+										fill: Highcharts.getOptions().colors[0],
+										padding: 10,
+										r: 5,
+										zIndex: 8
+									})
+									.css({
+										color: '#FFFFFF'
+									})
+									.add();
+
+								setTimeout(function () {
+									label.fadeOut();
+								}, 1000);
+							}
+						},
 						type: 'bar',
 						width:1000,
 						height:600,
 						reflow:false,
+						zoomType: 'xy',
+						panning: 'xy',
+						panKey: 'shift',
 					},
 					title: {
 						text: 'Elephant Plot'
+					},
+
+					pane: {
+						size: '80%'
+					},
+
+					subtitle: {
+						text: document.ontouchstart === undefined ?
+							'Click and drag in the plot area to zoom in' :
+							'Drag your finger over the plot to zoom in'
 					},
 
 					xAxis: {
@@ -223,8 +256,13 @@ class elephantPlotController {
 					plotOptions: {
 						series: {
 							stacking: 'normal',
-
-						}
+							events: {
+								legendItemClick: function () {
+									return false;
+								}
+							}
+						},
+						allowPointSelect: false,
 					},
 
 					legend: {

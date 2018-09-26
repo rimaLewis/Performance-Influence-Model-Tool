@@ -108,6 +108,7 @@ class textPlotController {
 		this.series = this.newSeries;
 		this.labels = labels;
 		this.renderChart();
+		this.getLineColorsAndWidth();
 		this.updateChartVisualization();
 	}
 
@@ -188,6 +189,23 @@ class textPlotController {
 				color,
 			});
 		}
+		this.getLineColorsAndWidth();
+	}
+
+
+	/**
+	 * Get the colors and line width of each series to fill in the data in table
+	 *
+	 */
+	getLineColorsAndWidth(){
+		this.texplotChart.series.forEach((value,j) => {
+			for(let i=0;i<this.chartVizInfo.length;i++){
+				if( i === j){
+					this.chartVizInfo[i].XX_LINE_COLOR.lineColor = value.color;
+					this.chartVizInfo[i].XX_LINE_WIDTH.lineWidth = value.options.lineWidth;
+				}
+			}
+		});
 	}
 
 	/**
@@ -227,8 +245,8 @@ class textPlotController {
 		this.texplotChart = this.Highcharts.chart('container2',{
 
 			chart: {
-				polar: false,
-				type: 'line',
+				/*polar: false,
+				type: 'line',*/
 				inverted: true,
 				// panning: true,
 				width:600,
@@ -268,12 +286,12 @@ class textPlotController {
 				labels: {
 					useHTML:true,//set to true
 					style:{
-						width:'165px',
+						width:'200px',
 						whiteSpace:'normal'//set to normal
 					},
 					step: 1,
 					formatter: function () {//use formatter
-						return '<div align="center" style="word-wrap: break-word;word-break: break-all;width:165px">' + this.value + '</div>';
+						return '<div align="center" style="word-wrap: break-word;word-break: break-all;width:200px">' + this.value + '</div>';
 					}
 				},
 			}, {
@@ -284,12 +302,12 @@ class textPlotController {
 				labels: {
 					useHTML:true,//set to true
 					style:{
-						width:'165px',
+						width:'200px',
 						whiteSpace:'normal'//set to normal
 					},
 					step: 1,
 					formatter: function () {//use formatter
-						return '<div align="center" style="word-wrap: break-word;word-break: break-all;width:165px">' + this.value + '</div>';
+						return '<div align="center" style="word-wrap: break-word;word-break: break-all;width:200px">' + this.value + '</div>';
 					}
 				},
 			}],

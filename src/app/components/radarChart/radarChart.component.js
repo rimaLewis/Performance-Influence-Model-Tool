@@ -10,8 +10,8 @@ export const RadarChartComponent = {
 		name : '@',
 		chartConfig : '<',
 		additionalSeries :'<?',
-		selectedFeatures :'<',
-		selectedInteractions : '<',
+		selectedFeatures :'=',
+		selectedInteractions : '=',
 		chartConfigFilters : '<',
 		chartConfigLabels : '<',
 		chartVizInfo :'<'

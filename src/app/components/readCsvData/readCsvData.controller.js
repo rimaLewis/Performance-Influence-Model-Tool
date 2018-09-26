@@ -87,13 +87,14 @@ class readCsvDataController {
 			this.selectedFeatures[i] = true ;
 		});
 		this.dataToUpdate.push(...this.getSeries(dataToSplit));
+		console.log(this.configElement);
 		this.setTableConfigData();
 	}
 
 	/**
 	 * reads this.dataToUpdate to create an array of groups,
 	 * for each of these groups a new row in table with the corresponding group name is appended to update the chart line colors etc
-	 *
+	 *configElement
 	 */
 	setTableConfigData(){
 		const groups = map(this.dataToUpdate, 'name');
