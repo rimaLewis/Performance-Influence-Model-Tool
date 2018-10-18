@@ -63,7 +63,7 @@ class readCsvDataController {
 		this.labels = lines[0].split(';');
 		this.labels.shift();
 		forEach(this.labels,function (value){
-			var count = (value.match(/\*/g) || []).length;
+			var count = ((value.match(/\*/g) || []).length) + 1;
 			interactions.push(count);
 		});
 		this.interactions =  uniq(interactions);

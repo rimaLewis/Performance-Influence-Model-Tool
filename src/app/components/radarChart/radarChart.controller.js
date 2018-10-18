@@ -286,17 +286,16 @@ class radarChartController {
 		const additionalSeries = this.additionalSeries.series;
 		for(let i=0; i<additionalSeries.length;i++){
 
-			this.radarChart.series[i].setData(additionalSeries[i].data);
-			/*let color = (this.colorService.getRandomColor()).rgb;
+			/*this.radarChart.series[i].setData(additionalSeries[i].data);*/
+			let color = (this.colorService.getRandomColor()).rgb;
 			this.radarChart.addSeries({
 				name: additionalSeries[i].name,
 				data: additionalSeries[i].data,
 				color: color,
-			});*/
+			});
 		}
 		this.getLineColorsAndWidth();
 	}
-
 
 	/**
 	 * Highcharts config required to render the Radar chart
@@ -354,7 +353,6 @@ class radarChartController {
 
 			title: {
 				text: 'Radar Chart',
-				x: -80
 			},
 
 			pane: {

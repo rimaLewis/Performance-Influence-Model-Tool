@@ -263,18 +263,17 @@ class textPlotController {
 
 			title: {
 				text: 'Text Plot',
-				x: -80
 			},
 
 			pane: {
 				size: '80%'
 			},
 
-			subtitle: {
+			/*subtitle: {
 				text: document.ontouchstart === undefined ?
 					'Click and drag in the plot area to zoom in' :
 					'Drag your finger over the plot to zoom in'
-			},
+			},*/
 
 			xAxis: [{
 				startOnTick: true,
@@ -335,6 +334,7 @@ class textPlotController {
 				series: {
 					lineWidth: 1,
 				},
+				animation: false
 			},
 
 			tooltip: {

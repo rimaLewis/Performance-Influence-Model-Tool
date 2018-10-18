@@ -29,7 +29,7 @@
         <ul class="nav nav-pills" ng-if="vm.fileContent">
             <li class="nav-item dropdown">
                 <!--<a href="#" data-toggle="dropdown" class="dropdown-toggle">Select Performance Features<b class="caret"></b></a>-->
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Select Interactions</a>
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Degree of Interactions</a>
                 <ul class="dropdown-menu">
                     <li ng-repeat="interaction in vm.interactions track by $index">
                         <div class="checkbox">
@@ -100,7 +100,7 @@
                     </text-plot>
                 </md-content>
             </md-tab>
-            <md-tab label="Elephant Plot">
+            <md-tab label="Ratio Plot">
                 <md-content class="md-padding">
                     <elephant-plot  chart-config="vm.elephantConfig"
                                     additional-series=" vm.elephantConfigNew"

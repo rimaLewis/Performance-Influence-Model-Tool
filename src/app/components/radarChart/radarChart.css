@@ -12,3 +12,9 @@
 .highcharts-container {
     margin: 0 auto;
 }
+
+.container highcharts-axis-labels span{
+    word-break:break-all!important;
+    width:200px!important;
+    /*white-space:normal!important;*/
+}

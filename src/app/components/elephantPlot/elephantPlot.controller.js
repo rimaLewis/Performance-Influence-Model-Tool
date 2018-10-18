@@ -217,25 +217,25 @@ class elephantPlotController {
 						},
 						type: 'bar',
 						width:1000,
-						height:600,
+						height:500,
 						reflow:false,
 						zoomType: 'xy',
 						panning: 'xy',
 						panKey: 'shift',
 					},
 					title: {
-						text: 'Elephant Plot'
+						text: 'Ratio Plot'
 					},
 
 					pane: {
 						size: '80%'
 					},
 
-					subtitle: {
+					/*subtitle: {
 						text: document.ontouchstart === undefined ?
 							'Click and drag in the plot area to zoom in' :
 							'Drag your finger over the plot to zoom in'
-					},
+					},*/
 
 					xAxis: {
 						categories: that.labels,
@@ -254,15 +254,36 @@ class elephantPlotController {
 					},
 
 					plotOptions: {
+						column: {
+							colorByPoint: true
+						},
 						series: {
 							stacking: 'normal',
+							// borderWidth: 0,
 							events: {
 								legendItemClick: function () {
 									return false;
 								}
 							}
 						},
-						allowPointSelect: false,
+						colors: [
+							'#f54500',
+							'#007570',
+							'#0600ff',
+							'#ff0875',
+							'#098600',
+							'#7453ff',
+							'#576470',
+							'#454300',
+							'#00356f',
+							'#f45980',
+							'#006450',
+							'#004564',
+							'#ff0340',
+							'#04f330',
+							'#00084f'
+						],
+						// allowPointSelect: false,
 					},
 
 					legend: {
@@ -274,7 +295,8 @@ class elephantPlotController {
 						borderWidth: 1,
 						align: 'center',
 						verticalAlign: 'bottom',
-						layout: 'vertical'
+						layout: 'vertical',
+						maxHeight:200,
 					},
 
 					tooltip: {
