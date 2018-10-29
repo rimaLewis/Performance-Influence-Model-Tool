@@ -53,7 +53,6 @@ class radarChartController {
 	 */
 	updateChartVisualization(){
 
-		console.log(this.chartVizInfo);
 		const lineColor = map(map(this.chartVizInfo, 'XX_LINE_COLOR'), 'lineColor');
 		const lineWidth = map(map(this.chartVizInfo, 'XX_LINE_WIDTH'), 'lineWidth');
 		this.radarChart.series.forEach((value,i) => {
@@ -73,9 +72,6 @@ class radarChartController {
 		let labels =  cloneDeep(this.chartConfigLabels);
 		let features = cloneDeep(this.selectedFeatures); // (this.selectedFeatures);
 		let interactions =  cloneDeep(this.selectedInteractions);// (this.selectedInteractions);
-		/*console.log(' before features',features );
-		console.log(' before interactions',interactions );
-		console.log(' before labels',labels );*/
 
 		if(type === 'interactions'){
 			forOwn(interactions, function(value, key) {
@@ -133,12 +129,7 @@ class radarChartController {
 				this.selectedInteractions = interactions;
 			}
 
-			// console.log('after interactions', interactions);
 		}
-
-		// console.log('after labels',labels);
-		// console.log('after interactions', this.selectedInteractions);
-		// console.log('after features',this.selectedFeatures );
 		this.setDataToOriginalData(type);
 
 	}
@@ -189,6 +180,7 @@ class radarChartController {
 				return element !== null;
 			});
 		}
+
 		this.series = this.newSeries;
 		this.labels = labels;
 		this.renderChart();

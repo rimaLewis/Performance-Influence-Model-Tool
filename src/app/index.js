@@ -24,6 +24,7 @@ import  angularMaterial from 'angular-material';
 import normalizedValuesService from './app.service';
 import D3Service from './d3.service';
 import colorsService from './colors.service';
+import localStorage from './localStorage.service';
 // import Highcharts from './highcharts';
 
 
@@ -40,7 +41,8 @@ const root = angular
   .component('app',AppComponent)
 	.service('colorService',colorsService)
 	.service('d3Service', D3Service)
-	.service('Highcharts',Highcharts)
+	.service('localStorage',localStorage)
+	//.service('Highcharts',Highcharts)
 	.service('normalizedValuesService',normalizedValuesService)
   .name;
 

@@ -1,9 +1,8 @@
 import {assign,forEach, isNil,isEmpty,uniq,zip, map} from 'lodash';
 
-
 class readCsvDataController {
-	constructor($scope, normalizedValuesService,d3Service,$mdSidenav,$element){
-		assign(this, {$scope, normalizedValuesService,d3Service,$mdSidenav,$element});
+	constructor($scope, normalizedValuesService,d3Service,$mdSidenav,$element , localStorage){
+		assign(this, {$scope, normalizedValuesService,d3Service,$mdSidenav,$element , localStorage});
 
 		this.$scope.$watch('vm.fileContent', (newValue) =>
 		{
@@ -50,6 +49,8 @@ class readCsvDataController {
 		this.allCsvData = [];
 		this.allGroups = [];
 		this.allLabels = [];
+
+		this.localStorage.getcolors();
 	}
 
 	/**
@@ -87,7 +88,6 @@ class readCsvDataController {
 			this.selectedFeatures[i] = true ;
 		});
 		this.dataToUpdate.push(...this.getSeries(dataToSplit));
-		console.log(this.configElement);
 		this.setTableConfigData();
 	}
 
@@ -270,20 +270,23 @@ class readCsvDataController {
 					return +a;
 				});
 
-				const minVal = this.d3.min(groups, function(d){
+				/*const minVal = this.d3.min(groups, function(d){
 					const a =  Math.abs(d);
 					return +a;
-				});
+				});*/
+
+				let minVal =  this.d3.min(groups);
+				//console.log('groups',groups,'maxVal',maxVal, 'minVal',minVal);
 
 				// linear scale is used to normalize values, domain is the range from max to min values, range is the output range
-				const scale = this.d3.scaleLinear();
+				var scale = this.d3.scaleLinear();
 				scale.domain([minVal, maxVal]);
 				scale.range([0, 1]);
 
 				let normalizedArray = [];
 				forEach(groups, function(value) {
 					const scaled = scale(value);
-					const rounded = Math.round(scaled * 1000) / 1000;
+					const rounded = Math.round(scaled * 100) / 100;
 					normalizedArray.push(rounded);
 				});
 				series[index] = {name : 'Group ' + groupName, data: normalizedArray };

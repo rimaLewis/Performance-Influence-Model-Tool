@@ -1,0 +1,12 @@
+#chart {
+    position: absolute;
+    top: 50px;
+    left: 100px;
+}
+
+body {
+    overflow: scroll;
+    margin: 0;
+    font-size: 14px;
+    font-family: "Helvetica Neue", Helvetica;
+}

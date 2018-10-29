@@ -112,6 +112,18 @@
                     </elephant-plot>
                 </md-content>
             </md-tab>
+            <md-tab label="D3 Radar Chart">
+                <md-content class="md-padding" style="height: 1032px;">
+                    <d3radar-chart chart-config="vm.plotData"
+                                 additional-series="vm.additionalSeriesForRadarAndTextplot"
+                                 selected-features="vm.selectedFeatures"
+                                 selected-interactions = "vm.selectedInteractions"
+                                 chart-config-filters = "vm.dataToUpdate"
+                                 chart-config-labels = "vm.labels"
+                                 chart-viz-info ="vm.configElement">
+                    </d3radar-chart>
+                </md-content>
+            </md-tab>
         </md-tabs>
     </md-content>
 </div>
