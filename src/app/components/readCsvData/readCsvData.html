@@ -73,10 +73,22 @@
 </div>
 
 
-<div ng-cloak  ng-if="vm.fileContent">
+<div ng-cloak>
     <md-content>
         <md-tabs md-dynamic-height md-border-bottom>
-            <md-tab label="Radar Chart">
+            <md-tab label="D3 Radar Chart">
+                <md-content class="md-padding" style="height:750px;">
+                    <d3radar-chart chart-config="vm.plotData"
+                                   additional-series="vm.additionalSeriesForRadarAndTextplot"
+                                   selected-features="vm.selectedFeatures"
+                                   selected-interactions = "vm.selectedInteractions"
+                                   chart-config-filters = "vm.dataToUpdate"
+                                   chart-config-labels = "vm.labels"
+                                   chart-viz-info ="vm.configElement">
+                    </d3radar-chart>
+                </md-content>
+            </md-tab>
+            <md-tab label="Radar Chart" ng-if="vm.fileContent">
                 <md-content class="md-padding">
                     <radar-chart chart-config="vm.plotData"
                                  additional-series="vm.additionalSeriesForRadarAndTextplot"
@@ -88,7 +100,7 @@
                     </radar-chart>
                 </md-content>
             </md-tab>
-            <md-tab label="Text Plot">
+            <md-tab label="Text Plot" ng-if="vm.fileContent">
                 <md-content class="md-padding">
                     <text-plot chart-config="vm.plotData"
                                additional-series="vm.additionalSeriesForRadarAndTextplot"
@@ -100,7 +112,7 @@
                     </text-plot>
                 </md-content>
             </md-tab>
-            <md-tab label="Ratio Plot">
+            <md-tab label="Ratio Plot" ng-if="vm.fileContent">
                 <md-content class="md-padding">
                     <elephant-plot  chart-config="vm.elephantConfig"
                                     additional-series=" vm.elephantConfigNew"
@@ -110,18 +122,6 @@
                                     selected-features="vm.selectedFeatures"
                                     selected-interactions = "vm.selectedInteractions">
                     </elephant-plot>
-                </md-content>
-            </md-tab>
-            <md-tab label="D3 Radar Chart">
-                <md-content class="md-padding" style="height: 1032px;">
-                    <d3radar-chart chart-config="vm.plotData"
-                                 additional-series="vm.additionalSeriesForRadarAndTextplot"
-                                 selected-features="vm.selectedFeatures"
-                                 selected-interactions = "vm.selectedInteractions"
-                                 chart-config-filters = "vm.dataToUpdate"
-                                 chart-config-labels = "vm.labels"
-                                 chart-viz-info ="vm.configElement">
-                    </d3radar-chart>
                 </md-content>
             </md-tab>
         </md-tabs>

@@ -29,20 +29,6 @@ class d3radarChartController {
 				{axis:'View Shopping sites',value:0.14},
 				{axis:'Paying Online',value:0.11},
 				{axis:'Buy Online',value:0.05},
-				{axis:'Stream Music',value:0.07},
-				{axis:'Online Gaming',value:0.12},
-				{axis:'Navigation',value:0.27},
-				{axis:'App connected to TV program',value:0.03},
-				{axis:'Offline Gaming',value:0.12},
-				{axis:'Photo Video',value:0.4},
-				{axis:'Reading',value:0.03},
-				{axis:'Listen Music',value:0.22},
-				{axis:'Watch TV',value:0.03},
-				{axis:'TV Movies Streaming',value:0.03},
-				{axis:'Listen Radio',value:0.07},
-				{axis:'Sending Money',value:0.18},
-				{axis:'Other',value:0.07},
-				{axis:'Use less Once week',value:0.08}
 			],[
 				{axis:'Email',value:0.48},
 				{axis:'Social Networks',value:0.41},
@@ -52,20 +38,6 @@ class d3radarChartController {
 				{axis:'View Shopping sites',value:0.29},
 				{axis:'Paying Online',value:0.11},
 				{axis:'Buy Online',value:0.14},
-				{axis:'Stream Music',value:0.05},
-				{axis:'Online Gaming',value:0.19},
-				{axis:'Navigation',value:0.14},
-				{axis:'App connected to TV program',value:0.06},
-				{axis:'Offline Gaming',value:0.24},
-				{axis:'Photo Video',value:0.17},
-				{axis:'Reading',value:0.15},
-				{axis:'Listen Music',value:0.12},
-				{axis:'Watch TV',value:0.1},
-				{axis:'TV Movies Streaming',value:0.14},
-				{axis:'Listen Radio',value:0.06},
-				{axis:'Sending Money',value:0.16},
-				{axis:'Other',value:0.07},
-				{axis:'Use less Once week',value:0.17}
 			]
 		];
 
@@ -74,7 +46,7 @@ class d3radarChartController {
 			w: w,
 			h: h,
 			maxValue: 0.6,
-			levels: 6,
+			levels: 3,
 			ExtraWidthX: 300
 		};
 
@@ -137,7 +109,7 @@ class d3radarChartController {
 
 		let tooltip;
 
-				//Circular segments
+		//Circular segments
 		for(let j=0; j<cfg.levels-1; j++){
 			const levelFactor = cfg.factor*radius*((j+1)/cfg.levels);
 			g.selectAll('.levels')
@@ -152,10 +124,11 @@ class d3radarChartController {
 						.style('stroke', 'grey')
 						.style('stroke-opacity', '0.75')
 						.style('stroke-width', '0.3px')
+						.style('fill', 'red')
 						.attr('transform', 'translate(' + (cfg.w/2-levelFactor) + ', ' + (cfg.h/2-levelFactor) + ')');
 		}
 
-				//Text indicating at what % each level is
+		//Text indicating at what % each level is
 		for(let j=0; j<cfg.levels; j++){
 			const levelFactor = cfg.factor*radius*((j+1)/cfg.levels);
 			g.selectAll('.levels')
@@ -217,7 +190,6 @@ class d3radarChartController {
 						.append('polygon')
 						.attr('class', 'radar-chart-serie'+series)
 						.style('stroke-width', '2px')
-						// .style('stroke', cfg.color)
 						.style('stroke',  cfg.color[series])
 						.attr('points',function(d) {
 							let str='';

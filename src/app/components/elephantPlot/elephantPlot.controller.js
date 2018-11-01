@@ -82,7 +82,6 @@ class elephantPlotController {
 		let newSeriesEP = this.getUpdatedEPSeries();
 
 		const that = this;
-
 		forOwn(this.selectedInteractions, function(value, key) {
 			if(value === false){
 				forEach(labels,function (label, i) {
@@ -92,8 +91,7 @@ class elephantPlotController {
 							newSeriesEP = [];
 							for(let a=0; a< allData.length;a++){
 								const eachGroupData =  (allData[a]);
-								eachGroupData[i] = '0';
-
+								eachGroupData[i] = null;
 								const finalArray = that.reCalculateEPData(eachGroupData);
 								newSeriesEP.push(finalArray);
 							}
@@ -136,10 +134,14 @@ class elephantPlotController {
 		let updatedSeriesEP = [];
 		let arrayDataNew = zip(...newSeriesEP);
 		let index = 0;
-		if(arrayDataNew.length !==0 ){
+		this.newLabels = this.updateLegendItems();
+
+		if(arrayDataNew.length !== null ){
 			for(var k=0;k<this.allLabels.length;k++){
-				updatedSeriesEP[index] = {name : this.allLabels[k], data: arrayDataNew[k], pointPlacement: 'on' };
-				index++;
+				if(this.newLabels[k] !== null){
+					updatedSeriesEP[index] = {name : this.newLabels[k], data: arrayDataNew[k], pointPlacement: 'on' };
+					index++;
+				}
 			}
 		}
 		return updatedSeriesEP;
@@ -159,17 +161,30 @@ class elephantPlotController {
 				newElephantSeries = [];
 				for(let a=0; a< allData.length;a++){
 					const eachGroupData =  (allData[a]);
-					eachGroupData[key] = '0';
+					eachGroupData[key] = null;
 					const finalArray = that.reCalculateEPData(eachGroupData);
 					newElephantSeries.push(finalArray);
 				}
 			}
 		});
 
-		this.series =this.getZippedData(newElephantSeries);
+		this.series = this.getZippedData(newElephantSeries);
 		this.labels = this.allGroups;
 		this.renderPlot();
 	}
+
+	updateLegendItems(){
+		var newLabels  = cloneDeep(this.allLabels);
+
+		forOwn(this.selectedFeatures, function(value, key) {
+			if (value === false) {
+				newLabels[key] = null;
+			}
+		});
+
+		return newLabels;
+	}
+
 
 	/**
 	 * if an additional csv file is uploaded, the variables that renderPlot function requires are updated
@@ -191,13 +206,20 @@ class elephantPlotController {
 			init: function(){
 				me.hijackHighcharts();
 				me.render('container3');
+				me.addColors();
 			},
+			addColors : function(){
+				Highcharts.setOptions({
+					colors: [ '#000000', '#0000ff', '#a52a2a', '#00008b', '#006400', '#8b008b', '#556b2f', '#ff8c00', '#9932cc', '#8b0000', '#9400d3','#ff00ff', '#ffd700', '#008000', '#4b0082', '#00ff00', '#ff00ff', '#800000', '#000080', '#808000', '#ffa500', '#800080', '#ff0000', '#ffff00','#058DC7', '#50B432', '#ED561B', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4']
+				});
+			},
+
 			render: function( container ){
 				$('#' + container ).highcharts({
 					chart: {
 						events: {
 							redraw: function () {
-								// chart.reflow();
+								//chart.reflow();
 								var label = this.renderer.label('The chart was just redrawn !!!!', 100, 120)
 									.attr({
 										fill: Highcharts.getOptions().colors[0],
@@ -259,30 +281,13 @@ class elephantPlotController {
 						},
 						series: {
 							stacking: 'normal',
-							// borderWidth: 0,
+							borderWidth: 0,
 							events: {
 								legendItemClick: function () {
 									return false;
 								}
 							}
 						},
-						colors: [
-							'#f54500',
-							'#007570',
-							'#0600ff',
-							'#ff0875',
-							'#098600',
-							'#7453ff',
-							'#576470',
-							'#454300',
-							'#00356f',
-							'#f45980',
-							'#006450',
-							'#004564',
-							'#ff0340',
-							'#04f330',
-							'#00084f'
-						],
 						// allowPointSelect: false,
 					},
 
@@ -295,8 +300,8 @@ class elephantPlotController {
 						borderWidth: 1,
 						align: 'center',
 						verticalAlign: 'bottom',
-						layout: 'vertical',
-						maxHeight:200,
+						layout: 'horizontal',
+						// maxHeight:200,
 					},
 
 					tooltip: {
