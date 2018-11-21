@@ -219,7 +219,7 @@ class elephantPlotController {
 					chart: {
 						events: {
 							redraw: function () {
-								//chart.reflow();
+								// chart.reflow();
 								var label = this.renderer.label('The chart was just redrawn !!!!', 100, 120)
 									.attr({
 										fill: Highcharts.getOptions().colors[0],
@@ -261,6 +261,7 @@ class elephantPlotController {
 
 					xAxis: {
 						categories: that.labels,
+						tickmarkPlacement: 'on',
 					},
 
 					yAxis: {
@@ -269,10 +270,10 @@ class elephantPlotController {
 						max: 1,
 						startOnTick: false,
 						title: {
-							text: 'Total Performance'
+							text: 'Total Performance/ Energy Consumption'
 						},
 						reversedStacks: false,
-
+						// reversed: true
 					},
 
 					plotOptions: {

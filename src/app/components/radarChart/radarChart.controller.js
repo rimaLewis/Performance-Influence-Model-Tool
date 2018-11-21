@@ -3,8 +3,8 @@ import {assign, isNil, forEach, forOwn, cloneDeep, map, find, uniq} from 'lodash
 
 
 class radarChartController {
-	constructor($scope,$window, normalizedValuesService,d3Service ,colorService, $log, $timeout, toastr){
-		assign(this, {$scope,$window, normalizedValuesService,d3Service, colorService, $log, $timeout, toastr});
+	constructor($scope,$window, normalizedValuesService,d3Service ,colorService,localStorage, $log, $timeout, toastr){
+		assign(this, {$scope,$window, normalizedValuesService,d3Service, colorService,localStorage, $log, $timeout, toastr});
 
 		this.$scope.$watch('vm.chartConfig', (newValue) =>{
 			if(!isNil(newValue)){
@@ -35,8 +35,9 @@ class radarChartController {
 			}
 		},true);
 
-		this.$scope.$watch('vm.chartVizInfo', (newValue) =>{
-			if(!isNil(newValue)){
+		this.$scope.$watch('vm.chartVizInfo', () =>{
+			const colors = map(map(this.chartVizInfo, 'XX_LINE_COLOR'), 'lineColor');
+			if( colors !== '["#000000", "#0000ff"]'){
 				this.updateChartVisualization();
 			}
 		},true);
@@ -52,9 +53,14 @@ class radarChartController {
 	 * update the line color of each chart when a color from color picker is selected
 	 */
 	updateChartVisualization(){
+		this.setLineColors();
+		// const lineColor = map(map(this.chartVizInfo, 'XX_LINE_COLOR'), 'lineColor');
+		// const lineWidth = map(map(this.chartVizInfo, 'XX_LINE_WIDTH'), 'lineWidth');
 
-		const lineColor = map(map(this.chartVizInfo, 'XX_LINE_COLOR'), 'lineColor');
-		const lineWidth = map(map(this.chartVizInfo, 'XX_LINE_WIDTH'), 'lineWidth');
+		console.log('colors from localstorage', this.localStorage.getColors());
+		const lineColor =  JSON.parse(this.localStorage.getColors());
+		const lineWidth =   JSON.parse(this.localStorage.getLineWidth());
+
 		this.radarChart.series.forEach((value,i) => {
 
 			value.options.color = lineColor[i];
@@ -67,6 +73,15 @@ class radarChartController {
 		});
 	}
 
+
+
+	setLineColors(){
+		console.log('set line colors');
+		const lineColor = map(map(this.chartVizInfo, 'XX_LINE_COLOR'), 'lineColor');
+		const lineWidth = map(map(this.chartVizInfo, 'XX_LINE_WIDTH'), 'lineWidth');
+		this.localStorage.setColors(JSON.stringify(lineColor));
+		this.localStorage.setLineWidth(JSON.stringify(lineWidth));
+	}
 
 	update(type){
 		let labels =  cloneDeep(this.chartConfigLabels);
@@ -184,8 +199,8 @@ class radarChartController {
 		this.series = this.newSeries;
 		this.labels = labels;
 		this.renderChart();
-		this.updateChartVisualization();
-		this.getLineColorsAndWidth();
+		// this.updateChartVisualization();
+		// this.getLineColorsAndWidth();
 	}
 
 	/**
@@ -329,7 +344,7 @@ class radarChartController {
 		this.radarChart = Highcharts.chart('container', {
 
 			chart: {
-				height:600,
+				height :500,
 				width:1000,
 				polar: true,
 				showAxes: true,
@@ -389,7 +404,7 @@ class radarChartController {
 				gridLineInterpolation: 'circle',
 				lineWidth: 1,
 				// min: -1,
-				tickPositions: [-1.2,-1, 0, 1],  // -1.2 added to add the smaller inner white circle
+				tickPositions: [-1.2,-1, 0, 1.001],  // -1.2 added to add the smaller inner white circle
 				showLastLabel: false,
 				labels:
 				{
@@ -427,7 +442,7 @@ class radarChartController {
 				borderWidth: 1,
 				align: 'center',
 				verticalAlign: 'bottom',
-				layout: 'vertical'
+				layout: 'horizontal'
 			},
 			series : this.series,
 			/*exporting: {

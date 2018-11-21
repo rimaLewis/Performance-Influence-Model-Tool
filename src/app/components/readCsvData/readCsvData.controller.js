@@ -4,9 +4,14 @@ class readCsvDataController {
 	constructor($scope, normalizedValuesService,d3Service,$mdSidenav,$element , localStorage){
 		assign(this, {$scope, normalizedValuesService,d3Service,$mdSidenav,$element , localStorage});
 
+		assign(this, {
+			disableTextarea: false,
+		});
+
 		this.$scope.$watch('vm.fileContent', (newValue) =>
 		{
 			if(!isNil(newValue)){
+				this.disableTextarea = true;
 				const csvrawData = newValue;
 				this.getChartDataForRadarAndTextplot(csvrawData);
 				this.dataForFilters(csvrawData);
@@ -36,7 +41,6 @@ class readCsvDataController {
 	$onInit(){
 		this.configElement= [];
 		this.configElementHeaders = ['GROUP','XX_LINE_WIDTH','XX_LINE_COLOR'];
-
 		this.d3 = this.d3Service.getD3();
 		this.selectedFeatures = {};
 		this.selectedInteractions = {};
@@ -49,9 +53,9 @@ class readCsvDataController {
 		this.allCsvData = [];
 		this.allGroups = [];
 		this.allLabels = [];
-
-		this.localStorage.getcolors();
 	}
+
+
 
 	/**
 	 * reads csv data to get the labels, get the count on no of * each labels has.
@@ -97,6 +101,7 @@ class readCsvDataController {
 	 *configElement
 	 */
 	setTableConfigData(){
+		console.log('setTableConfigData changed');
 		const groups = map(this.dataToUpdate, 'name');
 		for(let i=this.configElement.length;i<this.dataToUpdate.length;i++) {
 			const value = groups[i];
@@ -265,28 +270,39 @@ class readCsvDataController {
 			if(!isEmpty(groups))
 			{
 				//math.abs takes the absolute value only, +a converts string to int
-				const maxVal = this.d3.max(groups, function(d){
+				/*const maxVal = this.d3.max(groups, function(d){
 					const a =  Math.abs(d);
 					return +a;
 				});
 
-				/*const minVal = this.d3.min(groups, function(d){
-					const a =  Math.abs(d);
-					return +a;
+				const minVal = this.d3.min(groups, function(d){
+					// const a =  Math.abs(d);
+					return +d;
 				});*/
 
-				let minVal =  this.d3.min(groups);
+				const value = this.d3.max(groups, function(d){
+					const a =  Math.abs(d);
+					return +a;
+				});
+
+
+				const maxVal = value;
+				const minVal = -(value);
+
+				// let minVal =  this.d3.min(groups);
+				console.log(groups, minVal,maxVal);
 				//console.log('groups',groups,'maxVal',maxVal, 'minVal',minVal);
 
 				// linear scale is used to normalize values, domain is the range from max to min values, range is the output range
 				var scale = this.d3.scaleLinear();
 				scale.domain([minVal, maxVal]);
-				scale.range([0, 1]);
+				scale.range( [-1, 1]);
 
 				let normalizedArray = [];
 				forEach(groups, function(value) {
 					const scaled = scale(value);
-					const rounded = Math.round(scaled * 100) / 100;
+					const rounded = Math.round(scaled * 10000) / 10000;
+					console.log('value, scaled ,rounded',value, scaled ,rounded);
 					normalizedArray.push(rounded);
 				});
 				series[index] = {name : 'Group ' + groupName, data: normalizedArray };
