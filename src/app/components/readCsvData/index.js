@@ -3,13 +3,15 @@ import { readCsvDataComponent} from './readCsvData.component';
 import 'angularjs-color-picker';
 import 'angular-messages';
 import 'angularjs-color-picker/dist/angularjs-color-picker.css';
-
+import readCsvDataController from './readCsvData.controller';
+import ngRoute from 'angular-route';
 
 import './readCsvData.css';
 
 const readCsvData = angular
-	.module('readCsvData', ['color.picker','ngMaterial','ngMessages'])
+	.module('readCsvData', ['color.picker','ngMaterial','ngMessages','ngRoute'])
 	.component('readcsvdata', readCsvDataComponent)
+	.controller('readCsvDataController',readCsvDataController)
 	.directive('fileReader', function() {
 		return {
 			scope: {
@@ -33,6 +35,15 @@ const readCsvData = angular
 				});
 			}
 		};
+	})
+	.config(function ($routeProvider, $locationProvider) {
+		// configure the routing rules here
+		$routeProvider.when('/:id', {
+			controller: 'readCsvDataController'
+		});
+
+		// enable HTML5mode to disable hashbang urls
+		$locationProvider.html5Mode(true);
 	})
 	.name;
 

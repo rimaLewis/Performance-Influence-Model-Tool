@@ -1,8 +1,8 @@
 import {assign,forEach, isNil,isEmpty,uniq,zip, map} from 'lodash';
 
 class readCsvDataController {
-	constructor($scope, normalizedValuesService,d3Service,$mdSidenav,$element , localStorage){
-		assign(this, {$scope, normalizedValuesService,d3Service,$mdSidenav,$element , localStorage});
+	constructor($scope, normalizedValuesService,d3Service,$mdSidenav,$element , localStorage,$routeParams){
+		assign(this, {$scope, normalizedValuesService,d3Service,$mdSidenav,$element , localStorage ,$routeParams});
 
 		assign(this, {
 			disableTextarea: false,
@@ -39,6 +39,7 @@ class readCsvDataController {
 	}
 
 	$onInit(){
+		// console.log(this.$routeParams.id);
 		this.configElement= [];
 		this.configElementHeaders = ['GROUP','XX_LINE_WIDTH','XX_LINE_COLOR'];
 		this.d3 = this.d3Service.getD3();
@@ -101,7 +102,7 @@ class readCsvDataController {
 	 *configElement
 	 */
 	setTableConfigData(){
-		console.log('setTableConfigData changed');
+		// console.log('setTableConfigData changed');
 		const groups = map(this.dataToUpdate, 'name');
 		for(let i=this.configElement.length;i<this.dataToUpdate.length;i++) {
 			const value = groups[i];
@@ -290,7 +291,7 @@ class readCsvDataController {
 				const minVal = -(value);
 
 				// let minVal =  this.d3.min(groups);
-				console.log(groups, minVal,maxVal);
+				// console.log(groups, minVal,maxVal);
 				//console.log('groups',groups,'maxVal',maxVal, 'minVal',minVal);
 
 				// linear scale is used to normalize values, domain is the range from max to min values, range is the output range
@@ -302,7 +303,7 @@ class readCsvDataController {
 				forEach(groups, function(value) {
 					const scaled = scale(value);
 					const rounded = Math.round(scaled * 10000) / 10000;
-					console.log('value, scaled ,rounded',value, scaled ,rounded);
+					// console.log('value, scaled ,rounded',value, scaled ,rounded);
 					normalizedArray.push(rounded);
 				});
 				series[index] = {name : 'Group ' + groupName, data: normalizedArray };
