@@ -2,9 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d674602b-3c3b-4ae8-908f-49b5ca596e2b" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/app/common/jsonFileContent.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/components/readCsvData/readCsvData.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/readCsvData/readCsvData.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.config.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -18,41 +20,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="readCsvData.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/app/components/readCsvData/readCsvData.html">
+      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1479">
-              <caret line="87" column="68" selection-start-line="87" selection-start-column="68" selection-end-line="87" selection-end-column="68" />
+            <state relative-caret-position="136">
+              <caret line="8" selection-start-line="8" selection-end-line="9" />
               <folding>
-                <element signature="n#style#0;n#md-content#0;n#md-tab#0;n#md-tabs#0;n#md-content#0;n#div#1;n#!!top" expanded="true" />
+                <element signature="n#!!block;n#dependencies#0;n#!!top" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="radarChart.controller.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/app/components/radarChart/radarChart.controller.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="82" column="66" selection-start-line="82" selection-start-column="66" selection-end-line="82" selection-end-column="66" />
-              <folding>
-                <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="jsonFileContent.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/app/common/jsonFileContent.json">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file leaf-file-name="readCsvData.controller.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="readCsvData.controller.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/components/readCsvData/readCsvData.controller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="59" column="15" selection-start-line="59" selection-start-column="15" selection-end-line="59" selection-end-column="15" />
+            <state relative-caret-position="137">
+              <caret line="62" column="42" selection-start-line="62" selection-start-column="42" selection-end-line="62" selection-end-column="42" />
               <folding>
                 <element signature="n#!!block;n#addNewSeriesElephantPlot#0;n#readCsvDataController#0" />
                 <element signature="n#!!block;n#getSeriesForElephantPlot#0;n#readCsvDataController#0" />
@@ -66,11 +50,24 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="webpack.config.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/webpack.config.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="87">
+              <caret line="105" column="25" selection-start-line="105" selection-start-column="25" selection-end-line="105" selection-end-column="25" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/components/readCsvData/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" selection-start-line="7" selection-end-line="7" />
+            <state relative-caret-position="357">
+              <caret line="44" column="52" selection-start-line="44" selection-start-column="52" selection-end-line="44" selection-end-column="52" />
+              <folding>
+                <element signature="e#0#30#0" expanded="true" />
+                <element signature="e#600#1091#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -97,14 +94,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>rs use a specific</find>
-      <find>height</find>
-      <find>const</find>
-      <find>var</find>
-      <find>series</find>
-      <find>style('fill',</find>
-      <find>random</find>
-      <find>color</find>
       <find>cfg.color</find>
       <find>fill-opacity</find>
       <find>What % of owners use a specific service in a week</find>
@@ -127,6 +116,14 @@
       <find>console.lo</find>
       <find>console</find>
       <find>console.log</find>
+      <find>8080</find>
+      <find>Project is</find>
+      <find>localhost</find>
+      <find>publicPath</find>
+      <find>disableHostCheck</find>
+      <find>web</find>
+      <find>entry</find>
+      <find>compiler</find>
     </findStrings>
     <replaceStrings>
       <replace>$ctrl</replace>
@@ -171,7 +168,6 @@
         <option value="$PROJECT_DIR$/src/app/components/textplot/textPlot.component.js" />
         <option value="$PROJECT_DIR$/src/app/components/readCsvData/readCsvData.css" />
         <option value="$PROJECT_DIR$/src/app/bundle-d3.js" />
-        <option value="$PROJECT_DIR$/webpack.config.js" />
         <option value="$PROJECT_DIR$/src/app/highcharts.js" />
         <option value="$PROJECT_DIR$/src/app/highcharts-bundle.js" />
         <option value="$PROJECT_DIR$/src/app/common/nav/nav.html" />
@@ -186,7 +182,6 @@
         <option value="$PROJECT_DIR$/src/app/components/d3RadarChart/d3radarChart.component.js" />
         <option value="$PROJECT_DIR$/src/app/components/d3RadarChart/index.js" />
         <option value="$PROJECT_DIR$/src/app/components/components.js" />
-        <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/src/app/colors.service.js" />
         <option value="$PROJECT_DIR$/src/app/components/d3RadarChart/d3radarChart.html" />
         <option value="$PROJECT_DIR$/src/app/components/d3RadarChart/d3radarChart.css" />
@@ -195,9 +190,11 @@
         <option value="$PROJECT_DIR$/src/app/components/readCsvData/readCsvData.html" />
         <option value="$PROJECT_DIR$/src/app/components/radarChart/radarChart.html" />
         <option value="$PROJECT_DIR$/src/app/localStorage.service.js" />
-        <option value="$PROJECT_DIR$/src/app/components/readCsvData/index.js" />
         <option value="$PROJECT_DIR$/src/app/components/radarChart/radarChart.controller.js" />
+        <option value="$PROJECT_DIR$/src/app/components/readCsvData/index.js" />
+        <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/src/app/components/readCsvData/readCsvData.controller.js" />
+        <option value="$PROJECT_DIR$/webpack.config.js" />
       </list>
     </option>
   </component>
@@ -255,46 +252,7 @@
               <item name="Performance-Influence-Model-Tool" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="common" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Performance-Influence-Model-Tool" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Performance-Influence-Model-Tool" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Performance-Influence-Model-Tool" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Performance-Influence-Model-Tool" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="d3RadarChart" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Performance-Influence-Model-Tool" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Performance-Influence-Model-Tool" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="elephantPlot" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Performance-Influence-Model-Tool" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Performance-Influence-Model-Tool" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="home" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Performance-Influence-Model-Tool" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Performance-Influence-Model-Tool" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="radarChart" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Performance-Influence-Model-Tool" type="b2602c69:ProjectViewProjectNode" />
@@ -311,7 +269,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/src/app/localStorage.service.js&#10;local&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/src/app/localStorage.service.js&#10;radar&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/src/app/components/radarChart/radarChart.controller.js&#10;package.json&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/package.json&#10;colorser&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/src/app/colors.service.js&#10;pack&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/package.json&#10;app.js&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/src/app/app.component.js&#10;textplot&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/src/app/components/textplot/textPlot.controller.js&#10;textplot.con&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/src/app/components/textplot/textPlot.controller.js&#10;text&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/src/app/components/textplot/textPlot.controller.js&#10;rada&#9;null&#9;null&#10;readcsv&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/src/app/components/readCsvData/readCsvData.html&#10;rad&#9;null&#9;null&#10;ele&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/src/app/components/elephantPlot/elephantPlot.controller.js&#10;read&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/src/app/components/readCsvData/readCsvData.controller.js&#10;package-lock&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/package-lock.json&#10;index&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/src/index.html&#10;index.js&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/src/app/index.js&#10;index.ht&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/src/index.html&#10;bundle-d3&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/src/app/bundle-d3.js&#10;package&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/package.json&#10;pac&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/package.json&#10;index.html&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/src/index.html&#10;web&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/webpack.config.js&#10;eslint.json&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/.eslintrc.json&#10;packa&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/package.json&#10;webp&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/webpack.config.js&#10;packag&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/package.json&#10;eslint.&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/.eslintrc.json&#10;eslin&#9;null&#9;null&#10;env&#9;null&#9;null&#10;webpa&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/webpack.config.js&#10;lifec&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/node_modules/@angular/core/src/metadata/lifecycle_hooks.d.ts&#10;webpack&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/webpack.config.js&#10;home&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/src/app/components/home/home.html&#10;user.ser&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/src/app/components/users/users.service.js&#10;style&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/src/style/style.css&#10;inde&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/src/index.html&#10;package.j&#9;FILE&#9;file://C:/Users/Rima/Desktop/seed/my-angular-webpack/package.json&#10;app&#9;FILE&#9;file://C:/Users/Rima/Desktop/seed/my-angular-webpack/src/app/app.js&#10;materialize.min&#9;FILE&#9;file://C:/Users/Rima/Desktop/seed/my-angular-webpack/node_modules/materialize-css/dist/css/materialize.min.css" />
+    <property name="SearchEverywhereHistoryKey" value="package.js&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/package.json&#10;local&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/src/app/localStorage.service.js&#10;radar&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/src/app/components/radarChart/radarChart.controller.js&#10;package.json&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/package.json&#10;colorser&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/src/app/colors.service.js&#10;pack&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/package.json&#10;app.js&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/src/app/app.component.js&#10;textplot&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/src/app/components/textplot/textPlot.controller.js&#10;textplot.con&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/src/app/components/textplot/textPlot.controller.js&#10;text&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/src/app/components/textplot/textPlot.controller.js&#10;rada&#9;null&#9;null&#10;readcsv&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/src/app/components/readCsvData/readCsvData.html&#10;rad&#9;null&#9;null&#10;ele&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/src/app/components/elephantPlot/elephantPlot.controller.js&#10;read&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/src/app/components/readCsvData/readCsvData.controller.js&#10;package-lock&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/package-lock.json&#10;index&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/src/index.html&#10;index.js&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/src/app/index.js&#10;index.ht&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/src/index.html&#10;bundle-d3&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/src/app/bundle-d3.js&#10;package&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/package.json&#10;pac&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/package.json&#10;index.html&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/src/index.html&#10;web&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/webpack.config.js&#10;eslint.json&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/.eslintrc.json&#10;packa&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/package.json&#10;webp&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/webpack.config.js&#10;packag&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/package.json&#10;eslint.&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/.eslintrc.json&#10;eslin&#9;null&#9;null&#10;env&#9;null&#9;null&#10;webpa&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/webpack.config.js&#10;lifec&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/node_modules/@angular/core/src/metadata/lifecycle_hooks.d.ts&#10;webpack&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/webpack.config.js&#10;home&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/src/app/components/home/home.html&#10;user.ser&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/src/app/components/users/users.service.js&#10;style&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/src/style/style.css&#10;inde&#9;FILE&#9;file://C:/Users/Rima/Documents/Performance-Influence-Model-Tool/src/index.html&#10;package.j&#9;FILE&#9;file://C:/Users/Rima/Desktop/seed/my-angular-webpack/package.json&#10;app&#9;FILE&#9;file://C:/Users/Rima/Desktop/seed/my-angular-webpack/src/app/app.js&#10;materialize.min&#9;FILE&#9;file://C:/Users/Rima/Desktop/seed/my-angular-webpack/node_modules/materialize-css/dist/css/materialize.min.css" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
@@ -454,12 +412,16 @@
       <workItem from="1542812787254" duration="4135000" />
       <workItem from="1542914678552" duration="1902000" />
       <workItem from="1542956940061" duration="2616000" />
-      <workItem from="1542965827901" duration="2883000" />
+      <workItem from="1542965827901" duration="4348000" />
+      <workItem from="1542975381610" duration="254000" />
+      <workItem from="1542978325724" duration="2907000" />
+      <workItem from="1543073951602" duration="9504000" />
+      <workItem from="1543140510748" duration="4047000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="731236000" />
+    <option name="totallyTimeSpent" value="749413000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -474,7 +436,7 @@
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4988864" visible="true" weight="0.016369049" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4988864" visible="true" weight="0.093005955" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32972136" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50223213" side_tool="true" weight="0.2616099" />
@@ -482,7 +444,7 @@
       <window_info anchor="bottom" id="Run" order="2" weight="0.7616099" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Structure" order="1" sideWeight="0.5011136" side_tool="true" weight="0.11681548" />
-      <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.49776787" weight="0.32817337" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" sideWeight="0.49776787" visible="true" weight="0.5696595" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="TypeScript" order="8" />
@@ -586,13 +548,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="16" column="25" selection-start-line="16" selection-start-column="25" selection-end-line="16" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webpack.config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="40" column="72" selection-start-line="40" selection-start-column="72" selection-end-line="40" selection-end-column="72" />
         </state>
       </provider>
     </entry>
@@ -805,13 +760,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="139">
-          <caret line="56" column="28" selection-start-line="56" selection-start-column="5" selection-end-line="56" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/app/components/readCsvData/readCsvData.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1479">
@@ -836,31 +784,39 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/components/readCsvData/index.js">
+    <entry file="file://$PROJECT_DIR$/src/app/components/radarChart/radarChart.controller.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" selection-start-line="7" selection-end-line="7" />
+        <state relative-caret-position="1394">
+          <caret line="82" column="66" selection-start-line="82" selection-start-column="66" selection-end-line="82" selection-end-column="66" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/components/radarChart/radarChart.controller.js">
+    <entry file="file://$PROJECT_DIR$/src/app/common/jsonFileContent.json" />
+    <entry file="file://$PROJECT_DIR$/src/app/components/readCsvData/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="82" column="66" selection-start-line="82" selection-start-column="66" selection-end-line="82" selection-end-column="66" />
+        <state relative-caret-position="357">
+          <caret line="44" column="52" selection-start-line="44" selection-start-column="52" selection-end-line="44" selection-end-column="52" />
           <folding>
-            <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+            <element signature="e#0#30#0" expanded="true" />
+            <element signature="e#600#1091#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/common/jsonFileContent.json">
-      <provider selected="true" editor-type-id="text-editor" />
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" selection-start-line="8" selection-end-line="9" />
+          <folding>
+            <element signature="n#!!block;n#dependencies#0;n#!!top" />
+          </folding>
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/app/components/readCsvData/readCsvData.controller.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="59" column="15" selection-start-line="59" selection-start-column="15" selection-end-line="59" selection-end-column="15" />
+        <state relative-caret-position="137">
+          <caret line="62" column="42" selection-start-line="62" selection-start-column="42" selection-end-line="62" selection-end-column="42" />
           <folding>
             <element signature="n#!!block;n#addNewSeriesElephantPlot#0;n#readCsvDataController#0" />
             <element signature="n#!!block;n#getSeriesForElephantPlot#0;n#readCsvDataController#0" />
@@ -870,6 +826,13 @@
             <element signature="n#!!block;n#getSeries#0;n#readCsvDataController#0" />
             <element signature="n#!!block;n#getChartDataForRadarAndTextplot#0;n#readCsvDataController#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webpack.config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="87">
+          <caret line="105" column="25" selection-start-line="105" selection-start-column="25" selection-end-line="105" selection-end-column="25" />
         </state>
       </provider>
     </entry>

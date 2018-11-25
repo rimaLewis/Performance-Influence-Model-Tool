@@ -30,7 +30,7 @@ module.exports = (function makeWebpackConfig () {
 	};
 
 	config.entry = {
-		app: './src/app/index.js'
+		app: './src/app/index.js',
 	};
 
 
@@ -99,8 +99,14 @@ module.exports = (function makeWebpackConfig () {
 
 	// set dev server for testing options
 	config.devServer = {
+		historyApiFallback: true,
+		noInfo: true,
 		contentBase: './src',
-		stats: 'minimal'
+		// host: 'localhost',
+		host : '0.0.0.0',
+		open: true,
+		inline: true,
+		disableHostCheck: true
 	};
 
 	// return config object
