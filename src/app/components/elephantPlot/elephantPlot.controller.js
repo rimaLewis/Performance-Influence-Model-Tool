@@ -283,6 +283,8 @@ class elephantPlotController {
 						series: {
 							stacking: 'normal',
 							borderWidth: 0,
+							// pointPadding: 0, // Defaults to 0.1
+							// groupPadding: 0.01, // Defaults to 0.2
 							events: {
 								legendItemClick: function () {
 									return false;
