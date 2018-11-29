@@ -290,7 +290,7 @@ class readCsvDataController {
 
 		let index =0;
 		for(let k=0;k<labelsNew.length;k++){
-			dataToUpdateElephant[index] = {name : labelsNew[k], data: this.arrayData[k], pointPlacement: 'on' };
+			dataToUpdateElephant[index] = {name : labelsNew[k], data: this.arrayData[k]};
 			index++;
 		}
 		this.elephantConfigNew  = {labels : this.groups, series: dataToUpdateElephant};
@@ -373,7 +373,7 @@ class readCsvDataController {
 		this.arrayData = zip(...elephantSeries);
 		let index = 0;
 		for(let k=0;k<labels.length;k++){
-			elephantSeries[index] = {name : labels[k], data: this.arrayData[k], pointPlacement: 'on' };
+			elephantSeries[index] = {name : labels[k], data: this.arrayData[k] };
 			index++;
 		}
 		elephantConfig  = {labels : this.groups, series: elephantSeries};

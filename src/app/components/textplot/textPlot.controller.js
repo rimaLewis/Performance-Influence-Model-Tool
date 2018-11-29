@@ -214,6 +214,9 @@ class textPlotController {
 	 */
 	renderChart(){
 
+		Highcharts.setOptions({
+			colors: [ '#000000', '#FF4500', '#0051FF', '#6D1A83', '#FFC100', '#8b008b', '#556b2f', '#ff8c00', '#9932cc', '#8b0000', '#9400d3','#ff00ff', '#ffd700', '#008000', '#4b0082', '#00ff00', '#ff00ff', '#800000', '#000080', '#808000', '#ffa500', '#800080', '#ff0000', '#ffff00','#058DC7', '#50B432', '#ED561B', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4']
+		});
 		/**
 		 * updates the marker symbol to a different one if the value is exactly zero
 		 *

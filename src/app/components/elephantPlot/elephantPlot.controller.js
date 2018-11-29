@@ -139,7 +139,7 @@ class elephantPlotController {
 		if(arrayDataNew.length !== null ){
 			for(var k=0;k<this.allLabels.length;k++){
 				if(this.newLabels[k] !== null){
-					updatedSeriesEP[index] = {name : this.newLabels[k], data: arrayDataNew[k], pointPlacement: 'on' };
+					updatedSeriesEP[index] = {name : this.newLabels[k], data: arrayDataNew[k] };
 					index++;
 				}
 			}
