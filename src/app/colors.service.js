@@ -22,7 +22,6 @@ export  default class colorsService {
 			gold: '#ffd700',
 			green: '#008000',
 			indigo: '#4b0082',
-			lime: '#00ff00',
 			magenta: '#ff00ff',
 			maroon: '#800000',
 			navy: '#000080',

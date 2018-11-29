@@ -38,7 +38,7 @@ const readCsvData = angular
 	})
 	.config(function ($routeProvider, $locationProvider) {
 		// configure the routing rules here
-		$routeProvider.when('/:id', {
+		$routeProvider.when('/:id/:selectedIndex', {
 			controller: 'readCsvDataController'
 		});
 
