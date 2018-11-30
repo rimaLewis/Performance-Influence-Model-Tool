@@ -331,7 +331,7 @@ class radarChartController {
 						point.update({
 							marker: {
 								fillColor: '#FFFFFF',
-								radius: 5,
+								radius: 4,
 								lineWidth: 2,
 								lineColor: null // inherit from series
 							}

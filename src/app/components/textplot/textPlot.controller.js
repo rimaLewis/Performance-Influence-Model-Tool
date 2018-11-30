@@ -233,7 +233,7 @@ class textPlotController {
 						point.update({
 							marker: {
 								fillColor: '#FFFFFF',
-								radius: 5,
+								radius: 4,
 								lineWidth: 2,
 								lineColor: null // inherit from series
 							}
@@ -354,7 +354,7 @@ class textPlotController {
 				borderWidth: 1,
 				align: 'center',
 				verticalAlign: 'bottom',
-				layout: 'vertical'
+				layout: 'horizontal'
 			},
 
 			series: this.series,
