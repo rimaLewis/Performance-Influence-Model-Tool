@@ -54,10 +54,6 @@ class radarChartController {
 	 */
 	updateChartVisualization(){
 		this.setLineColors();
-		// const lineColor = map(map(this.chartVizInfo, 'XX_LINE_COLOR'), 'lineColor');
-		// const lineWidth = map(map(this.chartVizInfo, 'XX_LINE_WIDTH'), 'lineWidth');
-
-		// console.log('colors from localstorage', this.localStorage.getColors());
 		const lineColor =  JSON.parse(this.localStorage.getColors());
 		const lineWidth =   JSON.parse(this.localStorage.getLineWidth());
 
@@ -76,7 +72,6 @@ class radarChartController {
 
 
 	setLineColors(){
-		// console.log('set line colors');
 		const lineColor = map(map(this.chartVizInfo, 'XX_LINE_COLOR'), 'lineColor');
 		const lineWidth = map(map(this.chartVizInfo, 'XX_LINE_WIDTH'), 'lineWidth');
 		this.localStorage.setColors(JSON.stringify(lineColor));

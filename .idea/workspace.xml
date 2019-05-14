@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d674602b-3c3b-4ae8-908f-49b5ca596e2b" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/components/radarChart/radarChart.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/radarChart/radarChart.controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/radarChart/radarChart.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/radarChart/radarChart.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/textplot/textPlot.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/textplot/textPlot.controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/components/textplot/textPlot.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/textplot/textPlot.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/readCsvData/readCsvData.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/readCsvData/readCsvData.controller.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -21,15 +17,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="radarChart.controller.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="radarChart.controller.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/components/radarChart/radarChart.controller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="124">
-              <caret line="353" column="26" selection-start-line="353" selection-start-column="26" selection-end-line="353" selection-end-column="26" />
+            <state relative-caret-position="45">
+              <caret line="70" lean-forward="true" selection-start-line="70" selection-end-line="70" />
               <folding>
                 <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="readCsvData.controller.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/app/components/readCsvData/readCsvData.controller.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="232">
+              <caret line="438" column="71" selection-start-line="438" selection-start-column="71" selection-end-line="438" selection-end-column="71" />
             </state>
           </provider>
         </entry>
@@ -96,8 +101,6 @@
       <find>chart-Viz-Info</find>
       <find>setTableConfigData</find>
       <find>scale.range</find>
-      <find>console.lo</find>
-      <find>console</find>
       <find>console.log</find>
       <find>8080</find>
       <find>Project is</find>
@@ -122,6 +125,8 @@
       <find>group</find>
       <find>Group</find>
       <find>groupName</find>
+      <find>console.lo</find>
+      <find>console</find>
     </findStrings>
     <replaceStrings>
       <replace>$ctrl</replace>
@@ -186,13 +191,13 @@
         <option value="$PROJECT_DIR$/src/style/style.css" />
         <option value="$PROJECT_DIR$/src/app/components/elephantPlot/elephantPlot.html" />
         <option value="$PROJECT_DIR$/webpack.config.js" />
-        <option value="$PROJECT_DIR$/src/app/components/readCsvData/readCsvData.controller.js" />
         <option value="$PROJECT_DIR$/src/app/components/elephantPlot/elephantPlot.controller.js" />
         <option value="$PROJECT_DIR$/src/app/components/radarChart/radarChart.html" />
         <option value="$PROJECT_DIR$/src/app/components/textplot/textPlot.controller.js" />
         <option value="$PROJECT_DIR$/src/app/components/radarChart/radarChart.css" />
         <option value="$PROJECT_DIR$/src/app/components/textplot/textPlot.css" />
         <option value="$PROJECT_DIR$/src/app/components/radarChart/radarChart.controller.js" />
+        <option value="$PROJECT_DIR$/src/app/components/readCsvData/readCsvData.controller.js" />
       </list>
     </option>
   </component>
@@ -496,12 +501,12 @@
       <workItem from="1557052265187" duration="53000" />
       <workItem from="1557079943126" duration="22000" />
       <workItem from="1557416037184" duration="3925000" />
-      <workItem from="1557833665900" duration="2835000" />
+      <workItem from="1557833665900" duration="3148000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="838490000" />
+    <option name="totallyTimeSpent" value="838803000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -520,6 +525,7 @@
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32972136" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50446427" side_tool="true" weight="0.4613003" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32972136" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.7616099" />
       <window_info id="npm" order="2" side_tool="true" />
@@ -534,7 +540,6 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32972136" />
     </layout>
     <layout-to-restore>
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -843,13 +848,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/components/readCsvData/readCsvData.controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2567">
-          <caret line="151" column="151" selection-start-line="148" selection-start-column="17" selection-end-line="151" selection-end-column="151" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/app/components/elephantPlot/elephantPlot.controller.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3536">
@@ -903,12 +901,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/app/components/radarChart/radarChart.controller.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="124">
-          <caret line="353" column="26" selection-start-line="353" selection-start-column="26" selection-end-line="353" selection-end-column="26" />
+        <state relative-caret-position="45">
+          <caret line="70" lean-forward="true" selection-start-line="70" selection-end-line="70" />
           <folding>
             <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/components/readCsvData/readCsvData.controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="232">
+          <caret line="438" column="71" selection-start-line="438" selection-start-column="71" selection-end-line="438" selection-end-column="71" />
         </state>
       </provider>
     </entry>

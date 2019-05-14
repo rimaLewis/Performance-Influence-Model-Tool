@@ -242,7 +242,6 @@ class readCsvDataController {
  *configElement
  */
 	setTableConfigData(){
-	// console.log('setTableConfigData changed');
 		const groups = map(this.dataToUpdate, 'name');
 		for(let i=this.configElement.length;i<this.dataToUpdate.length;i++) {
 			const value = groups[i];
@@ -429,11 +428,6 @@ class readCsvDataController {
 
 				const maxVal = value;
 				const minVal = -(value);
-
-			// let minVal =  this.d3.min(groups);
-			// console.log(groups, minVal,maxVal);
-			//console.log('groups',groups,'maxVal',maxVal, 'minVal',minVal);
-
 			// linear scale is used to normalize values, domain is the range from max to min values, range is the output range
 				var scale = this.d3.scaleLinear();
 				scale.domain([minVal, maxVal]);
@@ -443,7 +437,6 @@ class readCsvDataController {
 				forEach(groups, function(value) {
 					const scaled = scale(value);
 					const rounded = Math.round(scaled * 10000) / 10000;
-				// console.log('value, scaled ,rounded',value, scaled ,rounded);
 					normalizedArray.push(rounded);
 				});
 				series[index] = {name : 'Group ' + groupName, data: normalizedArray };
