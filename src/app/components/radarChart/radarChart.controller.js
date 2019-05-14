@@ -346,7 +346,7 @@ class radarChartController {
 		this.radarChart = Highcharts.chart('container', {
 
 			chart: {
-				height :600,
+				height :650,
 				width:1000,
 				polar: true,
 				showAxes: true,
@@ -401,7 +401,7 @@ class radarChartController {
 				reversed: false,
 				startOnTick: true,
 				endOnTick: true,
-				gridLineColor: '#a2aba0',
+				gridLineColor: '#6e776c',
 				gridLineDashStyle: 'dash',
 				gridLineInterpolation: 'circle',
 				lineWidth: 1,
@@ -413,11 +413,11 @@ class radarChartController {
 					enabled: false
 				},
 				plotBands: [{
-					color: '#ffc0cb',
+					color: '#fd8c9d',
 					from: 0,
 					to: -1
 				},{
-					color: '#b8eab8',
+					color: '#9feaaa',
 					from: 0,
 					to: 1
 				}],
@@ -431,7 +431,7 @@ class radarChartController {
 			},
 
 			tooltip: {
-				shared: false,
+				shared: true,
 				pointFormat: '<span style="color:{series.color}">{series.name}: <b>{point.y}</b><br/>'
 			},
 

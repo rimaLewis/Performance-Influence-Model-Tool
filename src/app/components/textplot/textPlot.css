@@ -2,3 +2,13 @@
      margin: 0 auto;
  }
 
+.highcharts-axis-line{
+    display:none;
+}
+
+.container highcharts-axis-labels span{
+    word-break:break-all!important;
+    width:100%!important;
+    height:100%!important;
+    /*white-space:normal!important;*/
+}

@@ -318,16 +318,16 @@ class textPlotController {
 				reversed: false,
 				startOnTick: false,
 				endOnTick: false,
-				gridLineColor: '#a2aba0',
+				gridLineColor: '#6e776c',
 				gridLineDashStyle: 'dash',
 				lineWidth: 1,
 				min: -1,
 				plotBands: [{
-					color: '#ffc0cb',
+					color: '#fd8c9d',
 					from: 0,
 					to: -1
 				},{
-					color: '#b8eab8',
+					color: '#9feaaa',
 					from: 0,
 					to: +1
 				}],

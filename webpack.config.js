@@ -102,8 +102,8 @@ module.exports = (function makeWebpackConfig () {
 		historyApiFallback: true,
 		noInfo: true,
 		contentBase: './src',
-		// host: 'localhost',
-		host : '0.0.0.0',
+		host: 'localhost',
+		// host : '0.0.0.0',
 		open: true,
 		inline: true,
 		disableHostCheck: true
